@@ -15,6 +15,7 @@ public enum SoundSource
     BGM1B_STAGE2,
     BGM1C_STAGE3,
     BGM1D_STAGE4,
+    BGM1E_TUTORIAL,
     BGM2_GAMEOVER,
     BGM3_SUCCEED,
     BGM4_TITLE,

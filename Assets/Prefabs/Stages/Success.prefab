@@ -666,7 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -693,6 +693,7 @@ GameObject:
   - component: {fileID: 4735737978294420575}
   - component: {fileID: 4735737978294420561}
   - component: {fileID: 4735737978294420574}
+  - component: {fileID: 4803858644766543881}
   m_Layer: 5
   m_Name: QuestFlowChart
   m_TagString: Untagged
@@ -760,6 +761,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4803858644766543881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735737978294420572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdd5244b00a86c40ad9b10850cf5970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
+  poss: []
 --- !u!1 &4735737978331588618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,6 +1267,7 @@ MonoBehaviour:
   - {fileID: 5248830522825489732}
   _fusumaManager: {fileID: 3687055314558744209}
   _canvas: {fileID: 4735737979596181406}
+  _flowchartScript: {fileID: 0}
 --- !u!1 &6528962308703919269
 GameObject:
   m_ObjectHideFlags: 0

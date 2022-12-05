@@ -9,7 +9,6 @@ public class StertCountdownScript : MonoBehaviour
     TextMeshProUGUI text;
     Animator animator;
     [SerializeField] string[] words;
-    [SerializeField]AudioClip clip;
 
     private void Start()
     {
@@ -36,8 +35,7 @@ public class StertCountdownScript : MonoBehaviour
     {
        if (i == words.Length)
         {
-            gameObject.GetComponent<AudioSource>().clip = clip;
-            gameObject.GetComponent<AudioSource>().Play();
+            SoundManager.Instance.PlaySE(SoundSource.SE6_CREATE_ROLE_CHARACTER_ANIMATION);
             PlayerData.Event = false;
 
         }

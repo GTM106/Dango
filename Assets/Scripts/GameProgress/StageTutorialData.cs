@@ -11,6 +11,8 @@ public class StageTutorialData : StageData
     protected override void Start()
     {
         base.Start();
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM(SoundSource.BGM1E_TUTORIAL);
     }
 
     protected override void AddQuest()
