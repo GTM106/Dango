@@ -136,7 +136,19 @@ public class StageSelectManager : MonoBehaviour
     private async void UpdateExplanationText()
     {
         await _explanationText.TextData.Fadeout(IMAGE_FADEIN_TIME / 2f);
-        _explanationText.TextData.SetText("説明文 説明文");
+
+        switch (_currentStage)
+        {
+            case Stage.Stage1 :
+                _explanationText.TextData.SetText("ステージ1　難易度：★☆☆ 旅人は伝説の団子を求めて栄都城を訪れた……");
+                break;
+            case Stage.Stage2:
+                _explanationText.TextData.SetText("ステージ2　難易度：★★☆ あん団子が増えた城内で、旅人は上を目指す");
+                break;
+            case Stage.Stage3:
+                _explanationText.TextData.SetText("ステージ3　難易度：★★★ 栄都城の最上階を目指して、最後の団道が始まる");
+                break;
+        }
         await _explanationText.TextData.Fadein(IMAGE_FADEIN_TIME / 2f);
     }
 
