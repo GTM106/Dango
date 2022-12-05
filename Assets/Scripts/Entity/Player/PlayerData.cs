@@ -529,7 +529,7 @@ class PlayerData : MonoBehaviour
     /// <summary>
     /// 刺せる数、徐々に増える
     /// </summary>    
-    private int _currentStabCount = 3;
+    [SerializeField]private int _currentStabCount = 3;
 
     private bool _isGround = false;
 
