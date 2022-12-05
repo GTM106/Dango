@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour
     const float SELECTTIME = 1f;
     const float NOSELECTTIME = 1f;
 
-    const float WIDTH_MAX = 400f;
+    const float WIDTH_MAX = 700f;
     //const float WIDTH_MIN = 0f;
     const EaseType EASETYPE = EaseType.OutBack;
 
