@@ -233,23 +233,11 @@ namespace Dango.Quest
             //�s���ȃA�N�Z�X�ł���Βe��
             if (quest.CRType != QuestCreateRole.CreateRoleType.CreateSameRole) return false;
 
-            if (quest.SameRole.SameRole)
+            if (!quest.SameRole.IsEqualRole(role))
             {
-                if (!quest.SameRole.IsEqualRole(role))
-                {
-                    quest.ResetContinueCount();
+                quest.ResetContinueCount();
 
-                    return false;
-                }
-            }
-            else
-            {
-                if (quest.SameRole.IsEqualRole(role))
-                {
-                    quest.ResetContinueCount();
-
-                    return false;
-                }
+                return false;
             }
 
             quest.AddContinueCount();

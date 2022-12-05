@@ -20,7 +20,6 @@ public class ScoreManager
     }
     
     public float GetTime() => time;
-    public float ResetTime() => time;
 
     public void ResetQuestTime() => questTime = 0;
     public void AddTime() => time += Time.deltaTime;
@@ -28,7 +27,4 @@ public class ScoreManager
     public void AddClearTime(float time) => clearQuestTime.Add(time);
     public List<float> GetClearTime() => clearQuestTime;
     public List<QuestData> GetClearQuest() => clearQuestData;
-
-    public void ResetClearQuest()=>clearQuestData.Clear();
-    public void ResetClearTime()=>clearQuestTime.Clear();
 }
