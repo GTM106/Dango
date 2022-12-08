@@ -393,6 +393,7 @@ namespace Dango.Quest
             if (quest.IsKeyQuest)
             {
                 _manager.SetIsComplete();
+                _stageData.OnStageSucceed();
 
                 return;
             }
