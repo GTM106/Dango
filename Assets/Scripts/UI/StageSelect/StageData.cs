@@ -13,14 +13,20 @@ public enum Stage
     Tutorial,
 }
 
+public enum StageStatus
+{
+    Lock,
+    StandbyForDirection,
+    Unlock,
+}
+
 public class StageData : MonoBehaviour
 {
-    [SerializeField] bool _isRelease;
     [SerializeField] Stage _stage;
     [SerializeField] PortraitScript _portraitScript;
     [SerializeField] FusumaManager _fusumaManager;
 
-    public bool IsRelease => _isRelease;
+    public bool IsRelease => DataManager.saveData.stagesStatus[(int)_stage] == (int)StageStatus.Unlock;
 
     public Stage Stage => _stage;
 
@@ -54,13 +60,18 @@ public class StageData : MonoBehaviour
         return null;
     }
 
-    public void Release()
+    public virtual void OnStageSucceed()
     {
-        _isRelease = true;
+        throw new System.NullReferenceException();
     }
 
-    public void Lock()
+    protected void Release(Stage stage)
     {
-        _isRelease = false;
+        DataManager.saveData.stagesStatus[(int)stage] = (int)StageStatus.StandbyForDirection;
+    }
+
+    protected void Lock(Stage stage)
+    {
+        DataManager.saveData.stagesStatus[(int)stage] = (int)StageStatus.Lock;
     }
 }

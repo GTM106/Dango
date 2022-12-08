@@ -84,4 +84,9 @@ public class Stage002Data : StageData
     {
         return stageDangoColors;
     }
+
+    public override void OnStageSucceed()
+    {
+        Release(Stage.Stage3);
+    }
 }

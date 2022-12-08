@@ -88,4 +88,9 @@ public class Stage003Data : StageData
     {
         return stageDangoColors;
     }
+
+    public override void OnStageSucceed()
+    {
+        //TODO:ステージクリア時の処理
+    }
 }

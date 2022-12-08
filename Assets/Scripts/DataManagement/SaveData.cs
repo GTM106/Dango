@@ -13,7 +13,12 @@ public class SaveData
 {
     //データに含む物が分からないので仮でこうなってます
     //後で色々付け足しといてください
+
+    //ゲーム開始時にこのフラグがfalseならタイトル後、tutorialに遷移する
     public bool completedTutorial;
+
+    //各ステージのアンロック演出の有無
+    public int[] stagesStatus = new int[(int)Stage.Tutorial];
 
     public int a = 0;
     public string b = "string";

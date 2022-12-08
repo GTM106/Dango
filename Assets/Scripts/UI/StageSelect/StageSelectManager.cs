@@ -17,6 +17,13 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] Image[] guids;
     [SerializeField] TextUIData _explanationText = default!;
 
+    //アンロック演出
+    [SerializeField] Canvas _unlockCanvas;
+    [SerializeField] ImageUIData _unlockImage;
+
+    //まだ未使用ですが、アンロック演出に使用予定です。
+    List<int> _unlockList = new();
+
     bool _isChange;
 
     const float IMAGE_FADEIN_TIME = 0.2f;
@@ -27,11 +34,15 @@ public class StageSelectManager : MonoBehaviour
         InputSystemManager.Instance.onNavigatePerformed += OnChangeStage;
         InputSystemManager.Instance.onChoicePerformed += OnChoiced;
         InputSystemManager.Instance.onBackPerformed += OnBack;
+        InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKeyPerformed;
         AssignCurrentStage();
+        CheckUnlockDirection();
     }
 
     private void OnChangeStage()
     {
+        if (_unlockCanvas.enabled) return;
+
         //更新中は処理しない（ここの処理はプレイ的にあまり良くない気がします。）
         if (_isChange) return;
 
@@ -62,6 +73,8 @@ public class StageSelectManager : MonoBehaviour
 
     private async void OnChoiced()
     {
+        if (_unlockCanvas.enabled) return;
+
         if (_isChange) return;
         if (!_stages[(int)_currentStage].IsRelease)
         {
@@ -80,9 +93,34 @@ public class StageSelectManager : MonoBehaviour
 
     private async void OnBack()
     {
+        if (_unlockCanvas.enabled) return;
+
         await _fusumaManager.UniTaskClose();
         SceneSystem.Instance.Load(SceneSystem.Scenes.Menu);
         UnLoad();
+    }
+
+    private void OnAnyKeyPerformed()
+    {
+        _unlockCanvas.enabled = false;
+    }
+
+    private void CheckUnlockDirection()
+    {
+        for (int i = 0; i < DataManager.saveData.stagesStatus.Length; i++)
+        {
+            //アンロックされているが、まだ演出をしていないもののみ行う
+            if (DataManager.saveData.stagesStatus[i] == (int)StageStatus.StandbyForDirection)
+            {
+                //アンロック演出をONにする
+                _unlockCanvas.enabled = true;
+
+                //セーブデータに保存
+                DataManager.saveData.stagesStatus[i] = (int)StageStatus.Unlock;
+
+                _unlockList.Add(i);
+            }
+        }
     }
 
     private void AssignCurrentStage()
@@ -139,7 +177,7 @@ public class StageSelectManager : MonoBehaviour
 
         switch (_currentStage)
         {
-            case Stage.Stage1 :
+            case Stage.Stage1:
                 _explanationText.TextData.SetText("ステージ1　難易度：★☆☆ 旅人は伝説の団子を求めて栄都城を訪れた……");
                 break;
             case Stage.Stage2:
@@ -165,6 +203,7 @@ public class StageSelectManager : MonoBehaviour
         InputSystemManager.Instance.onNavigatePerformed -= OnChangeStage;
         InputSystemManager.Instance.onChoicePerformed -= OnChoiced;
         InputSystemManager.Instance.onBackPerformed -= OnBack;
+        InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKeyPerformed;
 
         //仮に非同期アニメーション中だった場合破棄する
         _stageImageUpdate.ImageData.CancelUniTask();
