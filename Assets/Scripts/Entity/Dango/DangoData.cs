@@ -166,12 +166,17 @@ public class DangoData : MonoBehaviour
         _collider.enabled = false;
         _rigidbody.isKinematic = true;
 
+        float prebNormalizedTime = 0;
+
         try
         {
             //playerのアニメーション終了まで待機
             while (playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
             {
-                //Logger.Assert(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("AN5") || playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("AN7A"));
+                //終了前に再度突き刺ししたら待機終了
+                if (prebNormalizedTime > playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime) break;
+
+                prebNormalizedTime = playerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 await UniTask.Yield();
             }
         }
@@ -202,7 +207,7 @@ public class DangoData : MonoBehaviour
                 currentTime += Time.deltaTime;
                 value = 1 - EasingManager.EaseProgress(TM.Easing.EaseType.OutCirc, currentTime, SCALE_ANIM_TIME, 0, 0);
                 scale.Set(value, value, value);
-                
+
                 transform.localPosition = Vector3.zero;
                 _childTrans.localPosition = Vector3.zero;
                 transform.localScale = scale;
