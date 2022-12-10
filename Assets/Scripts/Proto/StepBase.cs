@@ -4,38 +4,58 @@ using UnityEngine;
 
 public class StepBase : MonoBehaviour
 {
-    PlayerData player1;
-    Animator anima;
-    StepHeightScript[] chaildSteps;
-    int temp;
-    // Start is called before the first frame update
-    void Start()
-    {
-        player1 = GameObject.Find("PlayerParent").transform.Find("Player1").GetComponent<PlayerData>();
+    [SerializeField] PlayerData _playerData;
 
-        anima = player1.GetAnimator();
-        chaildSteps = new StepHeightScript[transform.childCount];
-        for(int i=0; i < transform.childCount; i++)
+    List<StepHeightScript> _childSteps = new();
+
+    void Awake()
+    {
+        //シリアライズして取得してもいいですが、数が多く設定が面倒なので自力で取得します
+        for (int i = 0; i < transform.childCount; i++)
         {
-            chaildSteps[i] = this.gameObject.transform.GetChild(i).GetComponent<StepHeightScript>();
-            chaildSteps[i].SetPlayer(player1.gameObject);
+            _childSteps.Add(transform.GetChild(i).GetComponent<StepHeightScript>());
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (anima.GetCurrentAnimatorStateInfo(0).IsName("AN11B")||anima.GetCurrentAnimatorStateInfo(0).IsName("AN11A"))
+        InputSystemManager.Instance.onExpansionUIPerformed += OnExpansionUI;
+        InputSystemManager.Instance.onExpansionUICanceled += OnExpansionUI;
+    }
+
+    private void OnDestroy()
+    {
+        InputSystemManager.Instance.onExpansionUIPerformed -= OnExpansionUI;
+        InputSystemManager.Instance.onExpansionUICanceled -= OnExpansionUI;
+    }
+
+    //UI拡張表示が押されたときと離されたときの処理
+    private void OnExpansionUI()
+    {
+        SetStepsEnabled(InputSystemManager.Instance.IsPressExpantionUI);
+    }
+
+    /// <summary>
+    /// 段差表示の一括切り替え
+    /// </summary>
+    /// <param name="enabled">描画の有無</param>
+    public void SetStepsEnabled(bool enabled)
+    {
+        foreach (var step in _childSteps)
         {
-            for (int i = 0; i < chaildSteps.Length; i++)
-                chaildSteps[i].OnSet();
-            temp = 0;
+            step.SetStepEnabled(enabled);
         }
-        else if (temp == 0)
+    }
+
+    /// <summary>
+    /// 現在のD5で登れるか判定し、一括で色を設定する
+    /// </summary>
+    /// <param name="maxDangoCount">現在のD5</param>
+    public void SetStepsColor(int maxDangoCount)
+    {
+        foreach (var step in _childSteps)
         {
-            for (int i = 0; i < chaildSteps.Length; i++)
-                chaildSteps[i].OffSet();
-            temp = 1;
+            step.SetColor(maxDangoCount);
         }
     }
 }

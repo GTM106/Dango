@@ -77,9 +77,10 @@ public class RoleEffect : MonoBehaviour
             DangoColor.Beni => new Color(1, 0.784f, 0.784f),
             DangoColor.Mitarashi => new Color(0.745f, 0.431f, 0.258f),
             DangoColor.Nori => new Color(1, 0.651f, 0.612f),
-            DangoColor.Shiratama => new Color(1,1,1),
+            DangoColor.Shiratama => new Color(1, 1, 1),
             DangoColor.Yomogi => new Color(0.706f, 0.831f, 0.372f),
             DangoColor.None => Color.white,
+            _ => throw new System.NotImplementedException(),
         };
     }
     }

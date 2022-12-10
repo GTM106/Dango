@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TM.Entity.Player
 {
-    class PlayerFallAction
+    public class PlayerFallAction
     {
         System.Random _rand = new();
 

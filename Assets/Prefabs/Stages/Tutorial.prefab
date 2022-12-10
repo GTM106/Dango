@@ -2037,6 +2037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdd39728f4ee6f4d8281334f03a290b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerData: {fileID: 0}
 --- !u!1 &306062026512083906
 GameObject:
   m_ObjectHideFlags: 0
@@ -35600,7 +35601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e34d71c55e18f41a1def79f57387e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isRelease: 1
   _stage: 4
   _portraitScript: {fileID: 8349132724862761835}
   _fusumaManager: {fileID: 4020021536180468768}
@@ -65951,6 +65951,11 @@ PrefabInstance:
       propertyPath: _playerUIManager
       value: 
       objectReference: {fileID: 8349132723969158454}
+    - target: {fileID: 4062595608074469455, guid: e00667b9f080330498c4b7b845c69a76,
+        type: 3}
+      propertyPath: _stepBase
+      value: 
+      objectReference: {fileID: 367465315}
     - target: {fileID: 4062595608074469455, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: _dangoUISC
