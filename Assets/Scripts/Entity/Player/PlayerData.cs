@@ -10,7 +10,7 @@ using UnityEngine;
 /// 
 
 [RequireComponent(typeof(Rigidbody), typeof(RideMoveObj))]
-class PlayerData : MonoBehaviour
+public class PlayerData : MonoBehaviour
 {
     #region statePattern
     interface IState
@@ -278,6 +278,9 @@ class PlayerData : MonoBehaviour
         public IState.E_State Initialize(PlayerData parent)
         {
             parent._animationManager.ChangeAnimation(AnimationManager.E_Animation.An11Start, 0.2f);
+            
+            //ジャンプ待機中、飛べるかどうかのアシストをつける
+            parent._stepBase.SetStepsEnabled(true);
 
             return IState.E_State.Unchanged;
         }
@@ -304,9 +307,20 @@ class PlayerData : MonoBehaviour
             parent._playerJump.SetIsGround(parent._isGround);
             parent._playerJump.SetMaxStabCount(parent._currentStabCount);
 
-            if (parent._playerJump.IsJumping && !parent._isGround) return IState.E_State.Jumping;
-            if (!parent._isGround) return IState.E_State.Falling;
+            if (parent._playerJump.IsJumping && !parent._isGround)
+            {
+                //飛べるかどうかのアシストを消す
+                parent._stepBase.SetStepsEnabled(false);
 
+                return IState.E_State.Jumping;
+            }
+            if (!parent._isGround)
+            {
+                //飛べるかどうかのアシストを消す
+                parent._stepBase.SetStepsEnabled(false);
+
+                return IState.E_State.Falling;
+            }
             return IState.E_State.Unchanged;
         }
 
@@ -486,6 +500,8 @@ class PlayerData : MonoBehaviour
     [SerializeField] FaceAnimationController _faceAnimationController = default!;
 
     [SerializeField] PlayerSpitColliderManager _playerSpitCollider = default!;
+    
+    [SerializeField] StepBase _stepBase = default!;
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
 
@@ -593,6 +609,8 @@ class PlayerData : MonoBehaviour
         InputSystemManager.Instance.onJumpCanceled += _playerJump.Jump;
         ScoreManager.Instance.ResetTime();
 
+        //ジャンプ可能高さガイドの色設定
+        _stepBase.SetStepsColor(_currentStabCount);
     }
 
     private void Update()
@@ -822,6 +840,7 @@ class PlayerData : MonoBehaviour
         spitManager = _swords[_currentStabCount - 3];
         _playerAttack.SetSpitManager(spitManager);
         _playerUIManager.EventText.TextData.SetText("させる団子の数が増えた！(" + _currentStabCount + "個)");
+        _stepBase.SetStepsColor(_currentStabCount);
 
         //刺せる範囲表示の拡大。今串が伸びないのでコメントアウトしてます。
         //parent.rangeUI.transform.localScale = new Vector3(parent.rangeUI.transform.localScale.x, parent.rangeUI.transform.localScale.y + 0.01f, parent.rangeUI.transform.localScale.z);

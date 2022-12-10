@@ -178,7 +178,7 @@ public class InputSystemManager : MonoBehaviour
     public bool IsPressEatDango => _isPressEatDango;
     public bool IsPressFire => _isPressFire;
     public bool IsPressPause => _isPressPause;
-    public bool IsExpantionUI => _isPressExpansionUI;
+    public bool IsPressExpantionUI => _isPressExpansionUI;
     public bool IsPressTutorialSkip => _isPressTutorialSkip;
     #endregion
 
