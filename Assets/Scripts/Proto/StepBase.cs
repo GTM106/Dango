@@ -32,6 +32,8 @@ public class StepBase : MonoBehaviour
     //UIŠg’£•\¦‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Æ—£‚³‚ê‚½‚Æ‚«‚Ìˆ—
     private void OnExpansionUI()
     {
+        if (_childSteps[0].IsRendererEnabled() && _playerData.CurrentState == PlayerData.IState.E_State.StayJumping) return;
+
         SetStepsEnabled(InputSystemManager.Instance.IsPressExpantionUI);
     }
 
@@ -41,6 +43,8 @@ public class StepBase : MonoBehaviour
     /// <param name="enabled">•`‰æ‚Ì—L–³</param>
     public void SetStepsEnabled(bool enabled)
     {
+        if (!enabled && InputSystemManager.Instance.IsPressExpantionUI) return;
+
         foreach (var step in _childSteps)
         {
             step.SetStepEnabled(enabled);

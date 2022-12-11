@@ -18,6 +18,8 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] TextUIData _gameOverText;
     [SerializeField] ImageUIData _retry;
     [SerializeField] ImageUIData _backToStageSelect;
+    [SerializeField] Sprite[] _retrySprites;
+    [SerializeField] Sprite[] _backToStageSprites;
 
     GameOverChoice _choice;
 
@@ -27,12 +29,10 @@ public class GameOverManager : MonoBehaviour
         InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
 
         SoundManager.Instance.PlayBGM(SoundSource.BGM2_GAMEOVER);
+       
+        SetSprite();
 
         _backToStageSelect.ImageData.SetAlpha(0);
-
-        //UI組み込み時に削除
-        _retry.gameObject.SetActive(false);
-        _backToStageSelect.gameObject.SetActive(false);
 
         _retry.ImageData.SetAlpha(0);
         _gameOverText.TextData.SetAlpha(0);
@@ -43,16 +43,10 @@ public class GameOverManager : MonoBehaviour
         //上記処理が終わったら文字を表示
         await _gameOverText.TextData.Fadein(0.5f);
 
-        //UI組み込み時に削除
-        _retry.gameObject.SetActive(true);
-        _backToStageSelect.gameObject.SetActive(true);
-
         await UniTask.WhenAll(
             _retry.ImageData.Fadein(0.5f),
             _backToStageSelect.ImageData.Fadein(0.5f)
             );
-
-        _retry.ImageData.SetColor(Color.red);
 
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
@@ -62,8 +56,8 @@ public class GameOverManager : MonoBehaviour
     {
         if (!ChangeChoiceUtil.Choice(InputSystemManager.Instance.NavigateAxis, ref _choice, GameOverChoice.Max, true, ChangeChoiceUtil.OptionDirection.Horizontal)) return;
 
-        _retry.ImageData.SetColor(_choice == GameOverChoice.Retry ? Color.red : Color.white);
-        _backToStageSelect.ImageData.SetColor(_choice == GameOverChoice.BackToStageSelect ? Color.red : Color.white);
+        SetSprite();
+
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
     }
 
@@ -72,7 +66,7 @@ public class GameOverManager : MonoBehaviour
         InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
         InputSystemManager.Instance.onChoicePerformed -= OnChoice;
 
-        SceneSystem.Instance.UnLoad(SceneSystem.Scenes.GameOver,true);
+        SceneSystem.Instance.UnLoad(SceneSystem.Scenes.GameOver, true);
         SceneSystem.Instance.UnLoad(SceneSystem.Instance.CurrentIngameScene, true);
 
         SceneSystem.Scenes scene = _choice switch
@@ -84,5 +78,11 @@ public class GameOverManager : MonoBehaviour
 
         if (scene == SceneSystem.Instance.CurrentIngameScene) SceneSystem.Instance.ReLoad(scene);
         else SceneSystem.Instance.Load(scene);
+    }
+
+    private void SetSprite()
+    {
+        _retry.ImageData.SetSprite(_retrySprites[_choice == GameOverChoice.Retry ? 1 : 0]);
+        _backToStageSelect.ImageData.SetSprite(_backToStageSprites[_choice == GameOverChoice.BackToStageSelect ? 1 : 0]);
     }
 }

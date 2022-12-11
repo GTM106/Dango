@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+
 public class ClearSceneScript : MonoBehaviour
 {
     private enum Next
@@ -16,14 +18,14 @@ public class ClearSceneScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     [SerializeField] GameObject QuestBlokObj;
     [SerializeField] GameObject QuestFlowChart;
-    [SerializeField] ImageUIData[] retryOrSelect;
     [SerializeField] FusumaManager _fusumaManager;
     [SerializeField] Canvas _canvas;
     [SerializeField] flowchartScript _flowchartScript;
+    [SerializeField] U7And8 _U7And8;
 
     Next _next;
 
-    List<GameObject> objs = new List<GameObject>();
+    List<GameObject> objs = new();
     static readonly bool _canMoveTopToBottom = true;
 
     private async void Awake()
@@ -58,7 +60,6 @@ public class ClearSceneScript : MonoBehaviour
     {
         InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
         InputSystemManager.Instance.onChoicePerformed -= OnChoice;
-
     }
 
     private void CreateBloks()
@@ -104,11 +105,10 @@ public class ClearSceneScript : MonoBehaviour
 
     private void SetRetryOrSelectColor()
     {
-        for (int i = 0; i < retryOrSelect.Length; i++)
-        {
-            retryOrSelect[i].ImageData.SetColor(Color.white);
-        }
-        retryOrSelect[(int)_next].ImageData.SetColor(Color.red);
+        bool isU7 = _next == Next.Retry;
+
+        _U7And8._u7Image.ImageData.SetSprite(_U7And8._u7Sprites[isU7 ? 0 : 1]);
+        _U7And8._u8Image.ImageData.SetSprite(_U7And8._u8Sprites[isU7 ? 1 : 0]);
     }
 
     private void SetObj(GameObject obj)
@@ -128,5 +128,23 @@ public class ClearSceneScript : MonoBehaviour
             SetObj(Ranks[2]);
 
         text.text = time.ToString("f1");
+    }
+
+    [Serializable]
+    struct U7And8
+    {
+        public ImageUIData _u7Image;
+        public ImageUIData _u8Image;
+
+        public List<Sprite> _u7Sprites;
+        public List<Sprite> _u8Sprites;
+
+        public U7And8(ImageUIData u7Image, ImageUIData u8Image, List<Sprite> u7Sprites, List<Sprite> u8Sprites) : this()
+        {
+            _u7Image = u7Image;
+            _u8Image = u8Image;
+            _u7Sprites = u7Sprites;
+            _u8Sprites = u8Sprites;
+        }
     }
 }

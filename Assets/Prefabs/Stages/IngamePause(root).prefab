@@ -539,6 +539,13 @@ MonoBehaviour:
   _warningImages:
   - {fileID: 487112204347070765}
   - {fileID: 570242694123659462}
+  _ingameSprites:
+  - {fileID: 21300000, guid: 25b74ac806d0b8b4d94fd1e388903cb7, type: 3}
+  - {fileID: 21300000, guid: 65ed246c4c1f18748948707a6e95a27a, type: 3}
+  - {fileID: 21300000, guid: 3426f00553ed836459d731d5e6c9007f, type: 3}
+  - {fileID: 21300000, guid: 1cb6a32af793c384f86410a5f96da060, type: 3}
+  - {fileID: 21300000, guid: ef151955aa96e634bae2d55ed7c4751e, type: 3}
+  - {fileID: 21300000, guid: 9b7b95dcd465d7b4684c1722293eeaf6, type: 3}
   _warning: {fileID: 561593657561200450}
 --- !u!1 &561593658265794212
 GameObject:
