@@ -43,7 +43,7 @@ namespace TM.Entity.Player
         {
             if (_targetDangoList.Count == 0)
             {
-                _highlightDango = null;
+                ResetHighlightDango();
                 return;
             }
 
