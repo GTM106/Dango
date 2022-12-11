@@ -10,6 +10,7 @@ using TM.Easing.Management;
 public class DangoData : MonoBehaviour
 {
     bool _isMoveable = true;
+    bool _isAnimationMoveable = false;
 
     //団子が持つ色データ
     DangoColor _color = DangoColor.None;
@@ -73,11 +74,12 @@ public class DangoData : MonoBehaviour
     private void MoveAndRotation()
     {
         if (!_isMoveable) return;
+        if (!_isAnimationMoveable) return;
 
-        if (_rigidbody.velocity.magnitude < 10)
+        if (_rigidbody.velocity.magnitude < 10f)
         {
             //指定したスピードから現在の速度を引いて加速力を求める
-            float currentSpeed = 10 - _rigidbody.velocity.magnitude;
+            float currentSpeed = 10f - _rigidbody.velocity.magnitude;
             //調整された加速力で力を加える
             _rigidbody.AddForce(transform.forward.normalized * currentSpeed, ForceMode.Acceleration);
         }
@@ -236,4 +238,11 @@ public class DangoData : MonoBehaviour
         _stageData = _floorManager.StageData;
     }
     public void SetIsMoveable(bool enable) => _isMoveable = enable;
+
+    //参照はありませんが、アニメーションから実行されます
+    public void SwitchAnimationMoveable()
+    {
+        _isAnimationMoveable ^= true;
+    }
+
 }
