@@ -524,6 +524,12 @@ MonoBehaviour:
   _gameOverText: {fileID: 6908499131928262932}
   _retry: {fileID: 2917366852615904591}
   _backToStageSelect: {fileID: 8678870569685317243}
+  _retrySprites:
+  - {fileID: 21300000, guid: f42d0ed92647b8a44b524c81ebb5806e, type: 3}
+  - {fileID: 21300000, guid: 667c02389a6e4cc4db14f09552177869, type: 3}
+  _backToStageSprites:
+  - {fileID: 21300000, guid: 2eda1b48cc19e9c4189b37578951c0ca, type: 3}
+  - {fileID: 21300000, guid: 32144433c138762418beebf2407e3550, type: 3}
 --- !u!1 &8900919052169510685
 GameObject:
   m_ObjectHideFlags: 0

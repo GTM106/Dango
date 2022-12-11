@@ -31,4 +31,9 @@ public class StepHeightScript : MonoBehaviour
     {
         rend.enabled = enabled;
     }
+
+    public bool IsRendererEnabled()
+    {
+        return rend.enabled;
+    }
 }

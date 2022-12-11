@@ -13,7 +13,7 @@ using UnityEngine;
 public class PlayerData : MonoBehaviour
 {
     #region statePattern
-    interface IState
+    public interface IState
     {
         public enum E_State
         {
@@ -54,6 +54,7 @@ public class PlayerData : MonoBehaviour
         new StayRemoveDangoState(),
         new RemoveDangoState(),
      };
+    public IState.E_State CurrentState => _currentState;
 
     class ControlState : IState
     {
@@ -278,7 +279,7 @@ public class PlayerData : MonoBehaviour
         public IState.E_State Initialize(PlayerData parent)
         {
             parent._animationManager.ChangeAnimation(AnimationManager.E_Animation.An11Start, 0.2f);
-            
+
             //ジャンプ待機中、飛べるかどうかのアシストをつける
             parent._stepBase.SetStepsEnabled(true);
 
@@ -500,7 +501,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] FaceAnimationController _faceAnimationController = default!;
 
     [SerializeField] PlayerSpitColliderManager _playerSpitCollider = default!;
-    
+
     [SerializeField] StepBase _stepBase = default!;
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
@@ -545,7 +546,7 @@ public class PlayerData : MonoBehaviour
     /// <summary>
     /// 刺せる数、徐々に増える
     /// </summary>    
-    [SerializeField]private int _currentStabCount = 3;
+    [SerializeField] private int _currentStabCount = 3;
 
     private bool _isGround = false;
 

@@ -75,7 +75,6 @@ class SceneSystem : MonoBehaviour
         Instance = this;
 
         _currentScene = startScene;
-        _currentIngameScene = startScene;
         Load(startScene);
     }
 

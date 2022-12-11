@@ -37,6 +37,7 @@ public class StageSelectManager : MonoBehaviour
         InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKeyPerformed;
         AssignCurrentStage();
         CheckUnlockDirection();
+        UpdateExplanationText();
     }
 
     private void OnChangeStage()
@@ -68,7 +69,7 @@ public class StageSelectManager : MonoBehaviour
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
         UpdateGuids();
         UpdateExplanationText();
-        Logger.Log(_currentStage);
+        //Logger.Log(_currentStage);
     }
 
     private async void OnChoiced()

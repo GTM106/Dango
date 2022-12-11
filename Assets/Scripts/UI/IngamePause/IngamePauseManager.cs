@@ -25,6 +25,7 @@ public class IngamePauseManager : MonoBehaviour
     [SerializeField] Canvas _ingamePauseCanvas;
     [SerializeField] ImageUIData[] _ingameImages;
     [SerializeField] ImageUIData[] _warningImages;
+    [SerializeField] Sprite[] _ingameSprites;
     [SerializeField] GameObject _warning;
 
     IngameChoices _currentIngameChoice;
@@ -51,7 +52,8 @@ public class IngamePauseManager : MonoBehaviour
         InputSystemManager.Instance.onChoicePerformed += OnChoicePerformed;
         InputSystemManager.Instance.onBackPerformed += OnBack;
 
-        _ingameImages[0].ImageData.SetColor(Color.red);
+        ResetIngameSprite();
+        _ingameImages[0].ImageData.SetSprite(_ingameSprites[(int)_currentIngameChoice]);
         _warningImages[0].ImageData.SetColor(Color.red);
 
         _warning.SetActive(false);
@@ -66,7 +68,7 @@ public class IngamePauseManager : MonoBehaviour
         InputSystemManager.Instance.onBackPerformed -= OnBack;
 
         ResetImagesColor(_warningImages);
-        ResetImagesColor(_ingameImages);
+        ResetIngameSprite();
     }
 
     private void OnNavigate()
@@ -96,8 +98,8 @@ public class IngamePauseManager : MonoBehaviour
 
         if (!ChangeChoiceUtil.Choice(axis, ref _currentIngameChoice, IngameChoices.Max, canMoveTopToBottom, ChangeChoiceUtil.OptionDirection.Horizontal)) return;
 
-        ResetImagesColor(_ingameImages);
-        _ingameImages[(int)_currentIngameChoice].ImageData.SetColor(Color.red);
+        ResetIngameSprite();
+        _ingameImages[(int)_currentIngameChoice].ImageData.SetSprite(_ingameSprites[(int)_currentIngameChoice]);
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
     }
 
@@ -187,6 +189,14 @@ public class IngamePauseManager : MonoBehaviour
         for (int i = 0; i < images.Length; i++)
         {
             images[i].ImageData.SetColor(Color.white);
+        }
+    }
+
+    private void ResetIngameSprite()
+    {
+        for (int i = 0; i < _ingameImages.Length; i++)
+        {
+            _ingameImages[i].ImageData.SetSprite(_ingameSprites[i + (int)IngameChoices.Max]);
         }
     }
 
