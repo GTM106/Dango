@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,9 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 rayStartPos;
 
-    private bool Event =false;
+    private bool Event = false;
+
+    [SerializeField] CinemachineVirtualCamera _cinemachineVirtualCamera;
 
 
     Vector3 _wallHitPos;//•Ç‚É‚Ô‚Â‚©‚Á‚½Û‚ÌÀ•W
@@ -52,7 +55,7 @@ public class CameraFollow : MonoBehaviour
         transform.parent = parent.transform;//“®‚­‚à‚Ì‚Éæ‚é‚Æ‚»‚ê‚É’Ç]‚µ‚¾‚·‚©‚çeŽqŠÖŒW‚ð–³‚­‚·
         _terminus = new GameObject("cameraTermiusObject");
         _terminus.transform.parent = parent.transform;
-        _terminus.transform.position = transform.position;
+        _terminus.transform.position = _cinemachineVirtualCamera.transform.position;
         _camIsStaying = new(gameObject, _terminus, target);
 
         _prebTargetPos = target.position;
@@ -80,16 +83,22 @@ public class CameraFollow : MonoBehaviour
         {
             if (WallHitCheck())
             {
-                //“–‚½‚Á‚½êŠ‚É”ò‚Î‚·‚ÆƒJƒƒ‰‚ª•Ç‚Ì’†‚É–„‚Ü‚é‚Ì‚Å’²®B
-                _wallHitPos = _hit.point + (currentTargetPos - _terminus.transform.position).normalized;
-                transform.position = _wallHitPos;
+                ////“–‚½‚Á‚½êŠ‚É”ò‚Î‚·‚ÆƒJƒƒ‰‚ª•Ç‚Ì’†‚É–„‚Ü‚é‚Ì‚Å’²®B
+                //_wallHitPos = _hit.point + (currentTargetPos - _terminus.transform.position).normalized;
+                //transform.position = _wallHitPos;
+
+                _cinemachineVirtualCamera.transform.position = state switch
+                {
+                    State.normal => _terminus.transform.position,
+                    _ => Vector3.Lerp(_cinemachineVirtualCamera.transform.position, _terminus.transform.position, Time.deltaTime * ratio),
+                };
             }
             else//ƒJƒƒ‰‚ÌˆÚ“®
             {
-                transform.position = state switch
+                _cinemachineVirtualCamera.transform.position = state switch
                 {
                     State.normal => _terminus.transform.position,
-                    _ => Vector3.Lerp(transform.position, _terminus.transform.position, Time.deltaTime * ratio),
+                    _ => Vector3.Lerp(_cinemachineVirtualCamera.transform.position, _terminus.transform.position, Time.deltaTime * ratio),
                 };
             }
         }
@@ -112,7 +121,7 @@ public class CameraFollow : MonoBehaviour
     private void CameraRotate()
     {
         //XŽ²‰ñ“]‚ÌŠp“x‚ðŠ“¾
-        float currentYAngle = transform.eulerAngles.x;
+        float currentYAngle = _cinemachineVirtualCamera.transform.eulerAngles.x;
 
         //XŽ²‚ª0`360‚Ì’l‚µ‚©•Ô‚³‚È‚¢‚Ì‚Å’²®
         if (currentYAngle > 180)
@@ -124,11 +133,11 @@ public class CameraFollow : MonoBehaviour
         {
             case State.normal:
                 Rote(_terminus, currentYAngle);
-                transform.rotation = _terminus.transform.rotation;
+                _cinemachineVirtualCamera.transform.rotation = _terminus.transform.rotation;
                 break;
             case State.Lerp:
                 Rote(_terminus, currentYAngle);
-                transform.rotation = _terminus.transform.rotation;
+                _cinemachineVirtualCamera.transform.rotation = _terminus.transform.rotation;
                 break;
             case State.LerpMove:
                 Rote(gameObject, currentYAngle);
