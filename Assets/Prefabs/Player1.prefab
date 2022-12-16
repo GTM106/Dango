@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 3952613918130635534}
   - component: {fileID: 6013245353808961043}
   - component: {fileID: 3193100650533338812}
-  - component: {fileID: 7644088380944789818}
   - component: {fileID: 1733316497972855404}
   m_Layer: 3
   m_Name: Player1
@@ -324,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6013245353808961043}
-  capsuleCollider: {fileID: 7644088380944789818}
+  capsuleCollider: {fileID: 9120771374235543352}
   playerCamera: {fileID: 0}
   _cameraTransform: {fileID: 0}
   makerUI: {fileID: 1961741039857682178}
@@ -375,20 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fc7163f3f309e4c8b6f81564e84fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &7644088380944789818
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3952613918130635532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!114 &1733316497972855404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3326,6 +3311,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eatCamera: {fileID: 4949754110901319488}
+--- !u!136 &9120771374235543352
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779374474397810444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!95 &6303659095604953036 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: a1bb4c6ae44e6a64aabcfc45b4a26a4e,

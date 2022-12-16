@@ -41,7 +41,6 @@ public class CameraIsStaying
         {
             parent.LookPlayerBackH();
 
-
             return parent.LookPlayerBackV() ? IState.E_State.Stay : IState.E_State.Unchanged;
         }
     }

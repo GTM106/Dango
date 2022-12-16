@@ -63,14 +63,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        CameraRotate();
+        //CameraRotate();
         RotateToLookRot();
     }
 
     //Playerが動いたあとに実行するため、LateUpdateで行う。
     private void LateUpdate()
     {
-        CameraSmoothMove();
+        //CameraSmoothMove();
     }
 
     private void CameraSmoothMove()
