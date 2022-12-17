@@ -33,9 +33,14 @@ public class SpitManager : MonoBehaviour
         set
         {
             _capsuleCollider.enabled = value;
-            if (player.IsGround) _capsuleCollider.radius = 0.1f;
-            else _capsuleCollider.radius = 0.5f;
-
+            if (player.IsGround)
+            {
+                _capsuleCollider.radius = 0.1f;
+            }
+            else
+            {
+                _capsuleCollider.radius = 1f;
+            }
             _isSticking = value;
         }
     }
@@ -66,8 +71,10 @@ public class SpitManager : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.TryGetComponent(out DangoData dango) && other.gameObject.layer ==  LayerMask.NameToLayer("Outline"))
+        if (other.gameObject.TryGetComponent(out DangoData dango))
         {
+            if (!player.PlayerFall.IsFallAction && other.gameObject.layer == LayerMask.NameToLayer("Outline")) return;
+
             //SE
             SoundManager.Instance.PlaySE(SoundSource.SE14_STAB_DANGO);
 

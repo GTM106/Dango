@@ -100,7 +100,6 @@ namespace TM.Entity.Player
             if (stateInfo.IsName("AN1")) return true;
             if (!stateInfo.IsName("AN7B")) return false;
 
-            _spitManager.IsSticking = false;
             return stateInfo.normalizedTime >= 0.7f;
         }
 
