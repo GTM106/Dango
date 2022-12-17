@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,9 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 rayStartPos;
 
-    private bool Event =false;
+    private bool Event = false;
+
+    [SerializeField] CinemachineVirtualCamera _cinemachineVirtualCamera;
 
 
     Vector3 _wallHitPos;//壁にぶつかった際の座標
@@ -52,7 +55,7 @@ public class CameraFollow : MonoBehaviour
         transform.parent = parent.transform;//動くものに乗るとそれに追従しだすから親子関係を無くす
         _terminus = new GameObject("cameraTermiusObject");
         _terminus.transform.parent = parent.transform;
-        _terminus.transform.position = transform.position;
+        _terminus.transform.position = _cinemachineVirtualCamera.transform.position;
         _camIsStaying = new(gameObject, _terminus, target);
 
         _prebTargetPos = target.position;
@@ -60,14 +63,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        CameraRotate();
+        //CameraRotate();
         RotateToLookRot();
     }
 
     //Playerが動いたあとに実行するため、LateUpdateで行う。
     private void LateUpdate()
     {
-        CameraSmoothMove();
+        //CameraSmoothMove();
     }
 
     private void CameraSmoothMove()
@@ -80,16 +83,22 @@ public class CameraFollow : MonoBehaviour
         {
             if (WallHitCheck())
             {
-                //当たった場所に飛ばすとカメラが壁の中に埋まるので調整。
-                _wallHitPos = _hit.point + (currentTargetPos - _terminus.transform.position).normalized;
-                transform.position = _wallHitPos;
+                ////当たった場所に飛ばすとカメラが壁の中に埋まるので調整。
+                //_wallHitPos = _hit.point + (currentTargetPos - _terminus.transform.position).normalized;
+                //transform.position = _wallHitPos;
+
+                _cinemachineVirtualCamera.transform.position = state switch
+                {
+                    State.normal => _terminus.transform.position,
+                    _ => Vector3.Lerp(_cinemachineVirtualCamera.transform.position, _terminus.transform.position, Time.deltaTime * ratio),
+                };
             }
             else//カメラの移動
             {
-                transform.position = state switch
+                _cinemachineVirtualCamera.transform.position = state switch
                 {
                     State.normal => _terminus.transform.position,
-                    _ => Vector3.Lerp(transform.position, _terminus.transform.position, Time.deltaTime * ratio),
+                    _ => Vector3.Lerp(_cinemachineVirtualCamera.transform.position, _terminus.transform.position, Time.deltaTime * ratio),
                 };
             }
         }
@@ -112,7 +121,7 @@ public class CameraFollow : MonoBehaviour
     private void CameraRotate()
     {
         //X軸回転の角度を所得
-        float currentYAngle = transform.eulerAngles.x;
+        float currentYAngle = _cinemachineVirtualCamera.transform.eulerAngles.x;
 
         //X軸が0～360の値しか返さないので調整
         if (currentYAngle > 180)
@@ -124,11 +133,11 @@ public class CameraFollow : MonoBehaviour
         {
             case State.normal:
                 Rote(_terminus, currentYAngle);
-                transform.rotation = _terminus.transform.rotation;
+                _cinemachineVirtualCamera.transform.rotation = _terminus.transform.rotation;
                 break;
             case State.Lerp:
                 Rote(_terminus, currentYAngle);
-                transform.rotation = _terminus.transform.rotation;
+                _cinemachineVirtualCamera.transform.rotation = _terminus.transform.rotation;
                 break;
             case State.LerpMove:
                 Rote(gameObject, currentYAngle);

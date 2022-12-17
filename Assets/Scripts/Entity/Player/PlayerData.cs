@@ -1,3 +1,4 @@
+using Cinemachine;
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
@@ -78,7 +79,7 @@ public class PlayerData : MonoBehaviour
             parent._playerMove.Animation();
 
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, false);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, false);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -130,7 +131,7 @@ public class PlayerData : MonoBehaviour
         public IState.E_State FixedUpdate(PlayerData parent)
         {
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, true);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, true);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -299,7 +300,7 @@ public class PlayerData : MonoBehaviour
                 else parent._animationManager.ChangeAnimation(AnimationManager.E_Animation.An11B_JumpCharge, 0.2f);
             }
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, true);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, true);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -341,7 +342,7 @@ public class PlayerData : MonoBehaviour
         public IState.E_State FixedUpdate(PlayerData parent)
         {
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, true);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, true);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -397,7 +398,7 @@ public class PlayerData : MonoBehaviour
         public IState.E_State FixedUpdate(PlayerData parent)
         {
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, true);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, true);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -422,7 +423,7 @@ public class PlayerData : MonoBehaviour
         public IState.E_State FixedUpdate(PlayerData parent)
         {
             //プレイヤーを動かす処理
-            parent._playerMove.Update(parent.rb, parent.playerCamera.transform, true);
+            parent._playerMove.Update(parent.rb, parent._cameraTransform, true);
 
             //満腹度（制限時間）減らす処理
             parent.DecreaseSatiety();
@@ -480,7 +481,8 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] Rigidbody rb = default!;
     [SerializeField] CapsuleCollider capsuleCollider = default!;
-    [SerializeField] Camera playerCamera = default!;
+    [SerializeField] CinemachineFreeLook playerCamera = default!;
+    [SerializeField] Transform _cameraTransform = default!;
 
     //プレイヤーの能力
     SpitManager spitManager = default!;
@@ -508,7 +510,7 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] bool _allowReducedTimeLimit = true;
 
-    const float DEFAULT_CAMERA_VIEW = 60f;
+    const float DEFAULT_CAMERA_VIEW = 40f;
     const float CAMERA_REMOVETIME = 0.3f;
 
     int _mapLayer;
@@ -816,19 +818,19 @@ public class PlayerData : MonoBehaviour
 
     private void OnChargeCameraMoving()
     {
-        playerCamera.fieldOfView -= 10f * Time.deltaTime;
+        playerCamera.m_Lens.FieldOfView -= 10f * Time.deltaTime;
     }
 
     private IEnumerator ResetCameraView()
     {
-        float view = playerCamera.fieldOfView;
+        float view = playerCamera.m_Lens.FieldOfView;
         float hokann = DEFAULT_CAMERA_VIEW - view;
-        while (playerCamera.fieldOfView <= DEFAULT_CAMERA_VIEW)
+        while (playerCamera.m_Lens.FieldOfView <= DEFAULT_CAMERA_VIEW)
         {
-            playerCamera.fieldOfView += (hokann / CAMERA_REMOVETIME) * Time.deltaTime;
+            playerCamera.m_Lens.FieldOfView += (hokann / CAMERA_REMOVETIME) * Time.deltaTime;
             yield return null;
         }
-        playerCamera.fieldOfView = DEFAULT_CAMERA_VIEW;
+        playerCamera.m_Lens.FieldOfView = DEFAULT_CAMERA_VIEW;
     }
 
     public void GrowStab(bool enable)
