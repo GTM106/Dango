@@ -5,11 +5,6 @@ using System.Collections.Generic;
 using TM.Entity.Player;
 using UnityEngine;
 
-/// 
-/// ＜実装すること＞
-/// ・接地判定をまともに
-/// 
-
 [RequireComponent(typeof(Rigidbody), typeof(RideMoveObj))]
 public class PlayerData : MonoBehaviour
 {
@@ -167,7 +162,7 @@ public class PlayerData : MonoBehaviour
             if (parent.IsGround) return IState.E_State.Control;
 
             //待機時間が終わったらアタックステートに移行
-            return parent._playerFall.FixedUpdate(parent.rb, parent.spitManager)
+            return parent._playerFall.FixedUpdate(parent.rb, parent._spitManager)
                 ? IState.E_State.AttackAction : IState.E_State.Unchanged;
         }
     }
@@ -206,6 +201,7 @@ public class PlayerData : MonoBehaviour
 
             if (parent._playerAttack.ChangeState(pattern))
             {
+                parent.ResetSpit();
                 return IState.E_State.Control;
             }
 
@@ -485,7 +481,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] Transform _cameraTransform = default!;
 
     //プレイヤーの能力
-    SpitManager spitManager = default!;
+    SpitManager _spitManager = default!;
     [SerializeField] Canvas makerUI = default!;
     [SerializeField] FootObjScript footObj = default!;
     [SerializeField] PlayerKusiScript kusiObj = default!;
@@ -581,16 +577,16 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
-        spitManager = _swords[0];
+        _spitManager = _swords[0];
 
         _mapLayer = LayerMask.NameToLayer("Map");
         _animationManager = new(_animator);
 
-        _playerAttack = new(_animator, spitManager);
+        _playerAttack = new(_animator, _spitManager);
         _playerFall = new(capsuleCollider, OnJump, OnJumpExit, _animationManager, _mapLayer);
-        _playerRemoveDango = new(_dangos, _dangoUISC, this, _animator, kusiObj, spitManager, _playerUIManager);
+        _playerRemoveDango = new(_dangos, _dangoUISC, this, _animator, kusiObj, _spitManager, _playerUIManager);
         _playerMove = new(_animationManager);
-        _playerJump = new(rb, OnJump, OnJumpExit, spitManager);
+        _playerJump = new(rb, OnJump, OnJumpExit, _spitManager);
         _playerStayEat = new(this);
         _playerEat = new(_directing, _playerUIManager, kusiObj);
         _playerGrowStab = new();
@@ -645,7 +641,7 @@ public class PlayerData : MonoBehaviour
     private async void OnAttack()
     {
         //ヒットストップ中受け付けない
-        if (spitManager.IsHitStop) return;
+        if (_spitManager.IsHitStop) return;
 
         //落下アクション中受け付けない。
         if (_playerFall.IsFallAction) return;
@@ -705,7 +701,7 @@ public class PlayerData : MonoBehaviour
 
     private void ResetSpit()
     {
-        spitManager.IsSticking = false;
+        _spitManager.IsSticking = false;
     }
 
     private void OnJump()
@@ -840,8 +836,8 @@ public class PlayerData : MonoBehaviour
         _currentStabCount = _playerGrowStab.GrowStab(_currentStabCount);
         _swords[_currentStabCount - 3].gameObject.SetActive(true);
         _swords[_currentStabCount - 4].gameObject.SetActive(false);
-        spitManager = _swords[_currentStabCount - 3];
-        _playerAttack.SetSpitManager(spitManager);
+        _spitManager = _swords[_currentStabCount - 3];
+        _playerAttack.SetSpitManager(_spitManager);
         _playerUIManager.EventText.TextData.SetText("させる団子の数が増えた！(" + _currentStabCount + "個)");
         _stepBase.SetStepsColor(_currentStabCount);
 
