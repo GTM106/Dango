@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.Audio;
+using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -11,7 +12,8 @@ using UnityEditor;
 public enum SoundSource
 {
     //BGM
-    BGM1A_STAGE1,
+    BGM1A_STAGE1_Intro,
+    BGM1A_STAGE1_Loop,
     BGM1B_STAGE2,
     BGM1C_STAGE3,
     BGM1D_STAGE4,
@@ -94,7 +96,8 @@ public class SoundManager : MonoBehaviour
     private AudioSource[] SEs = new AudioSource[SENum];
     private const int SENum = 10;
 
-    [SerializeField] private AudioSource _BGM;
+    [SerializeField] private AudioSource _BGMLoop;
+    [SerializeField] private AudioSource _BGMIntro;
     [SerializeField] private SESystem _SEPrefab;
 
     [SerializeField] private AudioClip[] BGMClip;
@@ -132,14 +135,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void ChangeBGM(SoundSource sound)
+    private void ChangeBGM(AudioSource audioSource,SoundSource sound)
     {
         int temp = 0;
         foreach (var bgm in BGMClip)
         {
             if ((int)sound == temp)
             {
-                _BGM.clip = bgm;
+                audioSource.clip = bgm;
                 temp = 0;
                 break;
             }
@@ -153,21 +156,29 @@ public class SoundManager : MonoBehaviour
     /// <param name="sound">‚©‚¯‚½‚¢BGM</param>
     public void PlayBGM(SoundSource sound)
     {
-        ChangeBGM(sound);
-        _BGM.Play();
+        ChangeBGM(_BGMLoop,sound);
+        _BGMLoop.Play();
+    }
+
+    public void PlayBGM(SoundSource intro,SoundSource loop)
+    {
+        ChangeBGM(_BGMIntro, intro);
+        _BGMIntro.PlayScheduled(AudioSettings.dspTime);
+        ChangeBGM(_BGMLoop, loop);
+        _BGMLoop.PlayScheduled(AudioSettings.dspTime + ((float)_BGMIntro.clip.samples / (float)_BGMIntro.clip.frequency));
     }
 
     public void PlayBGM(SoundSource sound, float fadeTime, float volume = DEFAULT_BGM_VOLUME)
     {
-        ChangeBGM(sound);
-        _BGM.volume = 0;
-        _BGM.Play();
+        ChangeBGM(_BGMLoop, sound);
+        _BGMLoop.volume = 0;
+        _BGMLoop.Play();
         Fadein(fadeTime, volume).Forget();
     }
 
     public void StopBGM()
     {
-        _BGM.Stop();
+        _BGMLoop.Stop();
     }
 
     public async void StopBGM(float fadeTime)
@@ -175,7 +186,7 @@ public class SoundManager : MonoBehaviour
         await Fadeout(fadeTime);
 
         StopBGM();
-        _BGM.volume = DEFAULT_BGM_VOLUME;
+        _BGMLoop.volume = DEFAULT_BGM_VOLUME;
     }
 
     private async UniTask Fadein(float time, float volume)
@@ -185,12 +196,12 @@ public class SoundManager : MonoBehaviour
         float fadeTime = 0;
         float lastVolume = volume;
 
-        while (_BGM.volume < lastVolume)
+        while (_BGMLoop.volume < lastVolume)
         {
             await UniTask.Yield();
             fadeTime += Time.deltaTime;
 
-            _BGM.volume = Mathf.Min(lastVolume * (fadeTime / time), lastVolume) * DataManager.configData.masterVolume * DataManager.configData.backGroundMusicVolume / 100 / 100;
+            _BGMLoop.volume = Mathf.Min(lastVolume * (fadeTime / time), lastVolume) * DataManager.configData.masterVolume * DataManager.configData.backGroundMusicVolume / 100 / 100;
         }
     }
     private async UniTask Fadeout(float time)
@@ -198,14 +209,14 @@ public class SoundManager : MonoBehaviour
         if (time <= 0) return;
 
         float fadeTime = 0;
-        float firstVolume = _BGM.volume;
+        float firstVolume = _BGMLoop.volume;
 
-        while (_BGM.volume > 0)
+        while (_BGMLoop.volume > 0)
         {
             await UniTask.Yield();
             fadeTime += Time.deltaTime;
 
-            _BGM.volume = Mathf.Max(firstVolume * (1 - (fadeTime / time)), 0);
+            _BGMLoop.volume = Mathf.Max(firstVolume * (1 - (fadeTime / time)), 0);
         }
     }
 
