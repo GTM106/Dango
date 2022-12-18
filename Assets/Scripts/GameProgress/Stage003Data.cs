@@ -12,7 +12,7 @@ public class Stage003Data : StageData
     {
         base.Start();
         SoundManager.Instance.StopBGM();
-        SoundManager.Instance.PlayBGM(SoundSource.BGM1A_STAGE1);
+        SoundManager.Instance.PlayBGM(SoundSource.BGM1A_STAGE1_Intro, SoundSource.BGM1A_STAGE1_Loop);
     }
 
     protected override void AddQuest()
