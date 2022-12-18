@@ -73,11 +73,8 @@ public class SpitManager : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out DangoData dango))
         {
-            if (!player.PlayerFall.IsFallAction && other.gameObject.layer != LayerMask.NameToLayer("Outline"))
-            {
-                Logger.Log("’e‚¢‚½");
-                return;
-            }
+            if (!player.PlayerFall.IsFallAction && other.gameObject.layer != LayerMask.NameToLayer("Outline")) return;
+
             //SE
             SoundManager.Instance.PlaySE(SoundSource.SE14_STAB_DANGO);
 
