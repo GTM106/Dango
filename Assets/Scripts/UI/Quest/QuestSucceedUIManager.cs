@@ -14,14 +14,14 @@ public class QuestSucceedUIManager : MonoBehaviour
     [Header("↓団道達成のレベルデザインはこちら↓")]
     [SerializeField, Tooltip("スライドイン時間"), Min(0)] float _succeedImageSlideinTime;
     [SerializeField, Tooltip("スライドアウト時間"), Min(0)] float _succeedImageSlideoutTime;
-    [SerializeField, Tooltip("中央表示時間"), Min(0)] float _succeedImageDisplayTime;
-    [SerializeField, Tooltip("中央表示中の移動距離"), Min(0)] float _succeedImageDisplayAmountOfMovement;
+    [SerializeField, Tooltip("中央滞在時間"), Min(0)] float _succeedImageDisplayTime;
+    [SerializeField, Tooltip("中央滞在中の移動距離"), Min(0)] float _succeedImageDisplayAmountOfMovement;
 
-    [Header("↓次のクエスト表示のレベルデザインはこちら↓")]
+    [Header("↓次のクエストのレベルデザインはこちら↓")]
     [SerializeField, Tooltip("スライドイン時間"), Min(0)] float _nextQuestSlideinTime;
     [SerializeField, Tooltip("スライドアウト時間"), Min(0)] float _nextQuestSlideoutTime;
-    [SerializeField, Tooltip("中央表示時間"), Min(0)] float _nextQuestDisplayTime;
-    [SerializeField, Tooltip("中央表示中の移動距離"), Min(0)] float _nextQuestDisplayAmountOfMovement;
+    [SerializeField, Tooltip("中央滞在時間"), Min(0)] float _nextQuestDisplayTime;
+    [SerializeField, Tooltip("中央滞在中の移動距離"), Min(0)] float _nextQuestDisplayAmountOfMovement;
 
     const float OFFSET = 1400f;
 
