@@ -26,7 +26,7 @@ namespace TM.Entity.Player
             float score = DangoRole.instance.CheckRole(parent.GetDangos(), parent.GetCurrentStabCount());
 
             //‰‰oŠÖ”‚ÌŒÄ‚Ño‚µ
-            _roleDirecting.Dirrecting(parent.GetDangos());
+            //_roleDirecting.Dirrecting(parent.GetDangos());
 
             //–• “x‚ğã¸
             parent.AddSatiety(score);

@@ -852,6 +852,7 @@ public class PlayerData : MonoBehaviour
 
     public async void EatAnima()
     {
+        _directing.Dirrecting(_dangos);
         _playerUIManager.EatDangoUI_True();
         await UniTask.Delay(5000);
         DangoRoleUI.OnGUIReset();

@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class RoleDirectingScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI roleText = default!;
     [SerializeField] GameObject[] imageObj;
     [SerializeField] RoleEffect roleEffect;
+    [SerializeField]VideoClip ittouVideo;
+    [SerializeField] VideoClip zentenVideo;
+    [SerializeField] VideoClip rinneVideo;
+    [SerializeField] VideoClip rinsyokuVideo;
+    [SerializeField] VideoClip sanmenVideo;
+    [SerializeField]VideoPlayer now;
     private Image[] _images;
 
     void Start()
@@ -20,6 +27,7 @@ public class RoleDirectingScript : MonoBehaviour
             _images[i] = imageObj[i].GetComponent<Image>();
             imageObj[i].SetActive(false);
         }
+        now.gameObject.SetActive(false);
     }
     
     // Update is called once per frame
@@ -32,8 +40,8 @@ public class RoleDirectingScript : MonoBehaviour
     {
         //色は多分確定
         //ColorDirecting(dangos);
-        roleEffect.RoleSetEffect(dangos[0]);
-
+        //roleEffect.RoleSetEffect(dangos[0]);
+        Video();
     }
 
     //色の演出
@@ -63,5 +71,39 @@ public class RoleDirectingScript : MonoBehaviour
                 imageObj[i].SetActive(false);
             }
         }
+    }
+    private void Video()
+    {
+
+        switch (DangoRoleUI.CurrentRoleName)
+        {
+            case "「一統団結」":
+                now.clip = ittouVideo;
+                break;
+            case "「全天鏡面」":
+                now.clip = zentenVideo;
+                break;
+            case "「輪廻転生」":
+                now.clip = rinneVideo;
+                break;
+            case "「隣色鏡面」":
+                now.clip = rinsyokuVideo;
+                break;
+            case "「三面華鏡」":
+                now.clip = sanmenVideo;
+                break;
+        }
+        now.gameObject.GetComponent<RawImage>().color = new Color(255, 255, 255, 255);
+        now.Play();
+        now.gameObject.SetActive(true);
+        now.loopPointReached += finishedVideo;
+        }
+
+    private void finishedVideo(VideoPlayer vp)
+    {
+        now.clip = null;
+        now.Stop();
+        now.gameObject.GetComponent<RawImage>().color =new Color(255, 255, 255, 0);
+        now.gameObject.SetActive(false);
     }
 }
