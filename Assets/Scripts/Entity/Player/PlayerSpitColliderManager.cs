@@ -7,7 +7,15 @@ using UnityEngine;
 public class PlayerSpitColliderManager : MonoBehaviour
 {
     PlayerAttackAction _playerAttack;
-    [SerializeField] ImageUIData rangeUI;
+    [SerializeField] ImageUIData _rangeUI;
+    [SerializeField] CapsuleCollider _collider;
+
+    private void Awake()
+    {
+        Logger.Assert(_rangeUI.ImageData.GetWidth() == _rangeUI.ImageData.GetHeight());
+
+        _collider.radius = _rangeUI.ImageData.GetWidth() / 2f;
+    }
 
     //突き刺し用のCollider。Player本体のコライダーはモデルについている
     private void OnTriggerEnter(Collider other)
@@ -25,7 +33,7 @@ public class PlayerSpitColliderManager : MonoBehaviour
     {
         float alpha = isGroundOrEvent ? 155f / 255f : 0;
 
-        rangeUI.ImageData.SetAlpha(alpha);
+        _rangeUI.ImageData.SetAlpha(alpha);
     }
 
     public void SetPlayerAttack(PlayerAttackAction playerAttackAction)
