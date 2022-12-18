@@ -1423,10 +1423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 409db701efefdf94392b796a5bd3e286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeText: {fileID: 272883292929588368}
+  timeText: {fileID: 0}
   eventText: {fileID: 8567872267615947406}
   timeGage:
-  - {fileID: 8567872268030827690}
+  - {fileID: 0}
   - {fileID: 8567872268030827690}
   Warningimgs:
   - {fileID: 21300000, guid: 95a2ac279d38bc44ba49650dd0c010db, type: 3}
@@ -2035,14 +2035,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 70.45
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1b217bf2f5e84ff4dbc85186cd6273e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ef8dcd53e505d14a8d36e8a9defe164, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3194,7 +3194,6 @@ MonoBehaviour:
   - 2
   - 1
   - "\u958B\u59CB\uFF01"
-  clip: {fileID: 8300000, guid: 2c1c937bcd2673e49bea6b7baa819c1b, type: 3}
 --- !u!1 &8567872267943256821
 GameObject:
   m_ObjectHideFlags: 0
