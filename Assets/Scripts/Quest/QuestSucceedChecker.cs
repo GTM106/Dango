@@ -14,14 +14,16 @@ namespace Dango.Quest
         PortraitScript _portraitScript;
         StageData _stageData;
         TutorialUIManager _tutorialUIManager;
+        QuestSucceedUIManager _questSucceedUIManager;
 
-        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, PortraitScript portraitScript, StageData stageData, TutorialUIManager tutorialUIManager)
+        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, PortraitScript portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager)
         {
             _manager = manager;
             _playerUIManager = playerUIManager;
             _portraitScript = portraitScript;
             _stageData = stageData;
             _tutorialUIManager = tutorialUIManager;
+            _questSucceedUIManager = questSucceedUIManager;
         }
 
         #region EatDango
@@ -366,7 +368,7 @@ namespace Dango.Quest
             QuestSucceed(_manager.GetQuest(0));
         }
 
-        private async void QuestSucceed(QuestData quest)
+        private void QuestSucceed(QuestData quest)
         {
             SoundManager.Instance.PlaySE(SoundSource.SE12_QUEST_SUCCEED);
 
@@ -407,12 +409,15 @@ namespace Dango.Quest
                 _tutorialUIManager.ChangeNextGuide(quest.NextQuestId[0]);
             }
 
-            //�N�G�X�g��B�������Ƃ��̉��o
-            _playerUIManager.EventText.TextData.SetText("団道達成");
-            _playerUIManager.EventText.TextData.SetFontSize(210f);
-
-            _playerUIManager.EventText.TextData.SetFontSize(_playerUIManager.DefaultEventTextFontSize);
-            await _playerUIManager.EventText.TextData.Fadeout(0.5f, 2f);
+            if (quest.IsKeyQuest)
+            {
+                //最後のクエストなら次のクエストはない
+                _questSucceedUIManager.PlayAnimation();
+            }
+            else
+            {
+                _questSucceedUIManager.PlayAnimation(nextQuest.ToArray());
+            }
         }
 
         private async UniTask SetBoolAfterOneFrame(bool enable)
