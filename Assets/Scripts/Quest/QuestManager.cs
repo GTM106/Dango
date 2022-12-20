@@ -24,7 +24,7 @@ class QuestManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager, _questSucceedUIManager);
+        SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
     }
 
     //クエストの生成・クリア判定のやつ
@@ -40,10 +40,7 @@ class QuestManager : MonoBehaviour
     }
     public void ChangeQuest(List<QuestData> items)
     {
-        _quests.Clear();
-
-        _quests.AddRange(items);
-        _questExpansionUIManager.ChangeQuest();
+        ChangeQuest(items.ToArray());
     }
 
     public QuestData GetQuest(int index)

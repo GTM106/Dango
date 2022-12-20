@@ -1,11 +1,12 @@
+using System;
 using System.Collections.Generic;
 
 namespace Dango.Quest
 {
     class QuestEatDango : QuestData
     {
-        int _specifyCount;          //食べた数
-        int _eatCount;              //食べる数
+        int _specifyCount;          //食べる数
+        int _eatCount;              //食べた数
         int _continueCount;         //連続して作る数
         int _currentContinueCount;  //連続して作った数
 
@@ -60,15 +61,33 @@ namespace Dango.Quest
 
         public bool IsAchievedEatCount() => _specifyCount <= _eatCount;
         public bool IsAchievedContinueCount() => _continueCount <= _currentContinueCount;
+        public int SpecifyCount => _specifyCount;
+        public int ContinueCount => _continueCount;
         public bool AllowCountCreateRole => _allowCountCreateRole;
         public bool AllowCountNoCreateRole => _allowCountNoCreateRole;
         public bool IsPrebCreateRole => _isPrebCreateRole;
         public List<DangoColor> ReadColors => _colors;
-        public void AddEatCount() => _eatCount++;
-        public void AddEatCount(int count) => _eatCount += count;
+        public void AddEatCount()
+        {
+            _eatCount++;
+        }
+
+        public void AddEatCount(int count)
+        {
+            _eatCount += count;
+        }
+
         public void AddContinueCount() => _currentContinueCount++;
         public void ResetContinueCount() => _currentContinueCount = 0;
         public void SetIsPrebCreateRole(bool isPrebCreateRole) => _isPrebCreateRole = isPrebCreateRole;
+        public override float SpecifyProgress()
+        {
+            return (float)_eatCount / _specifyCount;
+        }
+        public override float ContinueProgress()
+        {
+            return (float)_currentContinueCount / _continueCount;
+        }
     }
 
     class QuestCreateRole : QuestData
@@ -92,7 +111,7 @@ namespace Dango.Quest
         int _continueCount;         //連続して作る数
         int _currentContinueCount;  //連続して作った数
 
-        public QuestCreateRole(int id, EstablishRole establish, int specifyCount, int continueCount, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest,PortraitTextData questTextData, int[] nextQuestId) : base(id, QuestType.CreateRole, questName, rewardTime, enableDangoCountUp, isKeyQuest,questTextData, nextQuestId)
+        public QuestCreateRole(int id, EstablishRole establish, int specifyCount, int continueCount, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest, PortraitTextData questTextData, int[] nextQuestId) : base(id, QuestType.CreateRole, questName, rewardTime, enableDangoCountUp, isKeyQuest, questTextData, nextQuestId)
         {
             _type = CreateRoleType.EstablishRole;
             _establishRole = establish;
@@ -131,9 +150,23 @@ namespace Dango.Quest
 
         public bool IsAchievedMadeCount() => _specifyCount <= _madeCount;
         public bool IsAchievedContinueCount() => _continueCount <= _currentContinueCount;
-        public void AddMadeCount() => _madeCount++;
+        public int SpecifyCount => _specifyCount;
+        public int ContinueCount => _continueCount;
+        public void AddMadeCount()
+        {
+            _madeCount++;
+        }
+
         public void AddContinueCount() => _currentContinueCount++;
         public void ResetContinueCount() => _currentContinueCount = 0;
+        public override float SpecifyProgress()
+        {
+            return (float)_madeCount / _specifyCount;
+        }
+        public override float ContinueProgress()
+        {
+            return (float)_currentContinueCount / _continueCount;
+        }
 
         /// <summary>
         /// 役を成立させる（内容不問）系のクエスト
@@ -235,7 +268,7 @@ namespace Dango.Quest
         int _specifyCount;
         int _madeCount;
 
-        public QuestPlayAction(int id, PlayerAction action, int specifyCount, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest, PortraitTextData questTextData,int[] nextQuestId) : base(id, QuestType.PlayAction, questName, rewardTime, enableDangoCountUp, isKeyQuest, questTextData, nextQuestId)
+        public QuestPlayAction(int id, PlayerAction action, int specifyCount, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest, PortraitTextData questTextData, int[] nextQuestId) : base(id, QuestType.PlayAction, questName, rewardTime, enableDangoCountUp, isKeyQuest, questTextData, nextQuestId)
         {
             _action = action;
             _specifyCount = specifyCount;
@@ -243,7 +276,20 @@ namespace Dango.Quest
 
         public PlayerAction Action => _action;
         public bool IsAchievedMadeCount() => _specifyCount <= _madeCount;
-        public void AddMadeCount() => _madeCount++;
+        public int SpecifyCount => _specifyCount;
+        public void AddMadeCount()
+        {
+            _madeCount++;
+        }
+
+        public override float SpecifyProgress()
+        {
+            return (float)_madeCount / _specifyCount;
+        }
+        public override float ContinueProgress()
+        {
+            return 0;
+        }
     }
 
     class QuestDestination : QuestData
@@ -254,7 +300,7 @@ namespace Dango.Quest
         bool _isInFloor;
         FloorManager.Floor _currentFloor;
 
-        public QuestDestination(int id, FloorManager.Floor floor, bool onEatSucceed, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest,PortraitTextData questTextData, int[] nextQuestId) : base(id, QuestType.Destination, questName, rewardTime, enableDangoCountUp, isKeyQuest,questTextData, nextQuestId)
+        public QuestDestination(int id, FloorManager.Floor floor, bool onEatSucceed, string questName, float rewardTime, bool enableDangoCountUp, bool isKeyQuest, PortraitTextData questTextData, int[] nextQuestId) : base(id, QuestType.Destination, questName, rewardTime, enableDangoCountUp, isKeyQuest, questTextData, nextQuestId)
         {
             _floors.Add(floor);
             _onEatSucceed = onEatSucceed;
@@ -271,5 +317,14 @@ namespace Dango.Quest
         public bool IsInFloor => _isInFloor;
         public void SetIsInFloor(bool enable) => _isInFloor = enable;
         public void SetFloor(FloorManager.Floor floor) => _currentFloor = floor;
+        public override float SpecifyProgress()
+        {
+            //進捗率は存在しない
+            return 0;
+        }
+        public override float ContinueProgress()
+        {
+            return 0;
+        }
     }
 }
