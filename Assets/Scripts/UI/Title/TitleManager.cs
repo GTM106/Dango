@@ -12,7 +12,7 @@ public class TitleManager : MonoBehaviour
     {
         InputSystemManager.Instance.onAnyKeyPerformed += GameStart;
         SoundManager.Instance.PlayBGM(SoundSource.BGM4_TITLE);
-        _fadeManager.StartFade(TM.Easing.EaseType.Linear, FadeStyle.Fadeout, 1f);
+        _fadeManager.StartFade(FadeStyle.Fadeout, 1f);
     }
 
     public async void GameStart()
