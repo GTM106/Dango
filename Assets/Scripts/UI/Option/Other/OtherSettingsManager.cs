@@ -28,6 +28,11 @@ public class OtherSettingsManager : MonoBehaviour
 
     private void Start()
     {
+        SetDeleteChoiceColor();
+    }
+
+    public void AfterFusumaOpen()
+    {
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
         if (IsEffective)
@@ -35,7 +40,6 @@ public class OtherSettingsManager : MonoBehaviour
             InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKey;
             InputSystemManager.Instance.onBackCanceled += OnBack;
         }
-        SetDeleteChoiceColor();
     }
 
     public void OnChangeScene()

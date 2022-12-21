@@ -246,8 +246,15 @@ namespace Dango.Quest
             public bool SameRole => _sameRole;
             public bool IsEqualRole(Role<int> role)
             {
-                if (_prebRole == null) return false;
-                bool isEqual = role == _prebRole;
+                if (_prebRole == null)
+                {
+                    _prebRole = role;
+
+                    //èââÒÇÕïKÇ∏ê¨å˜Ç≥ÇπÇÈ
+                    return _sameRole;
+                }
+
+                bool isEqual = role.GetRolename() == _prebRole.GetRolename();
 
                 _prebRole = role;
 

@@ -67,6 +67,9 @@ public class StageData : MonoBehaviour
 
     protected void Release(Stage stage)
     {
+        //既にリリースされているステージには行わない
+        if (DataManager.saveData.stagesStatus[(int)stage] != (int)StageStatus.Lock) return;
+
         DataManager.saveData.stagesStatus[(int)stage] = (int)StageStatus.StandbyForDirection;
     }
 

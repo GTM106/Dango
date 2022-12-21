@@ -28,16 +28,18 @@ public class StageSelectManager : MonoBehaviour
 
     const float IMAGE_FADEIN_TIME = 0.2f;
 
-    private void Start()
+    private async void Start()
     {
-        _fusumaManager.Open();
+        AssignCurrentStage();
+        CheckUnlockDirection();
+        UpdateExplanationText();
+
+        await _fusumaManager.UniTaskOpen();
+
         InputSystemManager.Instance.onNavigatePerformed += OnChangeStage;
         InputSystemManager.Instance.onChoicePerformed += OnChoiced;
         InputSystemManager.Instance.onBackPerformed += OnBack;
         InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKeyPerformed;
-        AssignCurrentStage();
-        CheckUnlockDirection();
-        UpdateExplanationText();
     }
 
     private void OnChangeStage()
@@ -86,7 +88,11 @@ public class StageSelectManager : MonoBehaviour
         _isChange = true;
 
         SoundManager.Instance.PlaySE(SoundSource.SE17_UI_DECISION);
+
+        DisposeInput();
+
         await _fusumaManager.UniTaskClose();
+        
         SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Stage1 + (int)_currentStage);
         SceneSystem.Instance.Load(SceneSystem.Scenes.Stage1 + (int)_currentStage);
         UnLoad();
@@ -95,6 +101,9 @@ public class StageSelectManager : MonoBehaviour
     private async void OnBack()
     {
         if (_unlockCanvas.enabled) return;
+
+        //入力受付を終了
+        DisposeInput();
 
         await _fusumaManager.UniTaskClose();
         SceneSystem.Instance.Load(SceneSystem.Scenes.Menu);
@@ -201,14 +210,17 @@ public class StageSelectManager : MonoBehaviour
 
     private void UnLoad()
     {
-        InputSystemManager.Instance.onNavigatePerformed -= OnChangeStage;
-        InputSystemManager.Instance.onChoicePerformed -= OnChoiced;
-        InputSystemManager.Instance.onBackPerformed -= OnBack;
-        InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKeyPerformed;
-
         //仮に非同期アニメーション中だった場合破棄する
         _stageImageUpdate.ImageData.CancelUniTask();
 
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.StageSelect, true);
+    }
+
+    private void DisposeInput()
+    {
+        InputSystemManager.Instance.onNavigatePerformed -= OnChangeStage;
+        InputSystemManager.Instance.onChoicePerformed -= OnChoiced;
+        InputSystemManager.Instance.onBackPerformed -= OnBack;
+        InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKeyPerformed;
     }
 }

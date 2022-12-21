@@ -110,7 +110,7 @@ namespace TM.Input.KeyConfig
             }
         }
 
-        private void Start()
+        public void AfterFusumaOpen()
         {
             InputSystemManager.Instance.onStickPerformed += OnStick;
             InputSystemManager.Instance.onChoicePerformed += OnSelect;
