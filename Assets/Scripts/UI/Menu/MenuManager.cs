@@ -64,11 +64,6 @@ public class MenuManager : MonoBehaviour
 
     private async void Start()
     {
-        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
-        InputSystemManager.Instance.onNavigatePerformed += QuitNavgate;
-        InputSystemManager.Instance.onChoicePerformed += OnChoice;
-        InputSystemManager.Instance.onBackPerformed += OnCancel;
-
         SetSelect();
 
         SetNoSelect(Menu.Option);
@@ -76,6 +71,11 @@ public class MenuManager : MonoBehaviour
         SetNoSelect(Menu.Ex);
 
         await _fusumaManager.UniTaskOpen(1f);
+
+        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
+        InputSystemManager.Instance.onNavigatePerformed += QuitNavgate;
+        InputSystemManager.Instance.onChoicePerformed += OnChoice;
+        InputSystemManager.Instance.onBackPerformed += OnCancel;
 
         SoundManager.Instance.PlayBGM(SoundSource.BGM5_MENU);
     }
@@ -127,6 +127,12 @@ public class MenuManager : MonoBehaviour
             _isTransition = false;
             return;
         }
+
+        //ëÄçÏÇÃéÛïtÇèIóπ
+        InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
+        InputSystemManager.Instance.onNavigatePerformed -= QuitNavgate;
+        InputSystemManager.Instance.onChoicePerformed -= OnChoice;
+        InputSystemManager.Instance.onBackPerformed -= OnCancel;
 
         await _fusumaManager.UniTaskClose(1.5f);
 
@@ -269,7 +275,6 @@ public class MenuManager : MonoBehaviour
         quitImages[isSelectedQuit ? 0 : 1].color = Color.red;
     }
 
-
     private void ToOption()
     {
         SceneSystem.Instance.Load(SceneSystem.Scenes.Option);
@@ -303,10 +308,6 @@ public class MenuManager : MonoBehaviour
 
     private void Unload()
     {
-        InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
-        InputSystemManager.Instance.onNavigatePerformed -= QuitNavgate;
-        InputSystemManager.Instance.onChoicePerformed -= OnChoice;
-        InputSystemManager.Instance.onBackPerformed -= OnCancel;
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.Menu, true);
     }
 }
