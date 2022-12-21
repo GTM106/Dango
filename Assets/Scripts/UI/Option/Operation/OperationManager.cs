@@ -33,10 +33,13 @@ public class OperationManager : MonoBehaviour
 
     private void Start()
     {
+        _cameraSensitivityImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeed / 10 - 1]);
+    }
+
+    public void AfterFusumaOpen()
+    {
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
-
-        _cameraSensitivityImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeed / 10 - 1]);
     }
 
     public void OnChangeScene()

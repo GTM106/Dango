@@ -28,8 +28,6 @@ public class SoundSettingManager : MonoBehaviour
 
     private void Start()
     {
-        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
-
         _volumes.Clear();
         _volumes.Add(DataManager.configData.masterVolume);
         _volumes.Add(DataManager.configData.soundEffectVolume);
@@ -39,6 +37,11 @@ public class SoundSettingManager : MonoBehaviour
         {
             _soundScaleImages[i].ImageData.SetSprite(_scaleSprites[_volumes[i]]);
         }
+    }
+
+    public void AfterFusumaOpen()
+    {
+        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
     }
 
     public void OnChangeScene()

@@ -28,7 +28,7 @@ public class ClearSceneScript : MonoBehaviour
     List<GameObject> objs = new();
     static readonly bool _canMoveTopToBottom = true;
 
-    private async void Awake()
+    private void Awake()
     {
         //演出終了まで描画しない
         _canvas.enabled = false;
@@ -37,7 +37,10 @@ public class ClearSceneScript : MonoBehaviour
         SetRetryOrSelectColor();
         SetQusetFlowchart();
         CreateBloks();
+    }
 
+    async void Start()
+    {
         //ふすまの演出
         await _fusumaManager.UniTaskClose();
 
@@ -46,10 +49,7 @@ public class ClearSceneScript : MonoBehaviour
 
         //裏で生きていたインゲームを削除
         SceneSystem.Instance.UnLoad(SceneSystem.Instance.CurrentIngameScene, true);
-    }
 
-    void Start()
-    {
         //ほぼ存在しているがこのシーンを最初に持ってきた場合Instanceがnullの場合があるためStartで行います
         InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
