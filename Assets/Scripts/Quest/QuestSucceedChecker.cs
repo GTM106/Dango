@@ -214,6 +214,7 @@ namespace Dango.Quest
                 if (!quest.SameRole.IsEqualRole(role))
                 {
                     quest.ResetContinueCount();
+                    _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
 
                     return false;
                 }
@@ -223,6 +224,7 @@ namespace Dango.Quest
                 if (quest.SameRole.IsEqualRole(role))
                 {
                     quest.ResetContinueCount();
+                    _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
 
                     return false;
                 }
