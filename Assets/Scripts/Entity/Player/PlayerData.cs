@@ -254,6 +254,9 @@ public class PlayerData : MonoBehaviour
     {
         public IState.E_State Initialize(PlayerData parent)
         {
+            //チャージSEの停止
+            SoundManager.Instance.StopSE(SoundSource.SE5_PLAYER_STAY_EATDANGO, 1f);
+
             parent._faceAnimationController.ChangeFaceType(FaceAnimationController.FaceTypes.Smile);
             parent._animationManager.ChangeAnimationEnforcement(AnimationManager.E_Animation.An4B_Eat, 0);
             parent._playerEat.EatDango(parent);
