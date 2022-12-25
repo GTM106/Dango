@@ -186,10 +186,10 @@ public class OtherSettingsManager : MonoBehaviour
         if (_canDelete)
         {
 #if UNITY_EDITOR
-            //delete Savedata
+            DataManager.ResetSaveData();
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            //delete Savedata
+            DataManager.ResetSaveData();
             Application.Quit();
 #endif
         }
