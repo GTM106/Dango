@@ -30,13 +30,21 @@ public class ChangeChoiceUtil
         {
             choiceValue--;
 
-            if (choiceValue == -1) choiceValue = canMoveTopToBottom ? max - 1 : 0;
+            if (choiceValue == -1)
+            {
+                if (!canMoveTopToBottom) return false;
+                choiceValue = max - 1;
+            }
         }
         else if (axis == directionTable[(int)direction, 1])
         {
             choiceValue++;
 
-            if (choiceValue == max) choiceValue = canMoveTopToBottom ? 0 : max - 1;
+            if (choiceValue == max)
+            {
+                if (!canMoveTopToBottom) return false;
+                choiceValue = 0;
+            }
         }
         else return false;
 

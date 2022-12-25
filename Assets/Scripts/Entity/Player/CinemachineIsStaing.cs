@@ -18,19 +18,33 @@ public class CinemachineIsStaing : MonoBehaviour
 
     bool _isRecentering;
 
+    static readonly int DafaultXAxis = 75;
+    static readonly int DafaultYAxis = 1;
+
+    private void OnEnable()
+    {
+        //設定の読み取り
+        _freeLook.m_YAxis.m_InvertInput = DataManager.configData.cameraInvertYAxis;
+        _freeLook.m_XAxis.m_InvertInput = DataManager.configData.cameraInvertXAxis;
+        _freeLook.m_XAxis.m_MaxSpeed = DafaultXAxis * DataManager.configData.cameraRotationSpeedXAxis / 100f;
+        _freeLook.m_YAxis.m_MaxSpeed = DafaultYAxis * DataManager.configData.cameraRotationSpeedYAxis / 100f;
+    }
+
     private void Update()
     {
+        RecenteringUpdate();
+    }
+
+    private void RecenteringUpdate()
+    {
+        if (!gameObject.activeSelf) return;
+
         //入力があったらタイムリセット
         if (InputSystemManager.Instance.MoveAxis.magnitude > 0.1f || InputSystemManager.Instance.LookAxis.magnitude > 0.1f)
         {
             ResetTime();
         }
 
-        RecenteringUpdate();
-    }
-
-    private void RecenteringUpdate()
-    {
         //既にリセンタリング中なら弾く
         if (_isRecentering) return;
 
@@ -64,7 +78,7 @@ public class CinemachineIsStaing : MonoBehaviour
         float currentTime = 0;
 
         //リセンタリングが終了するまで待機(+3sは余裕を持たせるためのマジックナンバー)
-        while (currentTime < recenteringTime+3f)
+        while (currentTime < recenteringTime + 3f)
         {
             await UniTask.Yield();
 

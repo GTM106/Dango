@@ -27,11 +27,22 @@ public class SpitManager : MonoBehaviour
         _capsuleCollider.enabled = false;
     }
 
+    bool a=false;
+
+    private void Update()
+    {
+        if (IsSticking)
+        {
+            Logger.Log("isSticking  " + IsSticking);
+        }
+    }
+
     public bool IsSticking
     {
         get => _isSticking;
         set
         {
+
             _capsuleCollider.enabled = value;
             if (player.IsGround)
             {
