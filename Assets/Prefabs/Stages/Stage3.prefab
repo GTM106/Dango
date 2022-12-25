@@ -428,6 +428,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3304077899632807161, guid: e9ce484a5d132594c897578297cf6bb0,
+        type: 3}
+      propertyPath: _playerData
+      value: 
+      objectReference: {fileID: 1823400544899498257}
     - target: {fileID: 3412084220043320591, guid: e9ce484a5d132594c897578297cf6bb0,
         type: 3}
       propertyPath: m_Mesh
@@ -1030,6 +1035,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ce484a5d132594c897578297cf6bb0, type: 3}
+--- !u!114 &3291058020109127596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3304077899632807161, guid: e9ce484a5d132594c897578297cf6bb0,
+    type: 3}
+  m_PrefabInstance: {fileID: 33318007239017301}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebdd39728f4ee6f4d8281334f03a290b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3439058290362655497 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3445152312320237660, guid: e9ce484a5d132594c897578297cf6bb0,
@@ -2109,7 +2126,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _stepBase
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 3291058020109127596}
     - target: {fileID: 4062595608074469455, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: _dangoUISC
@@ -2158,7 +2175,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18480618
+      value: 0.1848062
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}

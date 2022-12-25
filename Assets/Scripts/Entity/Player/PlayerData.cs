@@ -58,8 +58,6 @@ public class PlayerData : MonoBehaviour
         {
             parent._faceAnimationController.ChangeFaceType(FaceAnimationController.FaceTypes.Default);
 
-            //串の状態をリセット
-            parent.ResetSpit();
             return IState.E_State.Unchanged;
         }
         public IState.E_State Update(PlayerData parent)
@@ -201,7 +199,9 @@ public class PlayerData : MonoBehaviour
 
             if (parent._playerAttack.ChangeState(pattern))
             {
+                //串の状態をリセット
                 parent.ResetSpit();
+
                 return IState.E_State.Control;
             }
 

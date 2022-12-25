@@ -42,11 +42,12 @@ public class ConfigData
     public int voiceVolume = 5;
 
     //ƒJƒƒ‰Š´“x
-    public int cameraRotationSpeed = 100;
+    public int cameraRotationSpeedXAxis = 100;
+    public int cameraRotationSpeedYAxis = 100;
 
     //ƒJƒƒ‰‰¡•ûŒü”½“]
-    public bool cameraHorizontalOrientation = false;
+    public bool cameraInvertXAxis = false;
 
     //ƒJƒƒ‰c•ûŒü”½“]
-    public bool cameraVerticalOrientation = false;
+    public bool cameraInvertYAxis = true;
 }

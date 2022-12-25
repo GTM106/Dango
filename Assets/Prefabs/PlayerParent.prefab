@@ -201,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316254591048215715}
-  m_LocalRotation: {x: 0.18480615, y: 0.000000008455, z: -0.0000000015899227, w: 0.98277503}
+  m_LocalRotation: {x: 0.18480615, y: 0.000000008454979, z: -0.0000000015899186, w: 0.98277503}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -279,7 +279,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2698800882307031975}
-  m_LocalRotation: {x: 0.03298094, y: -0.000000017330848, z: 5.718988e-10, w: 0.999456}
+  m_LocalRotation: {x: 0.03298094, y: 0.000000017330848, z: -5.718988e-10, w: 0.999456}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1018,6 +1018,11 @@ PrefabInstance:
       propertyPath: MainCam
       value: 
       objectReference: {fileID: 1061649141369810905}
+    - target: {fileID: 6303659095604953036, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
+        type: 3}
+      propertyPath: m_KeepAnimatorControllerStateOnDisable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7647861018874766168, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
         type: 3}
       propertyPath: m_Sprite
