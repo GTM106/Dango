@@ -212,7 +212,6 @@ public class PlayerData : MonoBehaviour
     {
         public IState.E_State Initialize(PlayerData parent)
         {
-            parent._playerUIManager.EventText.TextData.SetText("食べチャージ中！");
             parent._playerStayEat.ResetCount();
             parent._playerUIManager.StartDangoHighlight();
 
@@ -261,6 +260,7 @@ public class PlayerData : MonoBehaviour
             parent._animationManager.ChangeAnimationEnforcement(AnimationManager.E_Animation.An4B_Eat, 0);
             parent._playerEat.EatDango(parent);
             parent._hasStayedEat = false;
+            parent._directing.PlayRoleVideo();
 
             return IState.E_State.Unchanged;
         }
@@ -855,7 +855,6 @@ public class PlayerData : MonoBehaviour
 
     public async void EatAnima()
     {
-        _directing.Dirrecting(_dangos);
         _playerUIManager.EatDangoUI_True();
         await UniTask.Delay(5000);
         DangoRoleUI.OnGUIReset();
