@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b312b262e620ca34f8f1171131b0edc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 2063848577299060444}
+  image: {fileID: 3852541554954073996}
 --- !u!114 &2063848576987206516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 2063848577299060434}
   - component: {fileID: 2063848577299060435}
   - component: {fileID: 2063848577299060444}
+  - component: {fileID: 3852541554954073996}
   m_Layer: 0
   m_Name: Black
   m_TagString: Untagged
@@ -276,6 +277,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3852541554954073996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063848577299060445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f818bc22b51ba6442a0ebe08151d025a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2063848577299060444}
 --- !u!1 &2063848578163446405
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,8 +28,6 @@ public class SoundSettingManager : MonoBehaviour
 
     private void Start()
     {
-        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
-
         _volumes.Clear();
         _volumes.Add(DataManager.configData.masterVolume);
         _volumes.Add(DataManager.configData.soundEffectVolume);
@@ -39,6 +37,11 @@ public class SoundSettingManager : MonoBehaviour
         {
             _soundScaleImages[i].ImageData.SetSprite(_scaleSprites[_volumes[i]]);
         }
+    }
+
+    public void AfterFusumaOpen()
+    {
+        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
     }
 
     public void OnChangeScene()
@@ -77,13 +80,16 @@ public class SoundSettingManager : MonoBehaviour
 
         _images[(int)_choice + (int)axis.y].color = new Color32(176, 176, 176, 255);
         _images[(int)_choice].color = Color.red;
+
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
     }
 
     private void ChangeVolume(float vecX)
     {
         if (!_canvas.enabled) return;
-        if (vecX != 1 && vecX != -1) return;
+        if (vecX != 1f && vecX != -1f) return;
+
+        SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
 
         switch (_choice)
         {

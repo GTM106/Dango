@@ -58,16 +58,20 @@ public class OptionManager : MonoBehaviour
         SetFontSize();
     }
 
-    private void Start()
+    private async void Start()
     {
+        await _fusumaManager.UniTaskOpen();
         OptionInputEnable();
-        _fusumaManager.Open();
     }
 
     private void OptionInputEnable()
     {
         InputSystemManager.Instance.onBackPerformed += OnBack;
         InputSystemManager.Instance.onTabControlPerformed += ChangeChoice;
+        _keyConfig.AfterFusumaOpen();
+        _operationManager.AfterFusumaOpen();
+        _otherSettingsManager.AfterFusumaOpen();
+        _soundSettingManager.AfterFusumaOpen();
     }
 
     private void OptionInputDisable()

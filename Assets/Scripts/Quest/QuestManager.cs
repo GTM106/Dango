@@ -15,16 +15,16 @@ class QuestManager : MonoBehaviour
     [SerializeField] GameObject _expansionUIObj;
     [SerializeField] PlayerUIManager _playerUIManager;
     [SerializeField] QuestExpansionUIManager _questExpansionUIManager;
-    [SerializeField] QuestUIManager _questUIManager;
     [SerializeField] GameManager _gameManager;
     [SerializeField] StageData _stageData;
     [SerializeField] PortraitScript _portraitScript;
     [SerializeField] TutorialUIManager _tutorialUIManager;
+    [SerializeField] QuestSucceedUIManager _questSucceedUIManager;
 
     private void Awake()
     {
         Instance = this;
-        SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager);
+        SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
     }
 
     //クエストの生成・クリア判定のやつ
@@ -37,15 +37,10 @@ class QuestManager : MonoBehaviour
 
         _quests.AddRange(items);
         _questExpansionUIManager.ChangeQuest();
-        _questUIManager.ChangeIcon(items);
     }
     public void ChangeQuest(List<QuestData> items)
     {
-        _quests.Clear();
-
-        _quests.AddRange(items);
-        _questExpansionUIManager.ChangeQuest();
-        _questUIManager.ChangeIcon(items.ToArray());
+        ChangeQuest(items.ToArray());
     }
 
     public QuestData GetQuest(int index)

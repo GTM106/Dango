@@ -25,7 +25,7 @@ public class Stage003Data : StageData
                 new PortraitTextData.PTextData(0, "すごいぞ！色々な団結を作れるようになったな", 5f, PortraitTextData.FacePatturn.Normal)),
                 1,2),
 
-            questManager.Creater.CreateQuestPlayAction(1, QuestPlayAction.PlayerAction.FallAttack, 3, "急降下刺しで2回刺す", 0f, false, false, new(
+            questManager.Creater.CreateQuestPlayAction(1, QuestPlayAction.PlayerAction.FallAttack, 2, "急降下刺しで2回刺す", 0f, false, false, new(
                 new PortraitTextData.PTextData(0, "少し遠回りするぐらいが丁度いい", 5f, PortraitTextData.FacePatturn.Normal),
                 new(1, "それが俺の団道、流儀ってもんだ！", 5f, PortraitTextData.FacePatturn.Normal)),
                 3),

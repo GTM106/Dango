@@ -349,6 +349,27 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>
+    /// セーブデータを初期化する
+    /// ※呼び出し後はゲーム終了を推奨
+    /// </summary>
+    public static void ResetSaveData()
+    {
+        //ファイルパスを取得
+#if UNITY_EDITOR
+        string path = Directory.GetCurrentDirectory() + "\\Assets\\Resources";
+#else
+            string path = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\');
+#endif
+        if (!configData.dataFilePath.Equals("default"))
+        {
+            path = configData.dataFilePath;
+        }
+
+        File.Delete(path + "/save.dat");
+        File.Delete(path + "/config.txt");
+    }
+
+    /// <summary>
     /// 全ての言語ファイルを読み込みます
     /// </summary>
     public static void LoadLanguageData()

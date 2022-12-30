@@ -9,7 +9,8 @@ public class OperationManager : MonoBehaviour
 {
     enum OperationChoices
     {
-        CameraSensitivity,
+        CameraSensitivityYAxis,
+        CameraSensitivityXAxis,
         CameraReversalH,
         CameraReversalV,
 
@@ -20,23 +21,28 @@ public class OperationManager : MonoBehaviour
     [SerializeField] Canvas _canvas = default!;
     [SerializeField] Image[] _images;
 
-    [SerializeField] ImageUIData _cameraSensitivityImage;
+    [SerializeField] ImageUIData _cameraSensitivityXImage;
+    [SerializeField] ImageUIData _cameraSensitivityYImage;
     [SerializeField] List<Sprite> _scaleSprites;
 
     [SerializeField] Image _methodOfOperation = default!;
     [SerializeField] Sprite[] _methodOfOperationSprites;
 
-    OperationChoices _choice = OperationChoices.CameraSensitivity;
+    OperationChoices _choice = OperationChoices.CameraSensitivityYAxis;
 
     const int MAX_ROTATIONSPEED = 20;
     const int MIN_ROTATIONSPEED = 1;
 
     private void Start()
     {
+        _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedXAxis / 10 - 1]);
+        _cameraSensitivityYImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedYAxis / 10 - 1]);
+    }
+
+    public void AfterFusumaOpen()
+    {
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
-
-        _cameraSensitivityImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeed / 10 - 1]);
     }
 
     public void OnChangeScene()
@@ -55,7 +61,7 @@ public class OperationManager : MonoBehaviour
         if (enable)
         {
             _images[(int)_choice].color = new Color32(176, 176, 176, 255);
-            _choice = OperationChoices.CameraSensitivity;
+            _choice = OperationChoices.CameraSensitivityYAxis;
             _images[(int)_choice].color = Color.red;
         }
     }
@@ -65,7 +71,8 @@ public class OperationManager : MonoBehaviour
         if (!_canvas.enabled) return;
 
         ChangeChoice(InputSystemManager.Instance.NavigateAxis);
-        CameraSensitivityChange(ref DataManager.configData.cameraRotationSpeed, InputSystemManager.Instance.NavigateAxis.x);
+        CameraSensitivityXChange(ref DataManager.configData.cameraRotationSpeedXAxis, InputSystemManager.Instance.NavigateAxis.x);
+        CameraSensitivityYChange(ref DataManager.configData.cameraRotationSpeedYAxis, InputSystemManager.Instance.NavigateAxis.x);
     }
 
     private void OnChoice()
@@ -100,7 +107,8 @@ public class OperationManager : MonoBehaviour
 
         _methodOfOperation.sprite = _choice switch
         {
-            OperationChoices.CameraSensitivity => _methodOfOperationSprites[2],
+            OperationChoices.CameraSensitivityYAxis => _methodOfOperationSprites[2],
+            OperationChoices.CameraSensitivityXAxis => _methodOfOperationSprites[2],
             OperationChoices.CameraReversalV => _methodOfOperationSprites[1],
             OperationChoices.CameraReversalH => _methodOfOperationSprites[1],
             _ => throw new System.NotImplementedException(),
@@ -109,25 +117,37 @@ public class OperationManager : MonoBehaviour
 
     private void CameraReversalV()
     {
-        DataManager.configData.cameraVerticalOrientation ^= true;
-        Logger.Log(DataManager.configData.cameraVerticalOrientation);
+        DataManager.configData.cameraInvertYAxis ^= true;
+        Logger.Log(DataManager.configData.cameraInvertYAxis);
     }
 
     private void CameraReversalH()
     {
-        DataManager.configData.cameraHorizontalOrientation ^= true;
-        Logger.Log(DataManager.configData.cameraHorizontalOrientation);
+        DataManager.configData.cameraInvertXAxis ^= true;
+        Logger.Log(DataManager.configData.cameraInvertXAxis);
     }
 
-    private void CameraSensitivityChange(ref int rotationSpeed, float axis)
+    private void CameraSensitivityXChange(ref int rotationSpeed, float axis)
     {
-        if (_choice != OperationChoices.CameraSensitivity) return;
+        if (_choice != OperationChoices.CameraSensitivityXAxis) return;
         if (axis != 1 && axis != -1) return;
 
         //10Çä|ÇØÇƒÇ¢ÇÈÇÃÇÕêîílÇ™í·Ç¢Ç∆ëÂç∑Ç™Ç»Ç¢ÇΩÇﬂÇÃï‚ê≥
         rotationSpeed = Mathf.Clamp(rotationSpeed / 10 + (int)axis, MIN_ROTATIONSPEED, MAX_ROTATIONSPEED) * 10;
 
-        _cameraSensitivityImage.ImageData.SetSprite(_scaleSprites[(rotationSpeed / 10) - 1]);
+        _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[(rotationSpeed / 10) - 1]);
+
+        //Logger.Log(rotationSpeed);
+    }
+    private void CameraSensitivityYChange(ref int rotationSpeed, float axis)
+    {
+        if (_choice != OperationChoices.CameraSensitivityYAxis) return;
+        if (axis != 1 && axis != -1) return;
+
+        //10Çä|ÇØÇƒÇ¢ÇÈÇÃÇÕêîílÇ™í·Ç¢Ç∆ëÂç∑Ç™Ç»Ç¢ÇΩÇﬂÇÃï‚ê≥
+        rotationSpeed = Mathf.Clamp(rotationSpeed / 10 + (int)axis, MIN_ROTATIONSPEED, MAX_ROTATIONSPEED) * 10;
+
+        _cameraSensitivityYImage.ImageData.SetSprite(_scaleSprites[(rotationSpeed / 10) - 1]);
 
         //Logger.Log(rotationSpeed);
     }
