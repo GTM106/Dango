@@ -1928,23 +1928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7bd10917f25c2142ab194a187b080bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _U12s:
-  - {fileID: 3769654163688205946}
-  - {fileID: 673411963091859883}
-  - {fileID: 2472428152842923054}
-  - {fileID: 4481653573514554334}
-  - {fileID: 3173572511140973010}
-  - {fileID: 5031617260565588285}
-  - {fileID: 1071911838673995010}
-  _U5_11:
-  - {fileID: 8779437943843779842}
-  - {fileID: 6585150860156370695}
-  - {fileID: 7024524796042868841}
-  - {fileID: 8928118139267294763}
-  - {fileID: 5188459494547934077}
-  - {fileID: 3932778467719648575}
-  - {fileID: 6921467613822754054}
-  _U4TextMesh: {fileID: 6078692387941280816}
   _U3Sprite:
   - {fileID: 21300000, guid: bb4f6cd53aad1d543b2cf554391bb96e, type: 3}
   - {fileID: 21300000, guid: bb4f6cd53aad1d543b2cf554391bb96e, type: 3}
@@ -1977,8 +1960,26 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _U12CompleteSprite: {fileID: 0}
-  _U12IncompleteSprite: {fileID: 0}
+  _U12CompleteSprite: {fileID: 21300000, guid: 5d4d2d0a46ba52c42aa4a6afe34331fe, type: 3}
+  _U12IncompleteSprite: {fileID: 21300000, guid: ab23ebc3c25e5124c978d4b512fb1f4a,
+    type: 3}
+  _U12s:
+  - {fileID: 3769654163688205946}
+  - {fileID: 673411963091859883}
+  - {fileID: 2472428152842923054}
+  - {fileID: 4481653573514554334}
+  - {fileID: 3173572511140973010}
+  - {fileID: 5031617260565588285}
+  - {fileID: 1071911838673995010}
+  _U5_11:
+  - {fileID: 8779437943843779842}
+  - {fileID: 6585150860156370695}
+  - {fileID: 7024524796042868841}
+  - {fileID: 8928118139267294763}
+  - {fileID: 5188459494547934077}
+  - {fileID: 3932778467719648575}
+  - {fileID: 6921467613822754054}
+  _U4TextMesh: {fileID: 6078692387941280816}
   _fusumaManager: {fileID: 156141566963011394}
 --- !u!1 &8906357108126945098
 GameObject:
