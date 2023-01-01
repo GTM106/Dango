@@ -192,7 +192,7 @@ internal class GameManager : MonoBehaviour
             InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
 
             //クリア画面には移行せず、メニューに戻る
-            nextScene = SceneSystem.Scenes.Menu;
+            nextScene = SceneSystem.Scenes.TutorialHub;
         }
 
         SceneSystem.Instance.Load(nextScene);
