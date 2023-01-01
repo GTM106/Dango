@@ -183,7 +183,7 @@ namespace Dango.Quest
 
             quest.AddMadeCount();
 
-            _questExpansionUIManager.OnNext(quest,quest.SpecifyProgress());
+            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
 
             if (!quest.IsAchievedMadeCount()) return false;
 
@@ -263,7 +263,8 @@ namespace Dango.Quest
 
             quest.AddMadeCount();
 
-            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+            if (action != QuestPlayAction.PlayerAction.Look)
+                _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
 
             if (!quest.IsAchievedMadeCount()) return false;
 
