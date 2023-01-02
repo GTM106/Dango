@@ -908,7 +908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e84f42061c4b1b746b03baf49af41c0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1278,8 +1278,8 @@ MonoBehaviour:
   ex: {fileID: 6535298415316101087}
   dandou: {fileID: 5824736078649286187}
   dandouSprites:
-  - {fileID: 21300000, guid: d51dd99c9446e444d817ef28ce0ca443, type: 3}
-  - {fileID: 21300000, guid: c6317d590aec34d45af5e7e88e3e341a, type: 3}
+  - {fileID: 21300000, guid: 94cb430ffddbe854d8a6e38953eaa3a3, type: 3}
+  - {fileID: 21300000, guid: 096e7255970172149a868459d3286fca, type: 3}
   optionImage: {fileID: 6535298416569618264}
   optionSprites:
   - {fileID: 21300000, guid: f87dd4649972a4c4fa920aaf995497fa, type: 3}
@@ -1599,7 +1599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07547176, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
