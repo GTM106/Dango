@@ -1617,15 +1617,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9ce484a5d132594c897578297cf6bb0, type: 3}
---- !u!4 &3381008469814136829 stripped
+--- !u!4 &415098705109424822 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4072622767097936781, guid: e9ce484a5d132594c897578297cf6bb0,
+  m_CorrespondingSourceObject: {fileID: 1417973680382947014, guid: e9ce484a5d132594c897578297cf6bb0,
     type: 3}
   m_PrefabInstance: {fileID: 1616543355705078896}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4152528143148061740 stripped
+--- !u!4 &3381008469814136829 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3445152312320237660, guid: e9ce484a5d132594c897578297cf6bb0,
+  m_CorrespondingSourceObject: {fileID: 4072622767097936781, guid: e9ce484a5d132594c897578297cf6bb0,
     type: 3}
   m_PrefabInstance: {fileID: 1616543355705078896}
   m_PrefabAsset: {fileID: 0}
@@ -2170,7 +2170,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18480618
+      value: 0.1848062
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
@@ -2215,12 +2215,12 @@ PrefabInstance:
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001719702
+      value: -0.00000001719702
       objectReference: {fileID: 0}
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.6748317e-10
+      value: 5.6748317e-10
       objectReference: {fileID: 0}
     - target: {fileID: 8968484660200578913, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
@@ -2801,7 +2801,7 @@ PrefabInstance:
         type: 3}
       propertyPath: parent
       value: 
-      objectReference: {fileID: 4152528143148061740}
+      objectReference: {fileID: 415098705109424822}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40741495b9e33b54c89f161aa0819694, type: 3}
 --- !u!4 &2372265003231461395 stripped
