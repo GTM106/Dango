@@ -473,16 +473,16 @@ RectTransform:
   m_GameObject: {fileID: 4538353512154225921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.3876, y: 2.3876, z: 2.3876}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8963176637559536370}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -3.4685}
-  m_SizeDelta: {x: 256, y: 256}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1899480637991741580
 CanvasRenderer:
@@ -506,13 +506,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 4167aa13babe2c14bbc4c1fbe17fff33, type: 2}
+  m_Texture: {fileID: 8400000, guid: da44173ae76f9da4e83f3e491dcfe38e, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -531,7 +531,7 @@ VideoPlayer:
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: 4167aa13babe2c14bbc4c1fbe17fff33, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: da44173ae76f9da4e83f3e491dcfe38e, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
@@ -800,12 +800,13 @@ MonoBehaviour:
   - {fileID: 612437885014896224}
   - {fileID: 275174012163524295}
   roleEffect: {fileID: 4103787190282010674}
-  ittouVideo: {fileID: 32900000, guid: 9b9678ed44915844eb1c7157c2e9e4f8, type: 3}
-  zentenVideo: {fileID: 32900000, guid: 8f1833e49ab8f854e86dee5006c1dd6a, type: 3}
-  rinneVideo: {fileID: 32900000, guid: 209f2fac006617646b87ce9dc41a161d, type: 3}
-  rinsyokuVideo: {fileID: 32900000, guid: 0ba0279c29a1ce449858ae41e90da876, type: 3}
-  sanmenVideo: {fileID: 32900000, guid: 68489c13ca1fc484fa48b2d14229225a, type: 3}
+  ittouVideo: {fileID: 32900000, guid: 3f0ad075fbbab624d888d5f89238e203, type: 3}
+  zentenVideo: {fileID: 32900000, guid: e2ce369d513db1646acbf0532aed6380, type: 3}
+  rinneVideo: {fileID: 32900000, guid: 02fba68093759e14b8f945056dff30e8, type: 3}
+  rinsyokuVideo: {fileID: 32900000, guid: 849fa0437c0b23b4c9ac47e9ba31ecf4, type: 3}
+  sanmenVideo: {fileID: 32900000, guid: 2b3d38feeeab4374e8635fe2c2865011, type: 3}
   now: {fileID: 222816307048334620}
+  _videoPlayerImage: {fileID: 6889050509033833889}
 --- !u!114 &439664968156241209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,7 +862,6 @@ GameObject:
   - component: {fileID: 8963176637559536370}
   - component: {fileID: 2060387128007324671}
   - component: {fileID: 2804603526435959982}
-  - component: {fileID: 1478363349620581665}
   m_Layer: 0
   m_Name: EffectCanvas
   m_TagString: Untagged
@@ -900,7 +900,7 @@ Canvas:
   m_GameObject: {fileID: 8922941667221850821}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 3
   m_PixelPerfect: 0
@@ -924,10 +924,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 0
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -935,20 +935,3 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &1478363349620581665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8922941667221850821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
