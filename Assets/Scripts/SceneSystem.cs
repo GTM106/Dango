@@ -129,11 +129,11 @@ class SceneSystem : MonoBehaviour
 
     private void ChangeLightmap(Scenes scene)
     {
-        if(scene is >=Scenes.Stage1 and <= Scenes.Stage3)
+        if (scene is >= Scenes.Stage1 and <= Scenes.Stage3)
         {
             _changeLightmap.StageLight();
         }
-        else if(scene is Scenes.Tutorial)//Tutorial‚ÌŽd—l•ÏX‚Å•Ï‚í‚é
+        else if (scene is >= Scenes.Tutorial1 and <= Scenes.Tutorial8)
         {
             _changeLightmap.TutorialLight();
         }
