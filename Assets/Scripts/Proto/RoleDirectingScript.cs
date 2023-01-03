@@ -57,15 +57,22 @@ public class RoleDirectingScript : MonoBehaviour
 
     public void PlayRoleVideo()
     {
-        now.clip = DangoRoleUI.CurrentRoleName switch
+        try
         {
-            "「一統団結」" => ittouVideo,
-            "「全天鏡面」" => zentenVideo,
-            "「輪廻転生」" => rinneVideo,
-            "「隣色鏡面」" => rinsyokuVideo,
-            "「三面華鏡」" => sanmenVideo,
-            _ => throw new System.NotImplementedException(),
-        };
+            now.clip = DangoRoleUI.CurrentRoleName switch
+            {
+                "「一統団結」" => ittouVideo,
+                "「全天鏡面」" => zentenVideo,
+                "「輪廻転生」" => rinneVideo,
+                "「隣色鏡面」" => rinsyokuVideo,
+                "「三面華鏡」" => sanmenVideo,
+                _ => throw new System.NotImplementedException(),
+            };
+        }
+        catch (System.NotImplementedException)
+        {
+            return;
+        }
 
         //この状態では、最初の数フレームは直前に再生された演出の最終フレームが再生されます。
         //今回は、全動画の最終フレームは全部透明にすることで解決しています。（それが仕様だからこの策を取っています。）

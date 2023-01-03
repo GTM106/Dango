@@ -10,7 +10,7 @@ public enum DangoColor
     Beni,
     Mitarashi,
     Nori,
-    Shiratama,
+    Yuzu,
     Yomogi,
 
     Other,

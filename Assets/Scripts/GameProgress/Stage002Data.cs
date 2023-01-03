@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Stage002Data : StageData
 {
-    static readonly List<DangoColor> stageDangoColors = new() { DangoColor.An, DangoColor.Beni, DangoColor.Mitarashi, DangoColor.Nori, DangoColor.Shiratama, DangoColor.Yomogi };
+    static readonly List<DangoColor> stageDangoColors = new() { DangoColor.An, DangoColor.Beni, DangoColor.Mitarashi, DangoColor.Nori, DangoColor.Yuzu, DangoColor.Yomogi };
 
     protected override void Start()
     {
@@ -53,7 +53,7 @@ public class Stage002Data : StageData
                 8, 9),
 
             //D5上昇
-            questManager.Creater.CreateQuestCreateRole(8, new QuestCreateRole.EstablishRole(true,false,DangoColor.Shiratama), 2, 0, "しらたま団子を含んで団結を2回作れ", 30f, true, false,new(
+            questManager.Creater.CreateQuestCreateRole(8, new QuestCreateRole.EstablishRole(true,false,DangoColor.Yuzu), 2, 0, "しらたま団子を含んで団結を2回作れ", 30f, true, false,new(
                 new PortraitTextData.PTextData(0, "真珠のように輝いてるぜ、食べちまうのが勿体ねぇなぁ", 5f, PortraitTextData.FacePatturn.Normal)),
                 10),
             questManager.Creater.CreateQuestCreateRole(9, new QuestCreateRole.EstablishRole(true,false,DangoColor.Yomogi), 2, 0, "緑色の団子を含んで団結を2回作れ", 30f, true, false,new(

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Stage003Data : StageData
 {
-    static readonly List<DangoColor> stageDangoColors = new() { DangoColor.An, DangoColor.Beni, DangoColor.Mitarashi, DangoColor.Nori, DangoColor.Shiratama, DangoColor.Yomogi };
+    static readonly List<DangoColor> stageDangoColors = new() { DangoColor.An, DangoColor.Beni, DangoColor.Mitarashi, DangoColor.Nori, DangoColor.Yuzu, DangoColor.Yomogi };
 
     protected override void Start()
     {
