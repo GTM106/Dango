@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Dango.Quest.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,17 +9,20 @@ using UnityEngine;
 public class IngameUIManager : MonoBehaviour
 {
     [SerializeField] CanvasGroup[] _canvasGroups;
-    [SerializeField] TextUIData[] _textUIDatas;
+    [SerializeField] ImageUIData[] _imageUIDatas;
 
     bool _duringEndProduction = false;
+
+    const float FADETIME = 0.1f;
+    const float WAITTIME = 0.6f;
 
     public bool DuringEndProduction => _duringEndProduction;
 
     private void Start()
     {
-        foreach (var text in _textUIDatas)
+        foreach (var image in _imageUIDatas)
         {
-            text.TextData.SetAlpha(0);
+            image.ImageData.SetAlpha(0);
         }
     }
 
@@ -43,16 +47,9 @@ public class IngameUIManager : MonoBehaviour
 
     public async UniTask TextAnimation()
     {
-        float time = 0;
-
-        while (time < 2.4f)
-        {
-            await UniTask.Yield();
-            time += Time.deltaTime;
-
-            int index = (int)(Mathf.Min(time, 2.3999f) / 0.6f);
-            _textUIDatas[index].TextData.SetFontSize(200 - 50 * (time % 0.6f));
-            _textUIDatas[index].TextData.Fadein(0.1f).Forget();
-        }
+        await _imageUIDatas[0].ImageData.Fadein(FADETIME, WAITTIME);
+        await _imageUIDatas[1].ImageData.Fadein(FADETIME, WAITTIME);
+        await _imageUIDatas[2].ImageData.Fadein(FADETIME, WAITTIME);
+        await _imageUIDatas[3].ImageData.Fadein(FADETIME, WAITTIME);
     }
 }
