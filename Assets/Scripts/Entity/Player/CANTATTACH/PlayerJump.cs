@@ -55,7 +55,6 @@ namespace TM.Entity.Player
             if (PlayerData.Event) return;
 
             //SEÇÃçƒê∂
-            SoundManager.Instance.PlaySE(UnityEngine.Random.Range((int)SoundSource.VOISE_PRINCE_JUMP01, (int)SoundSource.VOISE_PRINCE_JUMP02 + 1));
             SoundManager.Instance.PlaySE(SoundSource.SE8_JUMP);
             SoundManager.Instance.PlaySE(SoundSource.SE19_JUMPCHARGE_START);
             SoundManager.Instance.PlaySE(SoundSource.SE20_JUMPCHARGE_LOOP);

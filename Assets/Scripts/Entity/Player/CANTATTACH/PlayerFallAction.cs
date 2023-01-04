@@ -59,7 +59,6 @@ namespace TM.Entity.Player
             }
 
             //SEÄ¶
-            SoundManager.Instance.PlaySE(_rand.Next((int)SoundSource.VOISE_PRINCE_FALL01, (int)SoundSource.VOISE_PRINCE_FALL02 + 1));
             SoundManager.Instance.PlaySE(SoundSource.SE10_FALLACTION);
 
             //—‰ºh‚µˆ—(¿—Ê–³‹‚Å—Í‚ğ‰Á‚¦‚é)

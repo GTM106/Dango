@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166783ef09795424bbc40f413ef598ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugScenes: 19
+  debugScenes: 9
   _sceneRoots:
   - {fileID: 2063848576987206517, guid: 5e7a613d8ec67fe4cb6e39d2de87e6e2, type: 3}
   - {fileID: 8693119132892727486, guid: 9b56b260c3d5172419c80ca4de64ccc5, type: 3}
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1266d3b2d8adc0749a78c1bbd43cca03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugSoundSource: 0
+  _debugSoundSource: 29
   _BGMLoop: {fileID: 482151974}
   _BGMIntro: {fileID: 2112573776}
   _SEPrefab: {fileID: 3666380681918514816, guid: b87469c47a09e064c88f1afac9ad82f2,
@@ -817,9 +817,7 @@ MonoBehaviour:
   BGMClip:
   - {fileID: 8300000, guid: 60d756e028f224e4f928980b8cea60a4, type: 3}
   - {fileID: 8300000, guid: e2fb8be2c8678cc4090a4e9c8f022045, type: 3}
-  - {fileID: 8300000, guid: e2fb8be2c8678cc4090a4e9c8f022045, type: 3}
-  - {fileID: 8300000, guid: e2fb8be2c8678cc4090a4e9c8f022045, type: 3}
-  - {fileID: 8300000, guid: e2fb8be2c8678cc4090a4e9c8f022045, type: 3}
+  - {fileID: 8300000, guid: bdd30680bc32dec45a0797a3674cd11c, type: 3}
   - {fileID: 8300000, guid: e9424bdd139c5cf4cb5659f317a75f9d, type: 3}
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
@@ -847,18 +845,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
-  - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
+  - {fileID: 8300000, guid: e69132fbc78bfbc4a9081d5848a91c96, type: 3}
   _audioMixer: {fileID: 24100000, guid: 86efab4fcdca0c74fb242dd7926f8cc6, type: 2}
 --- !u!114 &1271659320
 MonoBehaviour:
