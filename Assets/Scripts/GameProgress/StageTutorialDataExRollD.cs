@@ -12,7 +12,7 @@ public class StageTutorialDataExRollD: StageData
     {
         base.Start();
         SoundManager.Instance.StopBGM();
-        SoundManager.Instance.PlayBGM(SoundSource.BGM1E_TUTORIAL);
+        SoundManager.Instance.PlayBGM(SoundSource.BGM1C_TUTORIAL);
     }
 
     protected override void AddQuest()

@@ -344,6 +344,12 @@ MonoBehaviour:
   - {fileID: 1542934558795306056}
   - {fileID: 8272489147985157152}
   - {fileID: 2885566259480157988}
+  _playerBGMChanger:
+    _timeToChangeBGM: 30
+    _coolTimeToStartPinchBGM: 0.1
+    _fadeoutTimeForPinchBGM: 0.1
+    _coolTimeToStartNormalBGM: 0.3
+    _fadeinTimeForNormalBGM: 0.1
   _allowReducedTimeLimit: 0
   _currentStabCount: 3
 --- !u!54 &6013245353808961043

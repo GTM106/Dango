@@ -14,10 +14,8 @@ public enum SoundSource
     //BGM
     BGM1A_STAGE1_Intro,
     BGM1A_STAGE1_Loop,
-    BGM1B_STAGE2,
-    BGM1C_STAGE3,
-    BGM1D_STAGE4,
-    BGM1E_TUTORIAL,
+    BGM1B_STAGE1_PINCHBGM,
+    BGM1C_TUTORIAL,
     BGM2_GAMEOVER,
     BGM3_SUCCEED,
     BGM4_TITLE,
@@ -45,20 +43,7 @@ public enum SoundSource
     SE18_INVALID_OPERATION,
     SE19_JUMPCHARGE_START,
     SE20_JUMPCHARGE_LOOP,
-
-    //VOISE
-    VOISE_PRINCE_ATTACK01,
-    VOISE_PRINCE_ATTACK02,
-    VOISE_PRINCE_JUMP01,
-    VOISE_PRINCE_JUMP02,
-    VOISE_PRINCE_FALL01,
-    VOISE_PRINCE_FALL02,
-    VOISE_PRINCE_STAYEAT01,
-    VOISE_PRINCE_STAYEAT02,
-    VOISE_PRINCE_CREATEROLE01,
-    VOISE_PRINCE_CREATEROLE02,
-    VOISE_PRINCE_NOROLE01,
-    VOISE_PRINCE_NOROLE02,
+    SE21_PINCHSE,
 }
 
 #if UNITY_EDITOR
@@ -106,6 +91,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     const float DEFAULT_BGM_VOLUME = 1f;
     const float DEFAULT_SE_VOLUME = 1f;
+
+    public float BGMLoopTime => _BGMLoop.time;
 
     private void Awake()
     {
@@ -155,9 +142,10 @@ public class SoundManager : MonoBehaviour
     /// BGMÇÇ©ÇØÇ‹Ç∑ÅB
     /// </summary>
     /// <param name="sound">Ç©ÇØÇΩÇ¢BGM</param>
-    public void PlayBGM(SoundSource sound)
+    public void PlayBGM(SoundSource sound, float time = 0)
     {
         ChangeBGM(_BGMLoop, sound);
+        _BGMLoop.time = time;
         _BGMLoop.Play();
     }
 
@@ -169,10 +157,11 @@ public class SoundManager : MonoBehaviour
         _BGMLoop.PlayScheduled(AudioSettings.dspTime + ((float)_BGMIntro.clip.samples / (float)_BGMIntro.clip.frequency));
     }
 
-    public void PlayBGM(SoundSource sound, float fadeTime, float volume = DEFAULT_BGM_VOLUME)
+    public void PlayBGM(SoundSource sound, float fadeTime, float time = 0, float volume = DEFAULT_BGM_VOLUME)
     {
         ChangeBGM(_BGMLoop, sound);
         _BGMLoop.volume = 0;
+        _BGMLoop.time = time;
         _BGMLoop.Play();
         BGMFadein(fadeTime, volume).Forget();
     }

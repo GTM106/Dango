@@ -215,7 +215,6 @@ public class PlayerData : MonoBehaviour
             parent._playerStayEat.ResetCount();
             parent._playerUIManager.StartDangoHighlight();
 
-            SoundManager.Instance.PlaySE(Random.Range((int)SoundSource.VOISE_PRINCE_STAYEAT01, (int)SoundSource.VOISE_PRINCE_STAYEAT02 + 1));
             SoundManager.Instance.PlaySE(SoundSource.SE5_PLAYER_STAY_EATDANGO);
 
             parent._animationManager.ChangeAnimationEnforcement(AnimationManager.E_Animation.An4A_EatCharge, 0.1f);
@@ -507,6 +506,8 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
 
+    [SerializeField] PlayerBGMChanger _playerBGMChanger = default!;
+
     [SerializeField] bool _allowReducedTimeLimit = true;
 
     const float DEFAULT_CAMERA_VIEW = 40f;
@@ -627,6 +628,8 @@ public class PlayerData : MonoBehaviour
     {
         FixedUpdateState();
         _playerAttack.FixedUpdate(transform);
+
+        _playerBGMChanger.PinchBGMChanger(_satiety);
     }
 
     private void OnDestroy()

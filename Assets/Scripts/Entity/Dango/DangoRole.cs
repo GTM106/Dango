@@ -147,8 +147,6 @@ class DangoRole
         //その他役の判定
         if (enableRole)
         {
-            SoundManager.Instance.PlaySE(rand.Next((int)SoundSource.VOISE_PRINCE_CREATEROLE01, (int)SoundSource.VOISE_PRINCE_CREATEROLE02 + 1));
-
             //IncludeColor系クエストのチェック
             QuestManager.Instance.SucceedChecker.CheckQuestCreateRoleSucceedIr(dangos);
 
@@ -157,8 +155,6 @@ class DangoRole
         }
         else
         {
-            SoundManager.Instance.PlaySE(rand.Next((int)SoundSource.VOISE_PRINCE_NOROLE01, (int)SoundSource.VOISE_PRINCE_NOROLE02 + 1));
-
             //EatDangoに分類される大半のクエストのチェック。役なしを数える数えない問題のために上記のチェッカーと分けています
             QuestManager.Instance.SucceedChecker.CheckQuestEatDangoSucceed(QuestManager.Instance, dangos, false);
         }
