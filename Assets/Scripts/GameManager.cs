@@ -58,7 +58,7 @@ internal class GameManager : MonoBehaviour
             if (parent._playerData != null)
             {
                 if (parent._playerData.GetSatiety() <= 0) return IState.E_State.GameOver;
-                if (parent._gameSucceed&&PlayerData.IsClear) return IState.E_State.Succeed;
+                if (parent._gameSucceed && PlayerData.IsClear) return IState.E_State.Succeed;
             }
 
             return IState.E_State.Unchanged;
@@ -179,10 +179,10 @@ internal class GameManager : MonoBehaviour
         SceneSystem.Scenes nextScene = SceneSystem.Scenes.Success;
 
         //チュートリアルをクリアした際は別処理
-        if (SceneSystem.Instance.CurrentIngameScene == SceneSystem.Scenes.Tutorial)
+        if (SceneSystem.Instance.CurrentIngameScene is >= SceneSystem.Scenes.Tutorial1 and <= SceneSystem.Scenes.Tutorial8)
         {
             //セーブデータにチュートリアルをクリアしたことを記録
-            DataManager.saveData.completedTutorial = true;
+            DataManager.saveData.tutorialStatusBit |= 1 >> (SceneSystem.Instance.CurrentIngameScene - SceneSystem.Scenes.Tutorial1);
 
             Logger.Assert(_fusumaManager != null);
 
@@ -192,7 +192,7 @@ internal class GameManager : MonoBehaviour
             InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
 
             //クリア画面には移行せず、メニューに戻る
-            nextScene = SceneSystem.Scenes.Menu;
+            nextScene = SceneSystem.Scenes.TutorialHub;
         }
 
         SceneSystem.Instance.Load(nextScene);
