@@ -18,6 +18,7 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] ImageUIData _stageImageUpdate = default!;
     [SerializeField] Image[] guids;
     [SerializeField] TextUIData _explanationText = default!;
+    [SerializeField] ImageUIData _startGuideA;
 
     //アンロック演出
     [SerializeField] Canvas _unlockCanvas;
@@ -138,10 +139,15 @@ public class StageSelectManager : MonoBehaviour
         //スライド演出待ち
         await WaitForUpdateSprite(offset);
 
-       //南京錠をフェードアウト
+        //南京錠をフェードアウト
         _padlockImage.ImageData.SetImageEnabled(true);
         _padlockImage.ImageData.SetAlpha(1f);
         _padlockImage.ImageData.Fadeout(DIRECTION_TIME, waitTime).Forget();
+
+        //さらにスタートガイドをフェードイン
+        _startGuideA.ImageData.SetImageEnabled(true);
+        _startGuideA.ImageData.SetAlpha(0);
+        _startGuideA.ImageData.Fadein(DIRECTION_TIME, waitTime).Forget();
 
         //同時に正常な画像をフェードイン
         _stageUnlockImage.ImageData.SetSprite(_stageSprites[(int)_currentStage]);
@@ -176,7 +182,7 @@ public class StageSelectManager : MonoBehaviour
         UpdateExplanationText();
 
         //スクロール演出を待機
-        while (!_isChange) await UniTask.Yield();
+        while (_isChange) await UniTask.Yield();
     }
 
     private bool CheckUnlockDirection()
@@ -269,6 +275,7 @@ public class StageSelectManager : MonoBehaviour
         Sprite[] sprites = isRelease ? _stageSprites : _lockedStageSprites;
 
         _padlockImage.ImageData.SetImageEnabled(!isRelease);
+        _startGuideA.ImageData.SetImageEnabled(isRelease);
 
         data.ImageData.SetSprite(sprites[(int)_currentStage]);
     }
