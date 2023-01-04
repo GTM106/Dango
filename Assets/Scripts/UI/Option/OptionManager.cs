@@ -24,20 +24,10 @@ public class OptionManager : MonoBehaviour
     [SerializeField] SoundSettingManager _soundSettingManager = default!;
     [SerializeField] OtherSettingsManager _otherSettingsManager = default!;
 
-    //現在未使用
-    [SerializeField] Canvas _canvas = default!;
+    [SerializeField] ImageUIData[] _optionImages;
+    [SerializeField] ImageUIData[] _LRGuide;
 
-    [SerializeField] TextUIData[] _optionTexts;
     [SerializeField] FusumaManager _fusumaManager;
-
-    [SerializeField] Image _methodOfOperation = default!;
-    [SerializeField] Sprite[] _methodOfOperationSprites;
-
-    /// <summary>
-    /// 静的に取得出来るオプションキャンバス
-    /// </summary>
-    /// 単一シーンで実装するため、各画面間のやりとりの際に使用する静的なものです。
-    public static Canvas OptionCanvas { get; private set; }
 
     //次に以降するオプション地点
     OptionChoices _currentChoice = OptionChoices.KeyConfig;
@@ -52,10 +42,9 @@ public class OptionManager : MonoBehaviour
 
     private void Awake()
     {
-        OptionCanvas = _canvas;
-
         EnterNextChoice();
-        SetFontSize();
+        SetOptionSelectColor();
+        SetLRGuideColor();
     }
 
     private async void Start()
@@ -107,7 +96,8 @@ public class OptionManager : MonoBehaviour
         if (!Choice(axis, ref _currentChoice, OptionChoices.Max, canMoveTopToBottom, direction)) return;
 
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
-        SetFontSize();
+        SetOptionSelectColor();
+        SetLRGuideColor();
         EnterNextChoice();
     }
 
@@ -117,31 +107,26 @@ public class OptionManager : MonoBehaviour
         _soundSettingManager.SetCanvasEnable(_currentChoice == OptionChoices.Sound);
         _operationManager.SetCanvasEnable(_currentChoice == OptionChoices.Operation);
         _otherSettingsManager.SetCanvasEnable(_currentChoice == OptionChoices.Other);
-
-        ChangeMethodOfOperation();
     }
 
-    private void ChangeMethodOfOperation()
+    private void SetOptionSelectColor()
     {
-        //右下の表示（U65）の初期設定
-        if (_methodOfOperationSprites.Length != 3) return;
-        _methodOfOperation.sprite = _currentChoice switch
+        for (int i = 0; i < _optionImages.Length; i++)
         {
-            OptionChoices.KeyConfig => _methodOfOperationSprites[0],
-            OptionChoices.Operation => _methodOfOperationSprites[1],
-            OptionChoices.Sound => _methodOfOperationSprites[2],
-            OptionChoices.Other => _methodOfOperationSprites[0],
-            _ => throw new System.NotImplementedException(),
-        };
-    }
+            Color color = (int)_currentChoice == i ? Color.white : Color.gray;
 
-    private void SetFontSize()
-    {
-        for (int i = 0; i < _optionTexts.Length; i++)
-        {
-            float size = (int)_currentChoice == i ? 65f : 55.5f;
-
-            _optionTexts[i].TextData.SetFontSize(size);
+            _optionImages[i].ImageData.SetColor(color);
         }
+    }
+
+    private void SetLRGuideColor()
+    {
+        foreach (var image in _LRGuide)
+        {
+            image.ImageData.SetColor(Color.white);
+        }
+
+        if (_currentChoice == 0) _LRGuide[0].ImageData.SetColor(Color.gray);
+        else if (_currentChoice == OptionChoices.Max - 1) _LRGuide[1].ImageData.SetColor(Color.gray);
     }
 }

@@ -25,8 +25,9 @@ public class OperationManager : MonoBehaviour
     [SerializeField] ImageUIData _cameraSensitivityYImage;
     [SerializeField] List<Sprite> _scaleSprites;
 
-    [SerializeField] Image _methodOfOperation = default!;
-    [SerializeField] Sprite[] _methodOfOperationSprites;
+    [SerializeField] Image _inversionV;
+    [SerializeField] Image _inversionH;
+    [SerializeField] List<Sprite> _yesNoSprite;
 
     OperationChoices _choice = OperationChoices.CameraSensitivityYAxis;
 
@@ -37,6 +38,9 @@ public class OperationManager : MonoBehaviour
     {
         _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedXAxis / 10 - 1]);
         _cameraSensitivityYImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedYAxis / 10 - 1]);
+
+        _inversionH.sprite = _yesNoSprite[DataManager.configData.cameraInvertYAxis ? 0 : 1];
+        _inversionV.sprite = _yesNoSprite[DataManager.configData.cameraInvertXAxis ? 0 : 1];
     }
 
     public void AfterFusumaOpen()
@@ -95,35 +99,24 @@ public class OperationManager : MonoBehaviour
     {
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, OperationChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        SetMethodOfOperation();
-        _images[(int)_choice + (int)axis.y].color = new Color32(176, 176, 176, 255);
+        _images[(int)_choice + (int)axis.y].color = Color.white;
         _images[(int)_choice].color = Color.red;
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
-    }
-
-    private void SetMethodOfOperation()
-    {
-        if (_methodOfOperationSprites.Length != 3) return;
-
-        _methodOfOperation.sprite = _choice switch
-        {
-            OperationChoices.CameraSensitivityYAxis => _methodOfOperationSprites[2],
-            OperationChoices.CameraSensitivityXAxis => _methodOfOperationSprites[2],
-            OperationChoices.CameraReversalV => _methodOfOperationSprites[1],
-            OperationChoices.CameraReversalH => _methodOfOperationSprites[1],
-            _ => throw new System.NotImplementedException(),
-        };
     }
 
     private void CameraReversalV()
     {
         DataManager.configData.cameraInvertYAxis ^= true;
+        _inversionH.sprite = _yesNoSprite[DataManager.configData.cameraInvertYAxis ? 0 : 1];
+
         Logger.Log(DataManager.configData.cameraInvertYAxis);
     }
 
     private void CameraReversalH()
     {
         DataManager.configData.cameraInvertXAxis ^= true;
+        _inversionV.sprite = _yesNoSprite[DataManager.configData.cameraInvertXAxis ? 0 : 1];
+
         Logger.Log(DataManager.configData.cameraInvertXAxis);
     }
 

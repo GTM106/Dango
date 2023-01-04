@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TM.Input.KeyConfig
 {
@@ -8,7 +9,7 @@ namespace TM.Input.KeyConfig
     {
         [SerializeField] ImageUIData[] images;
         [SerializeField] TextUIData[] texts;
-        [SerializeField] TextUIData selectName = default!;
+        [SerializeField] ImageUIData selectImage = default!;
         [SerializeField] KeyConfigManager keyConfigManager = default!;
         [SerializeField] Canvas _canvas = default!;
         [SerializeField] RectTransform popup = default!;
@@ -84,7 +85,6 @@ namespace TM.Input.KeyConfig
             {
                 t.TextData.SetText();
             }
-            selectName.TextData.SetText();
             _actionDatas.Clear();
         }
 
@@ -101,7 +101,7 @@ namespace TM.Input.KeyConfig
                 num++;
             }
 
-            selectName.TextData.SetText(keyConfigManager.Data.name);
+            selectImage.ImageData.SetSprite(keyConfigManager.Data.GetComponentInChildren<Image>().sprite);
         }
 
         public void OnCanvasEnabled()
