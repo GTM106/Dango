@@ -201,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316254591048215715}
-  m_LocalRotation: {x: 0.18480615, y: 0.000000008455, z: -0.0000000015899227, w: 0.98277503}
+  m_LocalRotation: {x: 0.18480618, y: 1e-45, z: -0, w: 0.982775}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -279,7 +279,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2698800882307031975}
-  m_LocalRotation: {x: 0.03298094, y: -0.000000017330848, z: 5.718988e-10, w: 0.999456}
+  m_LocalRotation: {x: 0.032980964, y: 0.000000017330848, z: -5.718992e-10, w: 0.999456}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -484,7 +484,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2944735453400811961}
-  m_LocalRotation: {x: 0.06926437, y: -1.9055681e-15, z: 2.9041245e-16, w: 0.99759835}
+  m_LocalRotation: {x: 0.06926439, y: 1e-45, z: -0, w: 0.99759835}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -565,7 +565,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4903023480322610912}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: -7.31}
+  m_LocalPosition: {x: 0, y: 2.5, z: -7.3099976}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -957,6 +957,11 @@ PrefabInstance:
       propertyPath: _cameraTransform
       value: 
       objectReference: {fileID: 1061649141369810904}
+    - target: {fileID: 3952613918130635534, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
+        type: 3}
+      propertyPath: _allowReducedTimeLimit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4949754110901319488, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
         type: 3}
       propertyPath: MainCam
@@ -1007,7 +1012,7 @@ PrefabInstance:
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.31
+      value: -7.3099976
       objectReference: {fileID: 0}
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}
@@ -1017,17 +1022,17 @@ PrefabInstance:
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06926439
+      value: 0.06926438
       objectReference: {fileID: 0}
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000030645754
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000021277697
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1266330572475704520, guid: 306f682e3da8cda4d83aef30600b2d8a,
         type: 3}

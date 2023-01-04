@@ -101,4 +101,6 @@ public class DangoUIScript : MonoBehaviour
         if (reachObjs.activeSelf)
             reachObjs.SetActive(false);
     }
+
+    public Image[] GetDangos() => DangoImagObjs;
 }

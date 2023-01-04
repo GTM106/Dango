@@ -15,6 +15,7 @@ public class QuestExpansionUIManager : MonoBehaviour
 
     [SerializeField] Canvas _canvas;
 
+    [SerializeField] QuestBlockScript[] _currentQuestBlockScripts;
     private void Start()
     {
         SetCanvasEnable(false);
@@ -45,6 +46,8 @@ public class QuestExpansionUIManager : MonoBehaviour
                 _currentQuests[1].gameObject.SetActive(false);
 
                 _currentQuests[0].ImageData.SetPositionY(0);
+
+                _currentQuestBlockScripts[0].changeSprite(QuestManager.Instance.GetQuest(0));
             }
             else
             {
@@ -53,6 +56,10 @@ public class QuestExpansionUIManager : MonoBehaviour
 
                 _currentQuests[0].ImageData.SetPositionY(-60f);
                 _currentQuests[1].ImageData.SetPositionY(60f);
+
+                _currentQuestBlockScripts[0].changeSprite(QuestManager.Instance.GetQuest(0));
+                _currentQuestBlockScripts[1].changeSprite(QuestManager.Instance.GetQuest(1));
+
             }
         }
         catch (NullReferenceException)
