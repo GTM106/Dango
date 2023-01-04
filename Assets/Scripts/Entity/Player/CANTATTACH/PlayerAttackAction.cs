@@ -55,10 +55,13 @@ namespace TM.Entity.Player
             {
                 Vector3 vec = _targetDangoList[i].transform.position - transform.position;
 
-                //レイを飛ばして、間に壁があるか判定
-                if (Physics.Raycast(transform.position, vec, out RaycastHit hit, vec.magnitude, ~1 << LayerMask.NameToLayer("MapCollider")))
+                //階層が違う団子は弾く
+                if (vec.y < -1f) continue;
+
+                //レイを飛ばして、間に壁があるか判定。当たったデータは使わないため棄却しています。
+                if (Physics.Raycast(transform.position, vec, out _, vec.magnitude, 1 << LayerMask.NameToLayer("Map")))
                 {
-                    if (hit.collider.GetComponent<DangoData>() == null) continue;
+                    continue;
                 }
 
                 float targetAngle = Vector3.Angle(transform.forward, vec);
