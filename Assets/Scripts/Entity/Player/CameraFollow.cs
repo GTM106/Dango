@@ -31,7 +31,7 @@ public class CameraFollow : MonoBehaviour
 
     private PlayerData _playerData;
 
-    private float _roteYSpeed = -100f;
+    //private float _roteYSpeed = -100f;
 
     private Vector3 rayStartPos;
 
@@ -148,14 +148,14 @@ public class CameraFollow : MonoBehaviour
 
     private void Rote(GameObject obj, float a)
     {
-        //ƒJƒƒ‰‚ðroteAxis.x‚É‡‚í‚¹‚Ä‰ñ“]‚³‚¹‚éB
-        obj.transform.RotateAround(target.position, Vector3.up, InputSystemManager.Instance.LookAxis.x * (DataManager.configData.cameraVerticalOrientation ? -1 : 1) * DataManager.configData.cameraRotationSpeed / 100f * Time.deltaTime);
+        ////ƒJƒƒ‰‚ðroteAxis.x‚É‡‚í‚¹‚Ä‰ñ“]‚³‚¹‚éB
+        //obj.transform.RotateAround(target.position, Vector3.up, InputSystemManager.Instance.LookAxis.x * (DataManager.configData.cameraInvertYAxis ? -1 : 1) * DataManager.configData.cameraRotationSpeed / 100f * Time.deltaTime);
 
-        //cŽ²‚Ì§ŒÀ
-        if ((a >= MinAngle && InputSystemManager.Instance.LookAxis.y > 0) || (a <= MaxAngle && InputSystemManager.Instance.LookAxis.y < 0))
-        {
-            obj.transform.RotateAround(target.position, obj.transform.right, InputSystemManager.Instance.LookAxis.y * (DataManager.configData.cameraRotationSpeed / 100f) * Time.deltaTime * _roteYSpeed);
-        }
+        ////cŽ²‚Ì§ŒÀ
+        //if ((a >= MinAngle && InputSystemManager.Instance.LookAxis.y > 0) || (a <= MaxAngle && InputSystemManager.Instance.LookAxis.y < 0))
+        //{
+        //    obj.transform.RotateAround(target.position, obj.transform.right, InputSystemManager.Instance.LookAxis.y * (DataManager.configData.cameraRotationSpeed / 100f) * Time.deltaTime * _roteYSpeed);
+        //}
     }
 
     private bool WallHitCheck()

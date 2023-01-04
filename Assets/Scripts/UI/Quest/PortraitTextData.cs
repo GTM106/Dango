@@ -7,8 +7,9 @@ public class PortraitTextData
     public enum FacePatturn
     {
         Normal,
-
-
+        Fun,
+        Happy,
+        Perplexed,
     }
 
     public struct PTextData

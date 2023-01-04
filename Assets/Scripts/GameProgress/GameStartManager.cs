@@ -7,9 +7,9 @@ public class GameStartManager : MonoBehaviour
     [SerializeField] FadeManager _fadeManager = default!;
     [SerializeField] bool cursor = false;
 
-    private void Awake()
+    private void Start()
     {
-        if (_fadeManager != null) _fadeManager.StartFade(TM.Easing.EaseType.Linear, FadeStyle.Fadeout, 5f);
+        if (_fadeManager != null) _fadeManager.StartFade(FadeStyle.Fadeout, 5f);
     }
 
     private void Update()

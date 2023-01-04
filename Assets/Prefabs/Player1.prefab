@@ -265,7 +265,7 @@ MonoBehaviour:
   - {fileID: 5547320479219590247, guid: ebca6ebb02201ef40a7550ecf52cee11, type: 3}
   - {fileID: 6788486569033950631, guid: 5be3bdce184cddf4295f1d44645ebae3, type: 3}
   - {fileID: 8893361853225958713, guid: 4dbc8f06240710448afd50059c680dd2, type: 3}
-  - {fileID: 3585271020053658026, guid: 4c0a8c2149db5d0488b463f921547054, type: 3}
+  - {fileID: 1590943129177852717, guid: 9c91227e926b20947943488cc2f8676c, type: 3}
   - {fileID: 2647380038556009497, guid: e31d1bbb2153f124398b0ad398e597d7, type: 3}
 --- !u!1 &3952613918130635532
 GameObject:
@@ -344,6 +344,12 @@ MonoBehaviour:
   - {fileID: 1542934558795306056}
   - {fileID: 8272489147985157152}
   - {fileID: 2885566259480157988}
+  _playerBGMChanger:
+    _timeToChangeBGM: 30
+    _coolTimeToStartPinchBGM: 0.1
+    _fadeoutTimeForPinchBGM: 0.1
+    _coolTimeToStartNormalBGM: 0.3
+    _fadeinTimeForNormalBGM: 0.1
   _allowReducedTimeLimit: 0
   _currentStabCount: 3
 --- !u!54 &6013245353808961043
@@ -827,7 +833,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c061d6c1cae333a44af8bdfb45e4ff1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeUI: {fileID: 3749407156380008204}
+  _rangeUI: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!1 &6327859204016997052
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public enum Stage
     Stage1,
     Stage2,
     Stage3,
-    Stage4,
 
     Tutorial,
 }
@@ -24,6 +23,7 @@ public class StageData : MonoBehaviour
 {
     [SerializeField] Stage _stage;
     [SerializeField] PortraitScript _portraitScript;
+    [SerializeField] TutorialPortraitManager _tutorialPortraitScript;
     [SerializeField] FusumaManager _fusumaManager;
 
     public bool IsRelease => DataManager.saveData.stagesStatus[(int)_stage] == (int)StageStatus.Unlock;
@@ -41,7 +41,10 @@ public class StageData : MonoBehaviour
 
     protected virtual void Start()
     {
-        _portraitScript.ChangePortraitText(StartPortraitText()).Forget();
+        IChangePortrait portrait = _portraitScript;
+        if (portrait == null) portrait = _tutorialPortraitScript;
+
+        portrait.ChangePortraitText(StartPortraitText()).Forget();
         AddQuest();
     }
 
@@ -67,6 +70,9 @@ public class StageData : MonoBehaviour
 
     protected void Release(Stage stage)
     {
+        //既にリリースされているステージには行わない
+        if (DataManager.saveData.stagesStatus[(int)stage] != (int)StageStatus.Lock) return;
+
         DataManager.saveData.stagesStatus[(int)stage] = (int)StageStatus.StandbyForDirection;
     }
 

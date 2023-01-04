@@ -14,10 +14,8 @@ public enum SoundSource
     //BGM
     BGM1A_STAGE1_Intro,
     BGM1A_STAGE1_Loop,
-    BGM1B_STAGE2,
-    BGM1C_STAGE3,
-    BGM1D_STAGE4,
-    BGM1E_TUTORIAL,
+    BGM1B_STAGE1_PINCHBGM,
+    BGM1C_TUTORIAL,
     BGM2_GAMEOVER,
     BGM3_SUCCEED,
     BGM4_TITLE,
@@ -45,20 +43,7 @@ public enum SoundSource
     SE18_INVALID_OPERATION,
     SE19_JUMPCHARGE_START,
     SE20_JUMPCHARGE_LOOP,
-
-    //VOISE
-    VOISE_PRINCE_ATTACK01,
-    VOISE_PRINCE_ATTACK02,
-    VOISE_PRINCE_JUMP01,
-    VOISE_PRINCE_JUMP02,
-    VOISE_PRINCE_FALL01,
-    VOISE_PRINCE_FALL02,
-    VOISE_PRINCE_STAYEAT01,
-    VOISE_PRINCE_STAYEAT02,
-    VOISE_PRINCE_CREATEROLE01,
-    VOISE_PRINCE_CREATEROLE02,
-    VOISE_PRINCE_NOROLE01,
-    VOISE_PRINCE_NOROLE02,
+    SE21_PINCHSE,
 }
 
 #if UNITY_EDITOR
@@ -105,6 +90,9 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioMixer _audioMixer;
     const float DEFAULT_BGM_VOLUME = 1f;
+    const float DEFAULT_SE_VOLUME = 1f;
+
+    public float BGMLoopTime => _BGMLoop.time;
 
     private void Awake()
     {
@@ -135,7 +123,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void ChangeBGM(AudioSource audioSource,SoundSource sound)
+    private void ChangeBGM(AudioSource audioSource, SoundSource sound)
     {
         int temp = 0;
         foreach (var bgm in BGMClip)
@@ -154,13 +142,14 @@ public class SoundManager : MonoBehaviour
     /// BGMをかけます。
     /// </summary>
     /// <param name="sound">かけたいBGM</param>
-    public void PlayBGM(SoundSource sound)
+    public void PlayBGM(SoundSource sound, float time = 0)
     {
-        ChangeBGM(_BGMLoop,sound);
+        ChangeBGM(_BGMLoop, sound);
+        _BGMLoop.time = time;
         _BGMLoop.Play();
     }
 
-    public void PlayBGM(SoundSource intro,SoundSource loop)
+    public void PlayBGM(SoundSource intro, SoundSource loop)
     {
         ChangeBGM(_BGMIntro, intro);
         _BGMIntro.PlayScheduled(AudioSettings.dspTime);
@@ -168,12 +157,13 @@ public class SoundManager : MonoBehaviour
         _BGMLoop.PlayScheduled(AudioSettings.dspTime + ((float)_BGMIntro.clip.samples / (float)_BGMIntro.clip.frequency));
     }
 
-    public void PlayBGM(SoundSource sound, float fadeTime, float volume = DEFAULT_BGM_VOLUME)
+    public void PlayBGM(SoundSource sound, float fadeTime, float time = 0, float volume = DEFAULT_BGM_VOLUME)
     {
         ChangeBGM(_BGMLoop, sound);
         _BGMLoop.volume = 0;
+        _BGMLoop.time = time;
         _BGMLoop.Play();
-        Fadein(fadeTime, volume).Forget();
+        BGMFadein(fadeTime, volume).Forget();
     }
 
     public void StopBGM()
@@ -183,13 +173,13 @@ public class SoundManager : MonoBehaviour
 
     public async void StopBGM(float fadeTime)
     {
-        await Fadeout(fadeTime);
+        await BGMFadeout(fadeTime);
 
         StopBGM();
         _BGMLoop.volume = DEFAULT_BGM_VOLUME;
     }
 
-    private async UniTask Fadein(float time, float volume)
+    private async UniTask BGMFadein(float time, float volume)
     {
         if (time <= 0) return;
 
@@ -201,10 +191,10 @@ public class SoundManager : MonoBehaviour
             await UniTask.Yield();
             fadeTime += Time.deltaTime;
 
-            _BGMLoop.volume = Mathf.Min(lastVolume * (fadeTime / time), lastVolume) * DataManager.configData.masterVolume * DataManager.configData.backGroundMusicVolume / 100 / 100;
+            _BGMLoop.volume = Mathf.Min(lastVolume * (fadeTime / time), lastVolume);
         }
     }
-    private async UniTask Fadeout(float time)
+    private async UniTask BGMFadeout(float time)
     {
         if (time <= 0) return;
 
@@ -241,7 +231,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="sound">再生したいSE</param>
     /// <param name="stopPrebSE">以前に再生している同じSEを停止させるか否か</param>    
-    public void PlaySE(int sound, bool stopPrebSE = false)
+    public void PlaySE(int sound, bool stopPrebSE = false, float fadeTime = 0, float endVolume = DEFAULT_SE_VOLUME)
     {
         if (stopPrebSE) StopSE(sound);
 
@@ -250,6 +240,7 @@ public class SoundManager : MonoBehaviour
             if (se.isPlaying) continue;
 
             ChangeSE(se, (SoundSource)sound);
+            SEFadein(se, fadeTime, endVolume).Forget();
             se.Play();
             return;
         }
@@ -261,20 +252,9 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="sound">再生したいSE</param>
     /// <param name="stopPrebSE">以前に再生している同じSEを停止させるか否か</param>    
-    public void PlaySE(SoundSource sound, bool stopPrebSE = false)
+    public void PlaySE(SoundSource sound, bool stopPrebSE = false, float fadeTime = 0, float endVolume = DEFAULT_SE_VOLUME)
     {
-        if (stopPrebSE) StopSE(sound);
-
-        foreach (var se in SEs)
-        {
-            if (se.isPlaying) continue;
-
-            ChangeSE(se, sound);
-            se.Play();
-            return;
-        }
-        //すべてのチャンネルが使用中ならここにくる
-        Logger.Warn("全SEチャンネルが使用中で" + sound + "が再生できませんでした");
+        PlaySE((int)sound, stopPrebSE, fadeTime, endVolume);
     }
 
     /// <summary>
@@ -293,18 +273,11 @@ public class SoundManager : MonoBehaviour
     /// 指定のSEをすべて停止させます
     /// </summary>
     /// <param name="sound"></param>
-    public void StopSE(SoundSource sound)
+    public void StopSE(SoundSource sound, float fadeTime = 0)
     {
-        foreach (AudioSource se in SEs)
-        {
-            if (!se.isPlaying) continue;
-            if (se.clip == null) continue;
-            if (SEClip[(int)sound - BGMClip.Length] != se.clip) continue;
-
-            se.Stop();
-        }
+        StopSE((int)sound, fadeTime);
     }
-    public void StopSE(int sound)
+    public async void StopSE(int sound, float fadeTime = 0)
     {
         foreach (AudioSource se in SEs)
         {
@@ -312,7 +285,42 @@ public class SoundManager : MonoBehaviour
             if (se.clip == null) continue;
             if (SEClip[sound - BGMClip.Length] != se.clip) continue;
 
+            await SEFadeout(se, fadeTime);
             se.Stop();
+        }
+    }
+
+    private async UniTask SEFadein(AudioSource source, float time, float volume)
+    {
+        if (time <= 0)
+        {
+            source.volume = volume;
+            return;
+        }
+        float fadeTime = 0;
+        float lastVolume = volume;
+
+        while (source.volume < lastVolume)
+        {
+            await UniTask.Yield();
+            fadeTime += Time.deltaTime;
+
+            source.volume = Mathf.Min(lastVolume * (fadeTime / time), lastVolume);
+        }
+    }
+    private async UniTask SEFadeout(AudioSource source, float time)
+    {
+        if (time <= 0) return;
+
+        float fadeTime = 0;
+        float firstVolume = _BGMLoop.volume;
+
+        while (source.volume > 0)
+        {
+            await UniTask.Yield();
+            fadeTime += Time.deltaTime;
+
+            source.volume = Mathf.Max(firstVolume * (1 - (fadeTime / time)), 0);
         }
     }
 

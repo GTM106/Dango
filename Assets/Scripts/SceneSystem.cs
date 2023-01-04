@@ -39,7 +39,15 @@ class SceneSystem : MonoBehaviour
     public enum Scenes
     {
         Title,
-        Tutorial,
+        TutorialHub,
+        Tutorial1,
+        Tutorial2,
+        Tutorial3,
+        Tutorial4,
+        Tutorial5,
+        Tutorial6,
+        Tutorial7,
+        Tutorial8,
         Menu,
         StageSelect,
         Stage1,
@@ -68,6 +76,8 @@ class SceneSystem : MonoBehaviour
     Scenes _currentScene;
     Scenes _currentIngameScene;
 
+    [SerializeField] ChangeLightmap _changeLightmap;
+
     [SerializeField] Scenes startScene;
 
     private void Awake()
@@ -87,6 +97,8 @@ class SceneSystem : MonoBehaviour
 
         _prebScene = _currentScene;
         _currentScene = scene;
+
+        ChangeLightmap(scene);
 
         if (_scenes[index] == null) _scenes[index] = Instantiate(_sceneRoots[index]);
         else _scenes[index].SetActive(true);
@@ -113,6 +125,18 @@ class SceneSystem : MonoBehaviour
         await UniTask.Yield();
 
         Load(scene);
+    }
+
+    private void ChangeLightmap(Scenes scene)
+    {
+        if (scene is >= Scenes.Stage1 and <= Scenes.Stage3)
+        {
+            _changeLightmap.StageLight();
+        }
+        else if (scene is >= Scenes.Tutorial1 and <= Scenes.Tutorial8)
+        {
+            _changeLightmap.TutorialLight();
+        }
     }
 
     public Scenes PrebScene => _prebScene;

@@ -1,12 +1,9 @@
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
-using System.Collections;
-using System.Collections.Generic;
-using TM.Easing.Management;
+using System.Threading;
 using TM.Easing;
+using TM.Easing.Management;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Animations;
 
 public class MenuManager : MonoBehaviour
 {
@@ -17,10 +14,15 @@ public class MenuManager : MonoBehaviour
         StageSelect,
         Option,
         Tutorial,
-        Ex,
         Quit,
 
         Max,
+    }
+
+    enum CharaFacePatturn
+    {
+        Normal,
+        Sad
     }
 
     [SerializeField] FusumaManager _fusumaManager;
@@ -40,6 +42,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] Canvas _quitCanvas;
     [SerializeField] Image[] quitImages;
 
+    [SerializeField] ImageUIData _chara;
+    [SerializeField] Sprite[] _charaSprite;
+
     Menu _currentMenu = Menu.StageSelect;
     bool _isTransition;
 
@@ -52,6 +57,14 @@ public class MenuManager : MonoBehaviour
     //const float WIDTH_MIN = 0f;
     const EaseType EASETYPE = EaseType.OutBack;
 
+    CancellationToken _cancellationToken;
+
+    bool _isCharaOut;
+    bool _isCharaIn;
+
+    const float CHARASTARTPOS = -500f;
+    const float CHARAOFFSET = 500f;
+
     private Menu CurrentMenu
     {
         get => _currentMenu;
@@ -62,20 +75,24 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        _cancellationToken = gameObject.GetCancellationTokenOnDestroy();
+    }
+
     private async void Start()
     {
-        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
-        InputSystemManager.Instance.onNavigatePerformed += QuitNavgate;
-        InputSystemManager.Instance.onChoicePerformed += OnChoice;
-        InputSystemManager.Instance.onBackPerformed += OnCancel;
-
         SetSelect();
 
         SetNoSelect(Menu.Option);
         SetNoSelect(Menu.Tutorial);
-        SetNoSelect(Menu.Ex);
 
         await _fusumaManager.UniTaskOpen(1f);
+
+        InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
+        InputSystemManager.Instance.onNavigatePerformed += QuitNavgate;
+        InputSystemManager.Instance.onChoicePerformed += OnChoice;
+        InputSystemManager.Instance.onBackPerformed += OnCancel;
 
         SoundManager.Instance.PlayBGM(SoundSource.BGM5_MENU);
     }
@@ -106,13 +123,6 @@ public class MenuManager : MonoBehaviour
 
     private async void OnChoice()
     {
-        //TODO:S10解放したら消す
-        if (CurrentMenu == Menu.Ex)
-        {
-            Logger.Log("メンテナンス中です");
-            return;
-        }
-
         if (_isTransition) return;
         _isTransition = true;
         SoundManager.Instance.PlaySE(SoundSource.SE17_UI_DECISION);
@@ -122,11 +132,17 @@ public class MenuManager : MonoBehaviour
         if (CurrentMenu == Menu.Quit && !isSelectedQuit)
         {
             SetQuitChoiceColor(isSelectedQuit);
-         
+
             _quitCanvas.enabled ^= true;
             _isTransition = false;
             return;
         }
+
+        //操作の受付を終了
+        InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
+        InputSystemManager.Instance.onNavigatePerformed -= QuitNavgate;
+        InputSystemManager.Instance.onChoicePerformed -= OnChoice;
+        InputSystemManager.Instance.onBackPerformed -= OnCancel;
 
         await _fusumaManager.UniTaskClose(1.5f);
 
@@ -137,9 +153,6 @@ public class MenuManager : MonoBehaviour
                 break;
             case Menu.Tutorial:
                 ToTutorial();
-                break;
-            case Menu.Ex:
-                ToEx();
                 break;
             case Menu.StageSelect:
                 ToStageSelect();
@@ -163,29 +176,87 @@ public class MenuManager : MonoBehaviour
         switch (CurrentMenu)
         {
             case Menu.Option:
-                //ここのカラー変更を選択画像に変更すればOK
+                CharaAnimationOut(_cancellationToken).Forget();
                 optionImage.sprite = optionSprites[1];
-                await Selecting(CurrentMenu, option, SELECTTIME);
+                await Selecting(_cancellationToken, CurrentMenu, option, SELECTTIME);
                 break;
             case Menu.Tutorial:
+                CharaAnimationOut(_cancellationToken).Forget();
                 tutorialImage.sprite = tutorialSprites[1];
-                await Selecting(CurrentMenu, tutorial, SELECTTIME);
-                break;
-            case Menu.Ex:
-                exImage.sprite = exSprites[1];
-                await Selecting(CurrentMenu, ex, SELECTTIME);
+                await Selecting(_cancellationToken, CurrentMenu, tutorial, SELECTTIME);
                 break;
             case Menu.StageSelect:
+                CharaAnimationIn(_cancellationToken, CharaFacePatturn.Normal).Forget();
                 dandou.sprite = dandouSprites[1];
                 break;
             case Menu.Quit:
+                CharaAnimationIn(_cancellationToken, CharaFacePatturn.Sad).Forget();
                 quitImage.color = Color.red;
                 break;
         }
     }
 
-    private async UniTask Selecting(Menu menu, RectTransform rect, float time, float waitTime = 0)
+    private async UniTask CharaAnimationIn(CancellationToken token, CharaFacePatturn patturn)
     {
+        token.ThrowIfCancellationRequested();
+
+        _chara.ImageData.SetSprite(_charaSprite[(int)patturn]);
+
+        if (_isCharaIn) return;
+
+        float currentTime = 0;
+        float animationTime = 1f;
+
+        _isCharaOut = false;
+        _isCharaIn = true;
+
+        while (currentTime < animationTime)
+        {
+            if (!_isCharaIn) break;
+
+            await UniTask.Yield();
+
+            currentTime += Time.deltaTime;
+
+            float t = EasingManager.EaseProgress(EaseType.OutExpo, currentTime, animationTime, 0f, 0);
+
+            _chara.ImageData.SetPositionX(CHARASTARTPOS + (CHARAOFFSET * t));
+        }
+    }
+
+    private async UniTask CharaAnimationOut(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        if (_isCharaOut) return;
+
+        float currentTime = 0;
+        float offset = CHARASTARTPOS - _chara.ImageData.GetPosition().x;
+        float o = 1f - ((CHARAOFFSET + offset) / CHARAOFFSET);
+        float animationTime = 0.5f * o;
+        float startPos = _chara.ImageData.GetPosition().x;
+
+        _isCharaIn = false;
+        _isCharaOut = true;
+
+        while (currentTime < animationTime)
+        {
+            if (!_isCharaOut) break;
+
+            await UniTask.Yield();
+
+            currentTime += Time.deltaTime;
+
+            float t = EasingManager.EaseProgress(EaseType.InExpo, currentTime, animationTime, 0f, 0);
+
+            _chara.ImageData.SetPositionX(startPos + (offset * (t)));
+        }
+    }
+
+    private async UniTask Selecting(CancellationToken token, Menu menu, RectTransform rect, float time, float waitTime = 0)
+    {
+        token.ThrowIfCancellationRequested();
+
         await UniTask.Delay((int)(waitTime * 1000f));
         float currentTime = 0;
 
@@ -209,15 +280,11 @@ public class MenuManager : MonoBehaviour
         {
             case Menu.Option:
                 optionImage.sprite = optionSprites[0];
-                await NoSelecting(menu, option, NOSELECTTIME);
+                await NoSelecting(_cancellationToken, menu, option, NOSELECTTIME);
                 break;
             case Menu.Tutorial:
                 tutorialImage.sprite = tutorialSprites[0];
-                await NoSelecting(menu, tutorial, NOSELECTTIME);
-                break;
-            case Menu.Ex:
-                exImage.sprite = exSprites[0];
-                await NoSelecting(menu, ex, NOSELECTTIME);
+                await NoSelecting(_cancellationToken, menu, tutorial, NOSELECTTIME);
                 break;
             case Menu.StageSelect:
                 dandou.sprite = dandouSprites[0];
@@ -228,8 +295,10 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private async UniTask NoSelecting(Menu menu, RectTransform rect, float time, float waitTime = 0)
+    private async UniTask NoSelecting(CancellationToken token, Menu menu, RectTransform rect, float time, float waitTime = 0)
     {
+        token.ThrowIfCancellationRequested();
+
         await UniTask.Delay((int)(waitTime * 1000f));
         float currentTime = 0;
 
@@ -265,10 +334,9 @@ public class MenuManager : MonoBehaviour
 
     private void SetQuitChoiceColor(bool isSelectedQuit)
     {
-        quitImages[isSelectedQuit ? 1 : 0].color = new Color32(176, 176, 176, 255);
+        quitImages[isSelectedQuit ? 1 : 0].color = Color.white;
         quitImages[isSelectedQuit ? 0 : 1].color = Color.red;
     }
-
 
     private void ToOption()
     {
@@ -277,13 +345,7 @@ public class MenuManager : MonoBehaviour
     }
     private void ToTutorial()
     {
-        SceneSystem.Instance.Load(SceneSystem.Scenes.Tutorial);
-        SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Tutorial);
-        Unload();
-    }
-    private void ToEx()
-    {
-        SceneSystem.Instance.Load(SceneSystem.Scenes.Ex);
+        SceneSystem.Instance.Load(SceneSystem.Scenes.TutorialHub);
         Unload();
     }
     private void ToStageSelect()
@@ -303,10 +365,6 @@ public class MenuManager : MonoBehaviour
 
     private void Unload()
     {
-        InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
-        InputSystemManager.Instance.onNavigatePerformed -= QuitNavgate;
-        InputSystemManager.Instance.onChoicePerformed -= OnChoice;
-        InputSystemManager.Instance.onBackPerformed -= OnCancel;
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.Menu, true);
     }
 }

@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using TM.Easing.Management;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,65 +18,62 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] ImageUIData _stageImageUpdate = default!;
     [SerializeField] Image[] guids;
     [SerializeField] TextUIData _explanationText = default!;
+    [SerializeField] ImageUIData _startGuideA;
 
     //アンロック演出
     [SerializeField] Canvas _unlockCanvas;
     [SerializeField] ImageUIData _unlockImage;
+    [SerializeField] ImageUIData _stageUnlockImage;
+    [SerializeField] ImageUIData _padlockImage;
 
-    //まだ未使用ですが、アンロック演出に使用予定です。
     List<int> _unlockList = new();
 
     bool _isChange;
+    bool _isUnlockDirection;
 
     const float IMAGE_FADEIN_TIME = 0.2f;
+    const float DIRECTION_TIME = 1f;
 
-    private void Start()
+    private void Awake()
     {
-        _fusumaManager.Open();
+        _unlockCanvas.enabled = false;
+        _stageUnlockImage.ImageData.SetAlpha(0);
+    }
+
+    private async void Start()
+    {
+        AssignCurrentStage();
+        CheckUnlockDirection();
+        UpdateExplanationText();
+
+        await _fusumaManager.UniTaskOpen();
+
         InputSystemManager.Instance.onNavigatePerformed += OnChangeStage;
         InputSystemManager.Instance.onChoicePerformed += OnChoiced;
         InputSystemManager.Instance.onBackPerformed += OnBack;
         InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKeyPerformed;
-        AssignCurrentStage();
-        CheckUnlockDirection();
-        UpdateExplanationText();
     }
 
     private void OnChangeStage()
     {
         if (_unlockCanvas.enabled) return;
+        if (_isUnlockDirection) return;
 
         //更新中は処理しない（ここの処理はプレイ的にあまり良くない気がします。）
         if (_isChange) return;
 
-        if (InputSystemManager.Instance.NavigateAxis == Vector2.right)
-        {
-            //右端なら処理しない
-            if ((int)_currentStage >= _stages.Length - 1) return;
-
-            _currentStage++;
-            UpdateSprite(true);
-        }
-        else if (InputSystemManager.Instance.NavigateAxis == Vector2.left)
-        {
-            //左端なら処理しない
-            if (_currentStage <= 0) return;
-
-            _currentStage--;
-            UpdateSprite(false);
-        }
-        //左右以外の入力は反応しない
-        else return;
+        if (!ChangeChoiceUtil.Choice(InputSystemManager.Instance.NavigateAxis, ref _currentStage, Stage.Tutorial, false, ChangeChoiceUtil.OptionDirection.Horizontal)) return;
 
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
+        UpdateSprite(InputSystemManager.Instance.NavigateAxis.x > 0);
         UpdateGuids();
         UpdateExplanationText();
-        //Logger.Log(_currentStage);
     }
 
     private async void OnChoiced()
     {
         if (_unlockCanvas.enabled) return;
+        if (_isUnlockDirection) return;
 
         if (_isChange) return;
         if (!_stages[(int)_currentStage].IsRelease)
@@ -86,7 +85,11 @@ public class StageSelectManager : MonoBehaviour
         _isChange = true;
 
         SoundManager.Instance.PlaySE(SoundSource.SE17_UI_DECISION);
+
+        DisposeInput();
+
         await _fusumaManager.UniTaskClose();
+
         SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Stage1 + (int)_currentStage);
         SceneSystem.Instance.Load(SceneSystem.Scenes.Stage1 + (int)_currentStage);
         UnLoad();
@@ -95,18 +98,94 @@ public class StageSelectManager : MonoBehaviour
     private async void OnBack()
     {
         if (_unlockCanvas.enabled) return;
+        if (_isUnlockDirection) return;
+
+        //入力受付を終了
+        DisposeInput();
 
         await _fusumaManager.UniTaskClose();
         SceneSystem.Instance.Load(SceneSystem.Scenes.Menu);
         UnLoad();
     }
 
-    private void OnAnyKeyPerformed()
+    private async void OnAnyKeyPerformed()
     {
+        if (!_unlockCanvas.enabled) return;
+
+        //アンロック用のテキストをオフに
         _unlockCanvas.enabled = false;
+
+        //アンロック演出中のフラグを立てる
+        _isUnlockDirection = true;
+
+        //演出終了まで待機
+        while (_unlockList.Count > 0)
+        {
+            await UnlockDirection(this.GetCancellationTokenOnDestroy());
+        }
+
+        //アンロック演出フラグを折る
+        _isUnlockDirection = false;
     }
 
-    private void CheckUnlockDirection()
+    private async UniTask UnlockDirection(CancellationToken token)
+    {
+        token.ThrowIfCancellationRequested();
+
+        int offset = _unlockList[0] - (int)_currentStage;
+
+        float waitTime = offset == 0 ? 0 : 0.5f;
+
+        //スライド演出待ち
+        await WaitForUpdateSprite(offset);
+
+        //南京錠をフェードアウト
+        _padlockImage.ImageData.SetImageEnabled(true);
+        _padlockImage.ImageData.SetAlpha(1f);
+        _padlockImage.ImageData.Fadeout(DIRECTION_TIME, waitTime).Forget();
+
+        //さらにスタートガイドをフェードイン
+        _startGuideA.ImageData.SetImageEnabled(true);
+        _startGuideA.ImageData.SetAlpha(0);
+        _startGuideA.ImageData.Fadein(DIRECTION_TIME, waitTime).Forget();
+
+        //同時に正常な画像をフェードイン
+        _stageUnlockImage.ImageData.SetSprite(_stageSprites[(int)_currentStage]);
+        _stageUnlockImage.ImageData.SetAlpha(0);
+        await _stageUnlockImage.ImageData.Fadein(DIRECTION_TIME, waitTime);
+
+        //画像を通常スライドに設定し、アンロック用を消す
+        _stageImage.ImageData.SetSprite(_stageSprites[(int)_currentStage]);
+        _stageImageUpdate.ImageData.SetSprite(_stageSprites[(int)_currentStage]);
+        _stageUnlockImage.ImageData.SetAlpha(0);
+
+        //南京錠をもとに戻す
+        _padlockImage.ImageData.SetAlpha(1);
+        _padlockImage.ImageData.SetImageEnabled(false);
+
+        _unlockList.RemoveAt(0);
+
+        //セーブデータに保存
+        DataManager.saveData.stagesStatus[(int)_currentStage] = (int)StageStatus.Unlock;
+    }
+
+    private async UniTask WaitForUpdateSprite(int offset)
+    {
+        if (offset == 0) return;
+
+        //ステージをアンロックされた部分に変更
+        _currentStage = (Stage)_unlockList[0];
+
+        //該当ステージまでスクロール
+        UpdateSprite(offset > 0);
+        UpdateGuids();
+        UpdateExplanationText();
+
+        //スクロール演出を待機
+        while (_isChange) await UniTask.Yield();
+    }
+
+    private bool CheckUnlockDirection()
     {
         for (int i = 0; i < DataManager.saveData.stagesStatus.Length; i++)
         {
@@ -116,12 +195,11 @@ public class StageSelectManager : MonoBehaviour
                 //アンロック演出をONにする
                 _unlockCanvas.enabled = true;
 
-                //セーブデータに保存
-                DataManager.saveData.stagesStatus[i] = (int)StageStatus.Unlock;
-
                 _unlockList.Add(i);
             }
         }
+
+        return _unlockCanvas.enabled;
     }
 
     private void AssignCurrentStage()
@@ -176,39 +254,45 @@ public class StageSelectManager : MonoBehaviour
     {
         await _explanationText.TextData.Fadeout(IMAGE_FADEIN_TIME / 2f);
 
-        switch (_currentStage)
+        string stageDescriptions = _currentStage switch
         {
-            case Stage.Stage1:
-                _explanationText.TextData.SetText("ステージ1　難易度：★☆☆ 旅人は伝説の団子を求めて栄都城を訪れた……");
-                break;
-            case Stage.Stage2:
-                _explanationText.TextData.SetText("ステージ2　難易度：★★☆ あん団子が増えた城内で、旅人は上を目指す");
-                break;
-            case Stage.Stage3:
-                _explanationText.TextData.SetText("ステージ3　難易度：★★★ 栄都城の最上階を目指して、最後の団道が始まる");
-                break;
-        }
+            Stage.Stage1 => "ステージ1　難易度：★☆☆\n旅人は伝説の団子を求めて\n栄都城を訪れた……",
+            Stage.Stage2 => "ステージ2　難易度：★★☆\nあん団子が増えた城内で、\n旅人は上を目指す",
+            Stage.Stage3 => "ステージ3　難易度：★★★\n栄都城の最上階を目指して、\n最後の団道が始まる",
+            _ => throw new System.NotImplementedException(),
+        };
+
+        _explanationText.TextData.SetText(stageDescriptions);
+
         await _explanationText.TextData.Fadein(IMAGE_FADEIN_TIME / 2f);
     }
 
     private void SetSprite(ImageUIData data)
     {
+        bool isRelease = _stages[(int)_currentStage].IsRelease;
+
         //選択中のステージがアンロックされているかによって画像を切り替え
-        Sprite[] sprites = _stages[(int)_currentStage].IsRelease ? _stageSprites : _lockedStageSprites;
+        Sprite[] sprites = isRelease ? _stageSprites : _lockedStageSprites;
+
+        _padlockImage.ImageData.SetImageEnabled(!isRelease);
+        _startGuideA.ImageData.SetImageEnabled(isRelease);
 
         data.ImageData.SetSprite(sprites[(int)_currentStage]);
     }
 
     private void UnLoad()
     {
-        InputSystemManager.Instance.onNavigatePerformed -= OnChangeStage;
-        InputSystemManager.Instance.onChoicePerformed -= OnChoiced;
-        InputSystemManager.Instance.onBackPerformed -= OnBack;
-        InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKeyPerformed;
-
         //仮に非同期アニメーション中だった場合破棄する
         _stageImageUpdate.ImageData.CancelUniTask();
 
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.StageSelect, true);
+    }
+
+    private void DisposeInput()
+    {
+        InputSystemManager.Instance.onNavigatePerformed -= OnChangeStage;
+        InputSystemManager.Instance.onChoicePerformed -= OnChoiced;
+        InputSystemManager.Instance.onBackPerformed -= OnBack;
+        InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKeyPerformed;
     }
 }

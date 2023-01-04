@@ -12,10 +12,24 @@ public class TutorialUIManager : MonoBehaviour
     [SerializeField] U7 _u7;
     [SerializeField] U8 _u8;
 
+    [SerializeField] ImageUIData _u8Image;
+
     [SerializeField] QuestManager _questManager;
 
     [SerializeField] IngameUIManager _ingameUIManager;
     [SerializeField] TextUIData _firstText;
+
+    const float FLASHTIME = 0.4f;
+
+    private void OnEnable()
+    {
+        _u8Image.ImageData.FlashAlpha(-1, FLASHTIME, 0);
+    }
+
+    private void OnDisable()
+    {
+        _u8Image.ImageData.CancelFlash();
+    }
 
     private void Start()
     {

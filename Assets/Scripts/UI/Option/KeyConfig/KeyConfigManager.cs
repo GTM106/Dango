@@ -75,7 +75,7 @@ namespace TM.Input.KeyConfig
             //ここをポップアップに変える
             _currentData.GetComponent<RawImage>().color = Color.red;
 
-            Logger.Log(_currentData.name);
+            //Logger.Log(_currentData.name);
         }
 
         static readonly KeyData.GamepadKey[][] DefaultKeyTable = new KeyData.GamepadKey[(int)KeyConfigData.GameAction.Max - 1][]
@@ -110,7 +110,7 @@ namespace TM.Input.KeyConfig
             }
         }
 
-        private void Start()
+        public void AfterFusumaOpen()
         {
             InputSystemManager.Instance.onStickPerformed += OnStick;
             InputSystemManager.Instance.onChoicePerformed += OnSelect;

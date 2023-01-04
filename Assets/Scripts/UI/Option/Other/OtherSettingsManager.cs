@@ -26,22 +26,29 @@ public class OtherSettingsManager : MonoBehaviour
 
     bool IsEffective => SceneSystem.Instance.PrebScene == SceneSystem.Scenes.Menu;
 
-    private void Start()
+    private void Awake()
+    {
+        _deleteDataCanvas.enabled = false;
+        SetDeleteChoiceColor();
+    }
+
+    public void AfterFusumaOpen()
     {
         InputSystemManager.Instance.onNavigatePerformed += OnNavigate;
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
+
         if (IsEffective)
         {
             InputSystemManager.Instance.onAnyKeyPerformed += OnAnyKey;
             InputSystemManager.Instance.onBackCanceled += OnBack;
         }
-        SetDeleteChoiceColor();
     }
 
     public void OnChangeScene()
     {
         InputSystemManager.Instance.onNavigatePerformed -= OnNavigate;
         InputSystemManager.Instance.onChoicePerformed -= OnChoice;
+
         if (IsEffective)
         {
             InputSystemManager.Instance.onAnyKeyPerformed -= OnAnyKey;
@@ -58,7 +65,7 @@ public class OtherSettingsManager : MonoBehaviour
 
         if (enable)
         {
-            _choiceImages[(int)_choice].color = new Color32(176, 176, 176, 255);
+            _choiceImages[(int)_choice].color = Color.white;
             _choice = 0;
             _choiceImages[(int)_choice].color = Color.red;
             SetChoiceImagesColor();
@@ -139,7 +146,7 @@ public class OtherSettingsManager : MonoBehaviour
         if (IsPopUp) return;
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, OtherChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        _choiceImages[(int)_choice + (int)axis.y].color = new Color32(176, 176, 176, 255);
+        _choiceImages[(int)_choice + (int)axis.y].color = Color.white;
         _choiceImages[(int)_choice].color = Color.red;
 
         SetChoiceImagesColor();
@@ -171,7 +178,7 @@ public class OtherSettingsManager : MonoBehaviour
 
     private void SetDeleteChoiceColor()
     {
-        _deleteChoiceImages[_canDelete ? 1 : 0].color = new Color32(176, 176, 176, 255);
+        _deleteChoiceImages[_canDelete ? 1 : 0].color = Color.white;
         _deleteChoiceImages[_canDelete ? 0 : 1].color = Color.red;
     }
 
@@ -182,10 +189,10 @@ public class OtherSettingsManager : MonoBehaviour
         if (_canDelete)
         {
 #if UNITY_EDITOR
-            //delete Savedata
+            DataManager.ResetSaveData();
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            //delete Savedata
+            DataManager.ResetSaveData();
             Application.Quit();
 #endif
         }

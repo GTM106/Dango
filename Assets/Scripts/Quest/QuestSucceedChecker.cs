@@ -11,28 +11,30 @@ namespace Dango.Quest
         bool _isSucceedThisFrame;
 
         PlayerUIManager _playerUIManager;
-        PortraitScript _portraitScript;
+        IChangePortrait _portraitScript;
         StageData _stageData;
         TutorialUIManager _tutorialUIManager;
+        QuestSucceedUIManager _questSucceedUIManager;
+        QuestExpansionUIManager _questExpansionUIManager;
 
-        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, PortraitScript portraitScript, StageData stageData, TutorialUIManager tutorialUIManager)
+        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, IChangePortrait portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager, QuestExpansionUIManager questExpansionUIManager)
         {
             _manager = manager;
             _playerUIManager = playerUIManager;
             _portraitScript = portraitScript;
             _stageData = stageData;
             _tutorialUIManager = tutorialUIManager;
+            _questSucceedUIManager = questSucceedUIManager;
+            _questExpansionUIManager = questExpansionUIManager;
         }
 
         #region EatDango
         public bool CheckQuestEatDangoSucceed(QuestManager questManager, List<DangoColor> colors, bool createRole)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < questManager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (questManager.GetQuest(i) is QuestEatDango questEa)
                 {
                     if (CheckQuestSucceed(questEa, colors, createRole)) return true;
@@ -44,14 +46,12 @@ namespace Dango.Quest
 
         private bool CheckQuestSucceed(QuestEatDango quest, List<DangoColor> colors, bool createRole)
         {
-            //���̐�������Œe�����̂͒e��
             if (createRole && !quest.AllowCountCreateRole || !createRole && !quest.AllowCountNoCreateRole)
             {
                 quest.SetIsPrebCreateRole(createRole);
                 return false;
             }
 
-            //�F�𔻒肵�A�������F�Ȃ�H�ׂ�����ǉ�
             foreach (var color in colors)
             {
                 if (!quest.ReadColors.Contains(color)) continue;
@@ -62,14 +62,14 @@ namespace Dango.Quest
             if (quest.IsPrebCreateRole != createRole) quest.AddContinueCount();
             else quest.ResetContinueCount();
 
-            //����̑O�ɍ��������������L�^
+            if (quest.ContinueCount <= 1) _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+            else _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
+
             quest.SetIsPrebCreateRole(createRole);
 
-            //�w��񐔍����������
             if (!quest.IsAchievedEatCount()) return false;
             if (!quest.IsAchievedContinueCount()) return false;
 
-            //�������ׂăN���A�����ꍇ�A�N�G�X�g�����Ƃ��ĕԋp
             QuestSucceed(quest);
             return true;
         }
@@ -78,12 +78,10 @@ namespace Dango.Quest
         #region CreateRole
         public bool CheckQuestCreateRoleSucceedEs(List<DangoColor> dangos, bool createRole, int currentMaxDango)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestCreateRole questCr)
                 {
                     if (CheckQuestSucceedEs(questCr, dangos, createRole, currentMaxDango)) return true;
@@ -94,12 +92,10 @@ namespace Dango.Quest
         }
         public bool CheckQuestCreateRoleSucceedSr(Role<int> role)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestCreateRole questCr)
                 {
                     if (CheckQuestSucceedSr(questCr, role)) return true;
@@ -110,12 +106,10 @@ namespace Dango.Quest
         }
         public bool CheckQuestCreateRoleSucceedIr(List<DangoColor> dangos)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestCreateRole questCr)
                 {
                     if (CheckQuestSucceedIc(questCr, dangos)) return true;
@@ -126,12 +120,10 @@ namespace Dango.Quest
         }
         public bool CheckQuestCreateRoleSucceedSm(Role<int> role)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestCreateRole questCr)
                 {
                     if (CheckQuestSucceedSm(questCr, role)) return true;
@@ -145,92 +137,76 @@ namespace Dango.Quest
         {
             foreach (var color in dangosDistinct)
             {
-                //�w��F���������甲����
                 if (quest.Establish.ReadColors.Contains(color)) return true;
             }
 
-            //����ԂȂ�������e��
             return false;
         }
 
         private bool CheckQuestSucceedEs(QuestCreateRole quest, List<DangoColor> dangos, bool createRole, int currentMaxDango)
         {
-            //�s���ȃA�N�Z�X�ł���Βe��
             if (quest.CRType != QuestCreateRole.CreateRoleType.EstablishRole) return false;
 
-            //�H�ׂ��c�q���N�G�X�g���e�ƈ�v���Ă��邩����
-            //���̐����E�񐬗��̃t���O����v���Ă��Ȃ���Βe��
             if (createRole != quest.Establish.CreateRole)
             {
                 quest.ResetContinueCount();
                 return false;
             }
-            //���S���݂̂̏ꍇ�A���S��������
             if (quest.Establish.OnlyPerfectRole && dangos.Count != currentMaxDango)
             {
                 quest.ResetContinueCount();
                 return false;
             }
-            //�w��F�����邩����
             if (!HasReadColor(quest, dangos.Distinct()))
             {
                 quest.ResetContinueCount();
                 return false;
             }
 
-            //������񐔂��J�E���g���āc
             quest.AddMadeCount();
-            //����ɘA�������񐔂��J�E���g���āc
             quest.AddContinueCount();
 
-            //�w��񐔍����������
+            if (quest.ContinueCount <= 1) _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+            else _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
+
             if (!quest.IsAchievedMadeCount()) return false;
             if (!quest.IsAchievedContinueCount()) return false;
 
-            //�������ׂăN���A�����ꍇ�A�N�G�X�g�����Ƃ��ĕԋp
             QuestSucceed(quest);
             return true;
         }
         private bool CheckQuestSucceedSr(QuestCreateRole quest, Role<int> role)
         {
-            //�s���ȃA�N�Z�X�ł���Βe��
             if (quest.CRType != QuestCreateRole.CreateRoleType.SpecifyTheRole) return false;
 
-            //�H�ׂ��c�q���N�G�X�g���e�ƈ�v���Ă��邩����
-            //������v���Ă��邩����
             if (quest.SpecifyRole.RoleName != role.GetRolename()) return false;
 
-            //������񐔂��J�E���g���āc
             quest.AddMadeCount();
 
-            //�w��񐔍����������
+            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+
             if (!quest.IsAchievedMadeCount()) return false;
 
-            //�������ׂăN���A�����ꍇ�A�N�G�X�g�����Ƃ��ĕԋp
             QuestSucceed(quest);
             return true;
         }
         private bool CheckQuestSucceedIc(QuestCreateRole quest, List<DangoColor> colors)
         {
-            //�s���ȃA�N�Z�X�ł���Βe��
             if (quest.CRType != QuestCreateRole.CreateRoleType.IncludeColor) return false;
 
-            //�F�̐��𔻒�
             if (colors.Distinct().Count() != quest.IncludeColors.ColorCount) return false;
 
-            //������񐔂��J�E���g���āc
             quest.AddMadeCount();
 
-            //�w��񐔍����������
+            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+
             if (!quest.IsAchievedMadeCount()) return false;
 
-            //�������ׂăN���A�����ꍇ�A�N�G�X�g�����Ƃ��ĕԋp
             QuestSucceed(quest);
             return true;
         }
         private bool CheckQuestSucceedSm(QuestCreateRole quest, Role<int> role)
         {
-            //�s���ȃA�N�Z�X�ł���Βe��
             if (quest.CRType != QuestCreateRole.CreateRoleType.CreateSameRole) return false;
 
             if (quest.SameRole.SameRole)
@@ -238,6 +214,7 @@ namespace Dango.Quest
                 if (!quest.SameRole.IsEqualRole(role))
                 {
                     quest.ResetContinueCount();
+                    _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
 
                     return false;
                 }
@@ -247,17 +224,17 @@ namespace Dango.Quest
                 if (quest.SameRole.IsEqualRole(role))
                 {
                     quest.ResetContinueCount();
+                    _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
 
                     return false;
                 }
             }
 
             quest.AddContinueCount();
+            _questExpansionUIManager.OnNext(quest, quest.ContinueProgress());
 
-            //�w��񐔍����������
             if (!quest.IsAchievedContinueCount()) return false;
 
-            //�������ׂăN���A�����ꍇ�A�N�G�X�g�����Ƃ��ĕԋp
             QuestSucceed(quest);
 
             return true;
@@ -267,12 +244,10 @@ namespace Dango.Quest
         #region PlayAction
         public bool CheckQuestPlayActionSucceed(QuestPlayAction.PlayerAction action)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestPlayAction questPla)
                 {
                     if (CheckQuestSucceed(questPla, action)) return true;
@@ -284,12 +259,13 @@ namespace Dango.Quest
 
         private bool CheckQuestSucceed(QuestPlayAction quest, QuestPlayAction.PlayerAction action)
         {
-            //���肵�����A�N�V�������قȂ�����e��
             if (quest.Action != action) return false;
 
             quest.AddMadeCount();
 
-            //�w��񐔍����������
+            if (action != QuestPlayAction.PlayerAction.Look)
+                _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+
             if (!quest.IsAchievedMadeCount()) return false;
 
             QuestSucceed(quest);
@@ -300,12 +276,10 @@ namespace Dango.Quest
         #region Destination
         public bool CheckQuestDestinationSucceed(FloorManager.Floor floor, bool inFloor)
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestDestination questDest)
                 {
                     if (CheckQuestSucceed(questDest, floor, inFloor)) return true;
@@ -317,12 +291,10 @@ namespace Dango.Quest
 
         public bool CheckQuestDestinationSucceed()
         {
-            //���̃t���[���ɕʂ̃N�G�X�g���N���A����Ă�����e��
             if (_isSucceedThisFrame) return false;
 
             for (int i = 0; i < _manager.QuestsCount; i++)
             {
-                //�L���X�g�\�����m�F�i�s�\�ȏꍇ�G���[���N���邽�߂��̏����͕K�{�j
                 if (_manager.GetQuest(i) is QuestDestination questDest)
                 {
                     if (CheckQuestSucceed(questDest)) return true;
@@ -334,16 +306,12 @@ namespace Dango.Quest
 
         private bool CheckQuestSucceed(QuestDestination quest, FloorManager.Floor floor, bool inFloor)
         {
-            //�͂��߂Ɍ��݂���Floor��o�^����
             if (inFloor) quest.SetFloor(floor);
 
-            //�ړI�n�łȂ���Βe��
             if (!quest.Floors.Contains(floor)) return false;
 
-            //�����̏o������L�^
             quest.SetIsInFloor(inFloor);
 
-            //�ړI�n�ɂ������ł����̂��A���ĐH�ׂȂ��Ƃ����Ȃ��̂�����
             if (quest.SucceedOnEat) return false;
 
             if (!quest.IsInFloor) return false;
@@ -353,7 +321,6 @@ namespace Dango.Quest
         }
         private bool CheckQuestSucceed(QuestDestination quest)
         {
-            //�ړI�n�łȂ���Βe��
             if (!quest.Floors.Contains(quest.CurrentFloor)) return false;
 
             QuestSucceed(quest);
@@ -366,7 +333,7 @@ namespace Dango.Quest
             QuestSucceed(_manager.GetQuest(0));
         }
 
-        private async void QuestSucceed(QuestData quest)
+        private void QuestSucceed(QuestData quest)
         {
             SoundManager.Instance.PlaySE(SoundSource.SE12_QUEST_SUCCEED);
 
@@ -384,7 +351,6 @@ namespace Dango.Quest
             ScoreManager.Instance.AddClearTime(ScoreManager.Instance.SetQuestTime());
             ScoreManager.Instance.AddClearQuest(quest);
 
-            //���̃t���[���ő��̔���͍s��Ȃ��悤�ɂ��鏈��
             _isSucceedThisFrame = true;
             SetBoolAfterOneFrame(false).Forget();
 
@@ -407,12 +373,15 @@ namespace Dango.Quest
                 _tutorialUIManager.ChangeNextGuide(quest.NextQuestId[0]);
             }
 
-            //�N�G�X�g��B�������Ƃ��̉��o
-            _playerUIManager.EventText.TextData.SetText("団道達成");
-            _playerUIManager.EventText.TextData.SetFontSize(210f);
-
-            _playerUIManager.EventText.TextData.SetFontSize(_playerUIManager.DefaultEventTextFontSize);
-            await _playerUIManager.EventText.TextData.Fadeout(0.5f, 2f);
+            if (quest.IsKeyQuest)
+            {
+                //最後のクエストなら次のクエストはない
+                _questSucceedUIManager.PlayAnimation();
+            }
+            else
+            {
+                _questSucceedUIManager.PlayAnimation(nextQuest.ToArray());
+            }
         }
 
         private async UniTask SetBoolAfterOneFrame(bool enable)

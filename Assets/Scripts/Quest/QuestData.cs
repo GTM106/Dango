@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 public abstract class QuestData
@@ -37,4 +38,7 @@ public abstract class QuestData
 
     public bool SetKeyQuest(bool b) => _isKeyQuest = b;
     public List<int> NextQuestId => _nextQuestId;
+
+    public abstract float SpecifyProgress();
+    public abstract float ContinueProgress();
 }

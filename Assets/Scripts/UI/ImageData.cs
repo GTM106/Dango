@@ -28,6 +28,8 @@ namespace TM.UI
             _image = image;
         }
 
+        public void SetImageEnabled(bool enabled) => _image.enabled = enabled;
+
         public Vector3 GetPosition() => _image.rectTransform.localPosition;
         public float GetWidth() => _image.rectTransform.sizeDelta.x;
         public float GetHeight() => _image.rectTransform.sizeDelta.y;

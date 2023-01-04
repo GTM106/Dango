@@ -58,8 +58,6 @@ public class PlayerData : MonoBehaviour
         {
             parent._faceAnimationController.ChangeFaceType(FaceAnimationController.FaceTypes.Default);
 
-            //串の状態をリセット
-            parent.ResetSpit();
             return IState.E_State.Unchanged;
         }
         public IState.E_State Update(PlayerData parent)
@@ -201,7 +199,9 @@ public class PlayerData : MonoBehaviour
 
             if (parent._playerAttack.ChangeState(pattern))
             {
+                //串の状態をリセット
                 parent.ResetSpit();
+
                 return IState.E_State.Control;
             }
 
@@ -212,11 +212,9 @@ public class PlayerData : MonoBehaviour
     {
         public IState.E_State Initialize(PlayerData parent)
         {
-            parent._playerUIManager.EventText.TextData.SetText("食べチャージ中！");
             parent._playerStayEat.ResetCount();
             parent._playerUIManager.StartDangoHighlight();
 
-            SoundManager.Instance.PlaySE(Random.Range((int)SoundSource.VOISE_PRINCE_STAYEAT01, (int)SoundSource.VOISE_PRINCE_STAYEAT02 + 1));
             SoundManager.Instance.PlaySE(SoundSource.SE5_PLAYER_STAY_EATDANGO);
 
             parent._animationManager.ChangeAnimationEnforcement(AnimationManager.E_Animation.An4A_EatCharge, 0.1f);
@@ -254,10 +252,14 @@ public class PlayerData : MonoBehaviour
     {
         public IState.E_State Initialize(PlayerData parent)
         {
+            //チャージSEの停止
+            SoundManager.Instance.StopSE(SoundSource.SE5_PLAYER_STAY_EATDANGO, 1f);
+
             parent._faceAnimationController.ChangeFaceType(FaceAnimationController.FaceTypes.Smile);
             parent._animationManager.ChangeAnimationEnforcement(AnimationManager.E_Animation.An4B_Eat, 0);
             parent._playerEat.EatDango(parent);
             parent._hasStayedEat = false;
+            parent._directing.PlayRoleVideo();
 
             return IState.E_State.Unchanged;
         }
@@ -504,6 +506,8 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
 
+    [SerializeField] PlayerBGMChanger _playerBGMChanger = default!;
+
     [SerializeField] bool _allowReducedTimeLimit = true;
 
     const float DEFAULT_CAMERA_VIEW = 40f;
@@ -577,8 +581,8 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
-        _spitManager = _swords[0];
-
+        InitSwordEnabled();
+        
         _mapLayer = LayerMask.NameToLayer("Map");
         _animationManager = new(_animator);
 
@@ -624,6 +628,8 @@ public class PlayerData : MonoBehaviour
     {
         FixedUpdateState();
         _playerAttack.FixedUpdate(transform);
+
+        _playerBGMChanger.PinchBGMChanger(_satiety);
     }
 
     private void OnDestroy()
@@ -852,10 +858,20 @@ public class PlayerData : MonoBehaviour
 
     public async void EatAnima()
     {
-        _directing.Dirrecting(_dangos);
         _playerUIManager.EatDangoUI_True();
         await UniTask.Delay(5000);
         DangoRoleUI.OnGUIReset();
+    }
+
+    private void InitSwordEnabled()
+    {
+        foreach(var sword in _swords)
+        {
+            sword.gameObject.SetActive(false);
+        }
+
+        _spitManager = _swords[_currentStabCount - 3];
+        _swords[_currentStabCount - 3].gameObject.SetActive(true);
     }
 
     #region GetterSetter
