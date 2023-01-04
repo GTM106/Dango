@@ -271,7 +271,7 @@ public class MenuManager : MonoBehaviour
 
     private void SetQuitChoiceColor(bool isSelectedQuit)
     {
-        quitImages[isSelectedQuit ? 1 : 0].color = new Color32(176, 176, 176, 255);
+        quitImages[isSelectedQuit ? 1 : 0].color = Color.white;
         quitImages[isSelectedQuit ? 0 : 1].color = Color.red;
     }
 

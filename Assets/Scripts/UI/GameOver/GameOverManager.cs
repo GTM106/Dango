@@ -15,7 +15,7 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] Canvas _canvas;
     [SerializeField] ImageUIData _backGround;
-    [SerializeField] TextUIData _gameOverText;
+    [SerializeField] ImageUIData _gameOverImage;
     [SerializeField] ImageUIData _retry;
     [SerializeField] ImageUIData _backToStageSelect;
     [SerializeField] Sprite[] _retrySprites;
@@ -35,13 +35,13 @@ public class GameOverManager : MonoBehaviour
         _backToStageSelect.ImageData.SetAlpha(0);
 
         _retry.ImageData.SetAlpha(0);
-        _gameOverText.TextData.SetAlpha(0);
+        _gameOverImage.ImageData.SetAlpha(0);
 
         //黒画面をフェードイン
         await _backGround.ImageData.Fadein(0.5f, 2.5f, 0);
 
         //上記処理が終わったら文字を表示
-        await _gameOverText.TextData.Fadein(0.5f);
+        await _gameOverImage.ImageData.Fadein(0.5f);
 
         await UniTask.WhenAll(
             _retry.ImageData.Fadein(0.5f),
