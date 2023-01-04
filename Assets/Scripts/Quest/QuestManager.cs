@@ -27,6 +27,18 @@ class QuestManager : MonoBehaviour
         SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
     }
 
+#if DEBUG
+    private void Start()
+    {
+        InputSystemManager.Instance.onTutorialSkipPerformed += SucceedChecker.QuestSkip;
+    }
+
+    private void OnDestroy()
+    {
+        InputSystemManager.Instance.onTutorialSkipPerformed -= SucceedChecker.QuestSkip;
+    }
+#endif
+
     //クエストの生成・クリア判定のやつ
     public QuestCreater Creater { get; private set; } = new();
     public QuestSucceedChecker SucceedChecker { get; private set; }
