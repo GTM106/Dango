@@ -18,13 +18,17 @@ class QuestManager : MonoBehaviour
     [SerializeField] GameManager _gameManager;
     [SerializeField] StageData _stageData;
     [SerializeField] PortraitScript _portraitScript;
+    [SerializeField] TutorialPortraitManager _tutorialPortraitScript;
     [SerializeField] TutorialUIManager _tutorialUIManager;
     [SerializeField] QuestSucceedUIManager _questSucceedUIManager;
 
     private void Awake()
     {
+        IChangePortrait portrait = _portraitScript;
+        if(portrait == null)portrait = _tutorialPortraitScript;
+
         Instance = this;
-        SucceedChecker = new(this, _playerUIManager, _portraitScript, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
+        SucceedChecker = new(this, _playerUIManager, portrait, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
     }
 
 #if DEBUG

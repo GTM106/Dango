@@ -345,8 +345,7 @@ public class MenuManager : MonoBehaviour
     }
     private void ToTutorial()
     {
-        SceneSystem.Instance.Load(SceneSystem.Scenes.Tutorial);
-        SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Tutorial);
+        SceneSystem.Instance.Load(SceneSystem.Scenes.TutorialHub);
         Unload();
     }
     private void ToStageSelect()

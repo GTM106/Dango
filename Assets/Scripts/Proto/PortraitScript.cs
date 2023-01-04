@@ -5,7 +5,12 @@ using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using TM.Easing.Management;
 
-public class PortraitScript : MonoBehaviour
+public interface IChangePortrait
+{
+    public UniTask ChangePortraitText(PortraitTextData questTextData);
+}
+
+public class PortraitScript : MonoBehaviour, IChangePortrait
 {
     [SerializeField] Image img;
     [SerializeField] TextUIData text;
@@ -99,7 +104,7 @@ public class PortraitScript : MonoBehaviour
 
     public async UniTask ChangePortraitText(PortraitTextData questTextData)
     {
-        
+
         PlayerData.IsClear = false;
         //イベント進行終了まで待機
         while (_isChangePortrait) await UniTask.Yield();

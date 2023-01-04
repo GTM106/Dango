@@ -23,6 +23,7 @@ public class StageData : MonoBehaviour
 {
     [SerializeField] Stage _stage;
     [SerializeField] PortraitScript _portraitScript;
+    [SerializeField] TutorialPortraitManager _tutorialPortraitScript;
     [SerializeField] FusumaManager _fusumaManager;
 
     public bool IsRelease => DataManager.saveData.stagesStatus[(int)_stage] == (int)StageStatus.Unlock;
@@ -40,7 +41,10 @@ public class StageData : MonoBehaviour
 
     protected virtual void Start()
     {
-        _portraitScript.ChangePortraitText(StartPortraitText()).Forget();
+        IChangePortrait portrait = _portraitScript;
+        if (portrait == null) portrait = _tutorialPortraitScript;
+
+        portrait.ChangePortraitText(StartPortraitText()).Forget();
         AddQuest();
     }
 
