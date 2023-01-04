@@ -169,7 +169,7 @@ public class PlayerUIManager : MonoBehaviour
         lists = playerdata.GetDangos();
         Image[] temp;
         temp = dangoUIScript.GetDangos();
-        dangoHighlight.Stert(lists,temp);
+        dangoHighlight.Stert(lists,temp,playerdata.GetCurrentStabCount());
     }
 
     public void CancelHighlight()

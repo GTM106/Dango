@@ -11,6 +11,8 @@ public class DangoUIScript : MonoBehaviour
     [SerializeField] Sprite[] DangoImags;
     [SerializeField] TextMeshProUGUI Text;
     [SerializeField] PlayerData PlayerData;
+    [SerializeField] ImageUIData kusiImage;
+    [SerializeField] Sprite[] kusiSprites;
     private Image[] DangoImagObjs;
     private Image reachImag;
     private PlayerDangoAnima[] dangoAnimas;
@@ -25,10 +27,6 @@ public class DangoUIScript : MonoBehaviour
             dangoAnimas[i] = Objs[i].GetComponent<PlayerDangoAnima>();
         }
         reachImag = reachObjs.GetComponent<Image>();
-    }
-    private void Update()
-    {
-        Text.text = PlayerData.GetMaxDango().ToString();
     }
     public void DangoUISet(List<DangoColor> dangos)
     {
@@ -102,5 +100,9 @@ public class DangoUIScript : MonoBehaviour
             reachObjs.SetActive(false);
     }
 
+    public void ChangeKusiSprite(int D5)
+    {
+        kusiImage.ImageData.SetSprite(kusiSprites[D5 - 3]);
+    }
     public Image[] GetDangos() => DangoImagObjs;
 }
