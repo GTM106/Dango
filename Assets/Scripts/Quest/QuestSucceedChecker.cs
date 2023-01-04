@@ -11,13 +11,13 @@ namespace Dango.Quest
         bool _isSucceedThisFrame;
 
         PlayerUIManager _playerUIManager;
-        PortraitScript _portraitScript;
+        IChangePortrait _portraitScript;
         StageData _stageData;
         TutorialUIManager _tutorialUIManager;
         QuestSucceedUIManager _questSucceedUIManager;
         QuestExpansionUIManager _questExpansionUIManager;
 
-        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, PortraitScript portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager, QuestExpansionUIManager questExpansionUIManager)
+        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, IChangePortrait portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager, QuestExpansionUIManager questExpansionUIManager)
         {
             _manager = manager;
             _playerUIManager = playerUIManager;
@@ -183,7 +183,7 @@ namespace Dango.Quest
 
             quest.AddMadeCount();
 
-            _questExpansionUIManager.OnNext(quest,quest.SpecifyProgress());
+            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
 
             if (!quest.IsAchievedMadeCount()) return false;
 
@@ -263,7 +263,8 @@ namespace Dango.Quest
 
             quest.AddMadeCount();
 
-            _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
+            if (action != QuestPlayAction.PlayerAction.Look)
+                _questExpansionUIManager.OnNext(quest, quest.SpecifyProgress());
 
             if (!quest.IsAchievedMadeCount()) return false;
 
