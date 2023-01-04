@@ -8,7 +8,7 @@ namespace TM.Entity.Player
 {
     class PlayerJump
     {
-        static readonly float[] JUMP_POWER_TABLE = { 11f, 12.5f, 14.5f, 17f, 19f };
+        static readonly float[] JUMP_POWER_TABLE = { 11f, 12.5f, 14.5f, 16f, 19f };
 
         Rigidbody _rb;
         bool _isGround;
