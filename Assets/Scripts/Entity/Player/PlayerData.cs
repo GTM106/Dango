@@ -580,8 +580,8 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
-        _spitManager = _swords[0];
-
+        InitSwordEnabled();
+        
         _mapLayer = LayerMask.NameToLayer("Map");
         _animationManager = new(_animator);
 
@@ -858,6 +858,17 @@ public class PlayerData : MonoBehaviour
         _playerUIManager.EatDangoUI_True();
         await UniTask.Delay(5000);
         DangoRoleUI.OnGUIReset();
+    }
+
+    private void InitSwordEnabled()
+    {
+        foreach(var sword in _swords)
+        {
+            sword.gameObject.SetActive(false);
+        }
+
+        _spitManager = _swords[_currentStabCount - 3];
+        _swords[_currentStabCount - 3].gameObject.SetActive(true);
     }
 
     #region GetterSetter
