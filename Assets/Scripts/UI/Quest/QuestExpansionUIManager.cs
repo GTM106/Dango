@@ -167,6 +167,25 @@ public class QuestExpansionUIManager : MonoBehaviour
 
         SoundManager.Instance.PlaySE(SoundSource.SE13_ATTACK);
 
+        //float progress = 0;
+
+        //if (questData is QuestEatDango questEa)
+        //{
+        //    progress = questEa.Progress();
+        //}
+        //else if (questData is QuestPlayAction questPa)
+        //{
+        //    progress = questPa.Progress();
+        //}
+        //else if (questData is QuestCreateRole questCr)
+        //{
+        //    progress = questCr.Progress();
+        //}
+        //else if (questData is QuestDestination questDe)
+        //{
+        //    progress = questDe.Progress();
+        //}
+
         Logger.Assert(progress is >= 0 and <= 1f);
 
         //ˆê’v‚µ‚Ä‚¢‚½•û‚ÌƒQ[ƒW‚ği‚ß‚é

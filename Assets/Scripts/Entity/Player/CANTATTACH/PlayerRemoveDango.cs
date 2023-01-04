@@ -47,6 +47,7 @@ namespace TM.Entity.Player
             _hasRemoveDango = false;
         }
 
+        //�c�q�e(���O��)
         public void Remove()
         {
             if (_dangos.Count == 0) return;
@@ -55,14 +56,7 @@ namespace TM.Entity.Player
             if (!_playerData.IsGround)
             {
                 _playerData.Rb.velocity = _playerData.Rb.velocity.SetY(FLOATING_POWER);
-                QuestManager.Instance.SucceedChecker.CheckQuestPlayActionSucceed(Dango.Quest.QuestPlayAction.PlayerAction.RemoveInTheAir);
             }
-            else
-            {
-                QuestManager.Instance.SucceedChecker.CheckQuestPlayActionSucceed(Dango.Quest.QuestPlayAction.PlayerAction.RemoveOnTheGround);
-            }
-
-            QuestManager.Instance.SucceedChecker.CheckQuestPlayActionSucceed(Dango.Quest.QuestPlayAction.PlayerAction.RemoveAnyPlace);
 
             //[Debug]外した団子がわかるやつ
             //Logger.Log(_dangos[^1]);

@@ -11,15 +11,18 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
+    //データに含む物が分からないので仮でこうなってます
+    //後で色々付け足しといてください
+
+    //ゲーム開始時にこのフラグがfalseならタイトル後、tutorialに遷移する
+    public bool completedTutorial;
+
     //各ステージのアンロック演出の有無
     public int[] stagesStatus = new int[(int)Stage.Tutorial];
 
-    //チュートリアルステージのビット演算に使用
-    public int tutorialStatusBit;
-
-    //下記は書き方の例です。
-    //public int a = 0;
-    //public string b = "string";
-    //public double c = 3.14d;
-    //public bool d = false;
+    public int a = 0;
+    public string b = "string";
+    public double c = 3.14d;
+    public bool d = false;
+    public bool Stage1Frag = false;
 }

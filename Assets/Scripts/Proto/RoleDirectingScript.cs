@@ -69,7 +69,7 @@ public class RoleDirectingScript : MonoBehaviour
                 _ => throw new System.NotImplementedException(),
             };
         }
-        catch(System.NotImplementedException)
+        catch (System.NotImplementedException)
         {
             return;
         }

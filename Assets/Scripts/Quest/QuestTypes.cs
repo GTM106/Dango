@@ -269,10 +269,6 @@ namespace Dango.Quest
         {
             FallAttack,
             Stab,
-            RemoveAnyPlace,
-            RemoveOnTheGround,
-            RemoveInTheAir,
-            Look
         }
 
         PlayerAction _action;
