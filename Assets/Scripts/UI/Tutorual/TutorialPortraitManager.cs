@@ -1,35 +1,37 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using TM.Easing.Management;
 using UnityEngine;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
-using TM.Easing.Management;
 
-public interface IChangePortrait
-{
-    public UniTask ChangePortraitText(PortraitTextData questTextData);
-}
-
-public class PortraitScript : MonoBehaviour, IChangePortrait
+//基本のポートレート表示と概ね同じです。
+//しかし、チュートリアル限定処理をいちいち判定するのは冗長と判断したため
+//チュートリアル専用のスクリプトとして独立させました。
+public class TutorialPortraitManager : MonoBehaviour, IChangePortrait
 {
     [SerializeField] Image img;
     [SerializeField] TextUIData text;
     [SerializeField] Sprite[] facePatterns;
+    [SerializeField] ImageUIData U11Image;
+    [SerializeField] ImageUIData U8Image;
 
     bool _isChangePortrait;
 
-    const float OFFSET = -725f;
+    const float OFFSET = -1750f;
     const float SLIDETIME = 0.5f;
 
     //transformのインスタンス取得
-    Transform _trans;
+    Transform _transform;
 
     public bool IsChangePortrait => _isChangePortrait;
 
     private void Awake()
     {
-        _trans = transform;
-        _trans.localPosition = Vector3.zero.SetX(OFFSET);
+        _transform = transform;
+        _transform.localPosition = Vector3.zero.SetX(OFFSET);
+
+        U11Image.ImageData.FlashAlpha(-1f, 0.7f, 0);
     }
 
     private void ChangePortrait(PortraitTextData.PTextData data)
@@ -44,27 +46,22 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
         img.sprite = facePatterns[(int)data.face];
     }
 
-    public void ChangeImg(Sprite image)
-    {
-        img.sprite = image;
-    }
-
     private async UniTask SlideIn()
     {
         float time = 0;
         try
         {
             //位置の初期化
-            _trans.localPosition = Vector3.zero.SetX(OFFSET);
+            _transform.localPosition = Vector3.zero.SetX(OFFSET);
 
             while (time < SLIDETIME)
             {
                 await UniTask.Yield();
-                if (!_trans.root.gameObject.activeSelf) continue;
+                if (!_transform.root.gameObject.activeSelf) continue;
 
                 time += Time.deltaTime;
 
-                _trans.localPosition = Vector3.zero.SetX(OFFSET * (1f - EasingManager.EaseProgress(TM.Easing.EaseType.OutQuart, time, SLIDETIME, 0f, 0)));
+                _transform.localPosition = Vector3.zero.SetX(OFFSET * (1f - EasingManager.EaseProgress(TM.Easing.EaseType.OutQuart, time, SLIDETIME, 0f, 0)));
             }
         }
         catch (MissingReferenceException)
@@ -72,7 +69,7 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
             return;
         }
 
-        _trans.localPosition = Vector3.zero;
+        _transform.localPosition = Vector3.zero;
     }
 
     private async UniTask SlideOut()
@@ -80,18 +77,18 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
         float time = 0;
 
         //位置の初期化
-        _trans.localPosition = Vector3.zero;
+        _transform.localPosition = Vector3.zero;
 
         try
         {
             while (time < SLIDETIME)
             {
                 await UniTask.Yield();
-                if (!_trans.root.gameObject.activeSelf) continue;
+                if (!_transform.root.gameObject.activeSelf) continue;
 
                 time += Time.deltaTime;
 
-                _trans.localPosition = Vector3.zero.SetX(OFFSET * EasingManager.EaseProgress(TM.Easing.EaseType.InQuart, time, SLIDETIME, 0f, 0));
+                _transform.localPosition = Vector3.zero.SetX(OFFSET * EasingManager.EaseProgress(TM.Easing.EaseType.InQuart, time, SLIDETIME, 0f, 0));
             }
         }
         catch (MissingReferenceException)
@@ -99,21 +96,25 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
             return;
         }
 
-        _trans.localPosition = Vector3.zero.SetX(OFFSET);
+        _transform.localPosition = Vector3.zero.SetX(OFFSET);
     }
 
     public async UniTask ChangePortraitText(PortraitTextData questTextData)
     {
-
         PlayerData.IsClear = false;
+
         //イベント進行終了まで待機
         while (_isChangePortrait) await UniTask.Yield();
 
         if (questTextData.TextDataIndex == 0) return;
 
         //データ初期設定
-        PortraitTextData.PTextData data = questTextData.GetQTextData(0);
-        ChangePortrait(data);
+        ChangePortrait(questTextData.GetQTextData(0));
+
+        //チュートリアルは文字を読ませたいためUIマップに変える
+        InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
+
+        U8Image.ImageData.SetImageEnabled(false);
 
         await SlideIn();
 
@@ -123,20 +124,17 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
         //イベント進行
         for (int i = 0; i < questTextData.TextDataIndex; i++)
         {
-            float time = 0;
+            //データの変更
+            ChangePortrait(questTextData.GetQTextData(i));
 
-            data = questTextData.GetQTextData(i);
+            await UniTask.DelayFrame(50, PlayerLoopTiming.FixedUpdate);
 
-            ChangePortrait(data);
             try
             {
-                while (time < data.printTime)
+                while (!InputSystemManager.Instance.IsPressChoice)
                 {
                     await UniTask.Yield();
-                    if (_trans == null) return;
-                    if (!_trans.root.gameObject.activeSelf) continue;
-
-                    time += Time.deltaTime;
+                    if (!_transform.root.gameObject.activeSelf) continue;
                 }
             }
             catch (MissingReferenceException)
@@ -145,6 +143,10 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
             }
         }
 
+        //アクションマップをもとに戻す
+        InputSystemManager.Instance.Input.SwitchCurrentActionMap("Player");
+        U8Image.ImageData.SetImageEnabled(true);
+
         await SlideOut();
 
         //進行中フラグをオフにする
@@ -152,4 +154,5 @@ public class PortraitScript : MonoBehaviour, IChangePortrait
         PlayerData.IsClear = true;
         Logger.Log(PlayerData.IsClear);
     }
+
 }

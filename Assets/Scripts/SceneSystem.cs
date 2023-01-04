@@ -39,7 +39,15 @@ class SceneSystem : MonoBehaviour
     public enum Scenes
     {
         Title,
-        Tutorial,
+        TutorialHub,
+        Tutorial1,
+        Tutorial2,
+        Tutorial3,
+        Tutorial4,
+        Tutorial5,
+        Tutorial6,
+        Tutorial7,
+        Tutorial8,
         Menu,
         StageSelect,
         Stage1,
@@ -121,11 +129,11 @@ class SceneSystem : MonoBehaviour
 
     private void ChangeLightmap(Scenes scene)
     {
-        if(scene is >=Scenes.Stage1 and <= Scenes.Stage3)
+        if (scene is >= Scenes.Stage1 and <= Scenes.Stage3)
         {
             _changeLightmap.StageLight();
         }
-        else if(scene is Scenes.Tutorial)//Tutorial‚ÌŽd—l•ÏX‚Å•Ï‚í‚é
+        else if (scene is >= Scenes.Tutorial1 and <= Scenes.Tutorial8)
         {
             _changeLightmap.TutorialLight();
         }

@@ -17,14 +17,14 @@ public class TitleManager : MonoBehaviour
 
     public async void GameStart()
     {
-        var scenes = DataManager.saveData.completedTutorial ? SceneSystem.Scenes.Menu : SceneSystem.Scenes.Tutorial;
+        var scenes = (DataManager.saveData.tutorialStatusBit & (1 << 0)) != 0 ? SceneSystem.Scenes.Menu : SceneSystem.Scenes.Tutorial1;
 
         InputSystemManager.Instance.onAnyKeyPerformed -= GameStart;
 
         await _fusumaManager.UniTaskClose();
         SoundManager.Instance.StopBGM();
 
-        SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Tutorial);
+        SceneSystem.Instance.SetIngameScene(SceneSystem.Scenes.Tutorial1);
         SceneSystem.Instance.Load(scenes);
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.Title,true);
     }
