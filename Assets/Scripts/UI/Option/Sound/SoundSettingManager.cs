@@ -78,7 +78,7 @@ public class SoundSettingManager : MonoBehaviour
     {
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, SoundChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        _images[(int)_choice + (int)axis.y].color = new Color32(176, 176, 176, 255);
+        _images[(int)_choice + (int)axis.y].color = Color.white;
         _images[(int)_choice].color = Color.red;
 
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);

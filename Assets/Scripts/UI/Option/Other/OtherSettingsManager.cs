@@ -62,7 +62,7 @@ public class OtherSettingsManager : MonoBehaviour
 
         if (enable)
         {
-            _choiceImages[(int)_choice].color = new Color32(176, 176, 176, 255);
+            _choiceImages[(int)_choice].color = Color.white;
             _choice = 0;
             _choiceImages[(int)_choice].color = Color.red;
             SetChoiceImagesColor();
