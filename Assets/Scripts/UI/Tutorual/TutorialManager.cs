@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TutorialStage
 {
@@ -37,6 +38,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] List<ImageUIData> _U12s;
     [SerializeField] List<ImageUIData> _U5_11;
     [SerializeField] TextMeshProUGUI _U4TextMesh;
+    [SerializeField] Image _U3Image;
     [SerializeField] FusumaManager _fusumaManager;
 
     TutorialStage _currentStage;
@@ -48,6 +50,7 @@ public class TutorialManager : MonoBehaviour
         ResetU5_11Sprite();
         _U5_11[(int)_currentStage].ImageData.SetSprite(_U5_11SelectedSprite[(int)_currentStage]);
         _U4TextMesh.text = _U4Texts[(int)_currentStage];
+        _U3Image.sprite = _U3Sprite[(int)_currentStage];
     }
 
     private async void OnEnable()
@@ -72,6 +75,9 @@ public class TutorialManager : MonoBehaviour
 
         //その後セレクトしているものをつける
         _U5_11[(int)_currentStage].ImageData.SetSprite(_U5_11SelectedSprite[(int)_currentStage]);
+
+        //画像を変更
+        _U3Image.sprite = _U3Sprite[(int)_currentStage];
 
         //テキストを変更
         _U4TextMesh.text = _U4Texts[(int)_currentStage];
