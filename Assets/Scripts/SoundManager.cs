@@ -16,8 +16,6 @@ public enum SoundSource
     BGM1A_STAGE1_Loop,
     BGM1B_STAGE1_PINCHBGM,
     BGM1C_TUTORIAL,
-    BGM2_GAMEOVER,
-    BGM3_SUCCEED,
     BGM4_TITLE,
     BGM5_MENU_Intro,
     BGM5_MENU_Loop,
@@ -45,6 +43,8 @@ public enum SoundSource
     SE19_JUMPCHARGE_START,
     SE20_JUMPCHARGE_LOOP,
     SE21_PINCHSE,
+    SE22_GAMEOVERJINGLE,
+    SE23_SUCCESSJINGLE,
 }
 
 #if UNITY_EDITOR
@@ -169,6 +169,7 @@ public class SoundManager : MonoBehaviour
 
     public void StopBGM()
     {
+        _BGMIntro.Stop();
         _BGMLoop.Stop();
     }
 
