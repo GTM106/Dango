@@ -28,7 +28,7 @@ public class GameOverManager : MonoBehaviour
         //‘€ì‚ğUI‚É•ÏX
         InputSystemManager.Instance.Input.SwitchCurrentActionMap("UI");
 
-        SoundManager.Instance.PlayBGM(SoundSource.BGM2_GAMEOVER);
+        SoundManager.Instance.PlaySE(SoundSource.SE22_GAMEOVERJINGLE);
        
         SetSprite();
 
