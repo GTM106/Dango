@@ -6,9 +6,10 @@ using TMPro;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("空腹度テキスト")] TextMeshProUGUI timeText;
+    [SerializeField, Tooltip("空腹度テキスト")] TextMeshProUGUI[] timeText;
     [SerializeField, Tooltip("イベントテキスト")] TextUIData eventText;
     [SerializeField, Tooltip("空腹度ゲージ")] Slider[] timeGage;
+    [SerializeField, Tooltip("空腹度ゲージ")] Slider[] expansionTimeGage;
     [SerializeField, Tooltip("制限時間残量警告画像")] Sprite[] Warningimgs;
     [SerializeField, Tooltip("制限時間残量警告オブジェクト")] Image W_obj;
     [SerializeField] PlayerData playerdata;
@@ -20,12 +21,13 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] DangoUIScript dangoUIScript;
     [SerializeField] DangoHighLight dangoHighlight;
     [SerializeField] bool tutorial;
+    [SerializeField] float[] warningTime;
     private float time { get { return playerdata.GetSatiety(); } }
     private float maxTime;
     private float currentTime;
     private int[] warningTimes = new int[3];
 
-    RoleCheck roleCheck =new RoleCheck();
+    RoleCheck roleCheck = new RoleCheck();
 
     private Image[] w_imgs;
 
@@ -38,11 +40,12 @@ public class PlayerUIManager : MonoBehaviour
 
     public float DefaultEventTextFontSize { get; } = 100f;
 
-    float temp=0;
+    float temp = 0;
 
     public void SetTimeText(string text)
     {
-        timeText.text = text;
+        for(int i = 0; i < timeText.Length;i++)
+            timeText[i].text = text;
     }
 
     private void Start()
@@ -50,9 +53,9 @@ public class PlayerUIManager : MonoBehaviour
         maxTime = time;
         currentTime = maxTime;
 
-        if(!tutorial)
-        for (int i = 0; i < timeGage.Length; i++)
-            timeGage[i].value = 1;
+        if (!tutorial)
+            for (int i = 0; i < timeGage.Length; i++)
+                timeGage[i].value = 1;
         for (int i = 0; i < warningTimes.Length - 1; i++)
             warningTimes[i] = (int)maxTime - ((i + 1) * 10);//仮で初期値の2/3,1/3の値
 
@@ -70,38 +73,60 @@ public class PlayerUIManager : MonoBehaviour
         if (!PlayerData.Event)
             ScoreManager.Instance.AddTime();
 
-        Warning();
+        //Warning();
 
         if (!tutorial)
         {
-            for (int i = 0; i < timeGage.Length; i++)//ゲージの増減
-                timeGage[i].value = (float)currentTime / (float)maxTime;
+            setTime(expansionTimeGage);
+            setTime(timeGage);
             SetTimeText("" + (int)time);
         }
     }
-
-    private void Warning()
+    private void setTime(Slider[] sliders)
     {
-        if (time > warningTimes[0])
-        {
-            W_obj.gameObject.SetActive(false);
-        }
-        for (int i = 0; i < warningTimes.Length; i++)
-        {
-            if (time < warningTimes[i] && !warningbool[i])
+        Logger.Log(currentTime);
+
+        for (int i = 0; i < sliders.Length; i++)//ゲージの増減
+        { 
+            if (warningTime[i] < currentTime)
             {
-                W_obj.gameObject.SetActive(true);
-                W_obj.sprite = Warningimgs[i];
-                warningbool[i] = true;
+                sliders[i].gameObject.transform.parent.gameObject.SetActive(true);
+                sliders[i].value = ((float)currentTime - warningTime[i+1]) / (float)warningTime[i];
+
             }
-            else if (time >= warningTimes[i] && warningbool[i])//一段階上がった際の処理
-            {
-                W_obj.gameObject.SetActive(true);
-                W_obj.sprite = Warningimgs[i];
-                warningbool[i] = false;
-            }
+
+        if (i + 1 < warningTime.Length)
+        {
+            if (warningTime[i + 1] > currentTime)
+                sliders[i].gameObject.transform.parent.gameObject.SetActive(false);
         }
+        else if (warningTime[i] > currentTime)
+            sliders[i].gameObject.transform.parent.gameObject.SetActive(false);
     }
+}
+
+    //private void Warning()
+    //{
+    //    if (time > warningTimes[0])
+    //    {
+    //        W_obj.gameObject.SetActive(false);
+    //    }
+    //    for (int i = 0; i < warningTimes.Length; i++)
+    //    {
+    //        if (time < warningTimes[i] && !warningbool[i])
+    //        {
+    //            W_obj.gameObject.SetActive(true);
+    //            W_obj.sprite = Warningimgs[i];
+    //            warningbool[i] = true;
+    //        }
+    //        else if (time >= warningTimes[i] && warningbool[i])//一段階上がった際の処理
+    //        {
+    //            W_obj.gameObject.SetActive(true);
+    //            W_obj.sprite = Warningimgs[i];
+    //            warningbool[i] = false;
+    //        }
+    //    }
+    //}
     public void EatDangoUI_False()
     {
         for (int i = 0; i < ErasewithEatObj.Length; i++)
