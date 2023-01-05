@@ -505,8 +505,11 @@ public class PlayerData : MonoBehaviour
     [SerializeField] StepBase _stepBase = default!;
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
+    [SerializeField] StageData _stageData = default!;
 
     [SerializeField] PlayerBGMChanger _playerBGMChanger = default!;
+
+    float _satiety = 100f;
 
     [SerializeField] bool _allowReducedTimeLimit = true;
 
@@ -533,12 +536,6 @@ public class PlayerData : MonoBehaviour
     public static bool IsClear = false;
 
     /// <summary>
-    /// 満腹度、制限時間の代わり（単位:[sec]）
-    /// </summary>
-    /// フレーム数で管理しますが、ここでは秒管理で構いません。
-    private float _satiety = 100f;
-
-    /// <summary>
     /// 串、持ってる団子
     /// </summary>
     /// 今まではnew List<DangoColor>()としなければなりませんでしたが
@@ -548,7 +545,7 @@ public class PlayerData : MonoBehaviour
     /// <summary>
     /// 刺せる数、徐々に増える
     /// </summary>    
-    [SerializeField] private int _currentStabCount = 3;
+    private int _currentStabCount = 3;
 
     private bool _isGround = false;
 
@@ -581,8 +578,11 @@ public class PlayerData : MonoBehaviour
 
     private void Awake()
     {
+        _satiety = _stageData.TimeLimit;
+        _currentStabCount = _stageData.StartD5;
+
         InitSwordEnabled();
-        
+
         _mapLayer = LayerMask.NameToLayer("Map");
         _animationManager = new(_animator);
 
@@ -865,7 +865,7 @@ public class PlayerData : MonoBehaviour
 
     private void InitSwordEnabled()
     {
-        foreach(var sword in _swords)
+        foreach (var sword in _swords)
         {
             sword.gameObject.SetActive(false);
         }

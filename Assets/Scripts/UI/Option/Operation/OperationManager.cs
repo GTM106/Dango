@@ -109,6 +109,8 @@ public class OperationManager : MonoBehaviour
         DataManager.configData.cameraInvertYAxis ^= true;
         _inversionH.sprite = _yesNoSprite[DataManager.configData.cameraInvertYAxis ? 0 : 1];
 
+        SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
+
         Logger.Log(DataManager.configData.cameraInvertYAxis);
     }
 
@@ -116,6 +118,8 @@ public class OperationManager : MonoBehaviour
     {
         DataManager.configData.cameraInvertXAxis ^= true;
         _inversionV.sprite = _yesNoSprite[DataManager.configData.cameraInvertXAxis ? 0 : 1];
+
+        SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
 
         Logger.Log(DataManager.configData.cameraInvertXAxis);
     }
@@ -130,8 +134,11 @@ public class OperationManager : MonoBehaviour
 
         _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[(rotationSpeed / 10) - 1]);
 
+        SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
+
         //Logger.Log(rotationSpeed);
     }
+
     private void CameraSensitivityYChange(ref int rotationSpeed, float axis)
     {
         if (_choice != OperationChoices.CameraSensitivityYAxis) return;
@@ -141,6 +148,8 @@ public class OperationManager : MonoBehaviour
         rotationSpeed = Mathf.Clamp(rotationSpeed / 10 + (int)axis, MIN_ROTATIONSPEED, MAX_ROTATIONSPEED) * 10;
 
         _cameraSensitivityYImage.ImageData.SetSprite(_scaleSprites[(rotationSpeed / 10) - 1]);
+
+        SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
 
         //Logger.Log(rotationSpeed);
     }

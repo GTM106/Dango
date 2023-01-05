@@ -97,6 +97,7 @@ public class ClearSceneScript : MonoBehaviour
                 SceneSystem.Instance.UnLoad(SceneSystem.Scenes.Success, true);
                 break;
             case Next.StageSelect:
+                SoundManager.Instance.PlayBGM(SoundSource.BGM5_MENU_Loop);
                 SceneSystem.Instance.Load(SceneSystem.Scenes.StageSelect);
                 SceneSystem.Instance.UnLoad(SceneSystem.Scenes.Success, true);
                 break;

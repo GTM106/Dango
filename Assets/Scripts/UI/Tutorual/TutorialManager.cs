@@ -46,6 +46,8 @@ public class TutorialManager : MonoBehaviour
         _currentStage = TutorialStage.BasicOperation;
         SetU12Sprite();
         ResetU5_11Sprite();
+        _U5_11[(int)_currentStage].ImageData.SetSprite(_U5_11SelectedSprite[(int)_currentStage]);
+        _U4TextMesh.text = _U4Texts[(int)_currentStage];
     }
 
     private async void OnEnable()

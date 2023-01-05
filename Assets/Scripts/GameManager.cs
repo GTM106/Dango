@@ -177,6 +177,7 @@ internal class GameManager : MonoBehaviour
         InputSystemManager.Instance.onPausePerformed -= OnPause;
 
         SceneSystem.Scenes nextScene = SceneSystem.Scenes.Success;
+        SoundSource sound = SoundSource.BGM3_SUCCEED;
 
         //チュートリアルをクリアした際は別処理
         if (SceneSystem.Instance.CurrentIngameScene is >= SceneSystem.Scenes.Tutorial1 and <= SceneSystem.Scenes.Tutorial8)
@@ -193,7 +194,11 @@ internal class GameManager : MonoBehaviour
 
             //クリア画面には移行せず、メニューに戻る
             nextScene = SceneSystem.Scenes.TutorialHub;
+            sound = SoundSource.BGM5_MENU_Loop;
         }
+
+        SoundManager.Instance.StopBGM(0.5f);
+        SoundManager.Instance.PlayBGM(sound, 0.5f, 0);
 
         SceneSystem.Instance.Load(nextScene);
     }

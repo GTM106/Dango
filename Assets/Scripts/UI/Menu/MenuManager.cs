@@ -94,7 +94,7 @@ public class MenuManager : MonoBehaviour
         InputSystemManager.Instance.onChoicePerformed += OnChoice;
         InputSystemManager.Instance.onBackPerformed += OnCancel;
 
-        SoundManager.Instance.PlayBGM(SoundSource.BGM5_MENU);
+        SoundManager.Instance.PlayBGM(SoundSource.BGM5_MENU_Intro, SoundSource.BGM5_MENU_Loop);
     }
 
     private void OnNavigate()
@@ -126,8 +126,6 @@ public class MenuManager : MonoBehaviour
         if (_isTransition) return;
         _isTransition = true;
         SoundManager.Instance.PlaySE(SoundSource.SE17_UI_DECISION);
-
-        if (CurrentMenu == Menu.Tutorial) SoundManager.Instance.StopBGM(1.5f);
 
         if (CurrentMenu == Menu.Quit && !isSelectedQuit)
         {
