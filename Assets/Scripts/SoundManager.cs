@@ -169,6 +169,7 @@ public class SoundManager : MonoBehaviour
 
     public void StopBGM()
     {
+        _BGMIntro.Stop();
         _BGMLoop.Stop();
     }
 

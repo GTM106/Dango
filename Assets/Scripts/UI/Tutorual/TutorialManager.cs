@@ -93,6 +93,8 @@ public class TutorialManager : MonoBehaviour
 
         await _fusumaManager.UniTaskClose(1.5f);
 
+        SoundManager.Instance.StopBGM();
+
         SceneSystem.Scenes scene = SceneSystem.Scenes.Tutorial1 + (int)_currentStage;
 
         SceneSystem.Instance.UnLoad(SceneSystem.Scenes.TutorialHub, true);
