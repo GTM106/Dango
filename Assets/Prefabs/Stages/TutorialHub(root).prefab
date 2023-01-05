@@ -1961,7 +1961,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fac7b8351aafabc42803dcf4748e9127, type: 3}
   - {fileID: 21300000, guid: 657193f376de5374cbd60f87da314d8a, type: 3}
   _U12CompleteSprite: {fileID: 21300000, guid: 8f29e039f76a6c7469aabc6d7feed0f6, type: 3}
-  _U12IncompleteSprite: {fileID: 21300000, guid: 7ec21f1dafadd6a42b15019b468e2ff0,
+  _U12IncompleteSprite: {fileID: 21300000, guid: ec98b0590fc247c4c9f18d00681c8a51,
     type: 3}
   _U12s:
   - {fileID: 3769654163688205946}
