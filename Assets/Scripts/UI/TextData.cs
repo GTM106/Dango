@@ -67,7 +67,7 @@ namespace TM.UI.Text
 
             _isFlash = true;
 
-            while (_flashCurrentTime < finishTime)
+            while (_flashCurrentTime < finishTime || finishTime == -1)
             {
                 await Fadein(flashTime, coolTime);
                 await Fadeout(flashTime, coolTime);

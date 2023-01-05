@@ -235,14 +235,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19913672, g: 0.23584908, b: 0.21146835, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a4d1ae33c9d99bc4da9395a7b3367d30, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9699149f9e8fd944db961147a3f3260a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1781,7 +1781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ea2bb1fcf2aa42e4383778e314fa5e02, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1945,23 +1945,23 @@ MonoBehaviour:
   - "\u96A3\u8272\u93E1\u9762"
   - "\u4E09\u9762\u83EF\u93E1"
   _U5_11SelectedSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 78fc75cefae06964e96d9282b8c923b1, type: 3}
+  - {fileID: 21300000, guid: 62d1bf57425ae4b4ba97b49bdfea1b9d, type: 3}
+  - {fileID: 21300000, guid: e8e3142f8c4c5a7488367877bd6fb4a9, type: 3}
+  - {fileID: 21300000, guid: bb90481aabaf68a4b8d6105f9dee5d9b, type: 3}
+  - {fileID: 21300000, guid: a1afc24e7f135044eb15509098100ed0, type: 3}
+  - {fileID: 21300000, guid: 69ed4d1fb6e14854faa8e6e684da895f, type: 3}
+  - {fileID: 21300000, guid: 3c88db7a2f8d78441be71550e21f79c6, type: 3}
   _U5_11UnselectedSprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _U12CompleteSprite: {fileID: 21300000, guid: 5d4d2d0a46ba52c42aa4a6afe34331fe, type: 3}
-  _U12IncompleteSprite: {fileID: 21300000, guid: ab23ebc3c25e5124c978d4b512fb1f4a,
+  - {fileID: 21300000, guid: a40749ba7b94e3f4faea800ecb5ce0df, type: 3}
+  - {fileID: 21300000, guid: af9d37f61cad23b458aa7f5a57244230, type: 3}
+  - {fileID: 21300000, guid: 54f814d12302c554aa71a4bf7328cb4b, type: 3}
+  - {fileID: 21300000, guid: 1934343de7f819b46817c2be8e0afb02, type: 3}
+  - {fileID: 21300000, guid: 2d8d3a840843ef147a303aaa40db44f6, type: 3}
+  - {fileID: 21300000, guid: fac7b8351aafabc42803dcf4748e9127, type: 3}
+  - {fileID: 21300000, guid: 657193f376de5374cbd60f87da314d8a, type: 3}
+  _U12CompleteSprite: {fileID: 21300000, guid: 8f29e039f76a6c7469aabc6d7feed0f6, type: 3}
+  _U12IncompleteSprite: {fileID: 21300000, guid: 7ec21f1dafadd6a42b15019b468e2ff0,
     type: 3}
   _U12s:
   - {fileID: 3769654163688205946}

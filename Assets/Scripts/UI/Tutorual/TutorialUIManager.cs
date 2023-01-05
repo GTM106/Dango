@@ -19,7 +19,7 @@ public class TutorialUIManager : MonoBehaviour
     [SerializeField] IngameUIManager _ingameUIManager;
     [SerializeField] TextUIData _firstText;
 
-    const float FLASHTIME = 0.4f;
+    const float FLASHTIME = 0.7f;
 
     private void OnEnable()
     {
@@ -202,8 +202,8 @@ public class TutorialUIManager : MonoBehaviour
 
         public void SetImageColor(bool isOk)
         {
-            ok.ImageData.SetColor(isOk ? Color.red : Color.gray);
-            ng.ImageData.SetColor(isOk ? Color.gray : Color.red);
+            ok.ImageData.SetColor(isOk ? Color.red : Color.white);
+            ng.ImageData.SetColor(isOk ? Color.white : Color.red);
         }
 
         public void SetCanvasEnable(bool enabled)

@@ -334,8 +334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 660, y: 240}
-  m_SizeDelta: {x: 240, y: 180}
+  m_AnchoredPosition: {x: 620, y: 220}
+  m_SizeDelta: {x: 160, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9083955593307973604
 CanvasRenderer:
@@ -365,8 +365,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 064a84a678815f64c9af2f47c7e8cdfd, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 4331d5a1d6003ab449e7c761484a2cce, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2266,7 +2266,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _canvasGroups.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 911192187688253026}
     - target: {fileID: 212444124764056462, guid: 8c5bb1ca57175a14d96eb3398f8cd5d0,
         type: 3}
       propertyPath: _canvasGroups.Array.data[5]
@@ -2814,6 +2814,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 035de10697996f44fafe79630d595480, type: 3}
+--- !u!225 &911192187688253026 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5530299454589649653, guid: 035de10697996f44fafe79630d595480,
+    type: 3}
+  m_PrefabInstance: {fileID: 4619187411025310871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2412101802994882975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7017496303932828936, guid: 035de10697996f44fafe79630d595480,

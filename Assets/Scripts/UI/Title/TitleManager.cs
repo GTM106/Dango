@@ -7,12 +7,14 @@ public class TitleManager : MonoBehaviour
 {
     [SerializeField] FadeManager _fadeManager;
     [SerializeField] FusumaManager _fusumaManager;
+    [SerializeField] TextUIData _TitleText;
 
     private void Start()
     {
         InputSystemManager.Instance.onAnyKeyPerformed += GameStart;
         SoundManager.Instance.PlayBGM(SoundSource.BGM4_TITLE);
         _fadeManager.StartFade(FadeStyle.Fadeout, 1f);
+        _TitleText.TextData.FlashAlpha(-1, 0.7f, 0);
     }
 
     public async void GameStart()
