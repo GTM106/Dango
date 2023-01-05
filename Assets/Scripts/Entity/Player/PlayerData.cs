@@ -614,6 +614,8 @@ public class PlayerData : MonoBehaviour
 
         //ジャンプ可能高さガイドの色設定
         _stepBase.SetStepsColor(_currentStabCount);
+
+        _dangoUISC.ChangeKusi(_currentStabCount);
     }
 
     private void Update()
