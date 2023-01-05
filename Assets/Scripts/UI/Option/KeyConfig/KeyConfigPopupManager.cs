@@ -72,11 +72,11 @@ namespace TM.Input.KeyConfig
         {
             foreach (var image in images)
             {
-                image.ImageData.SetColor(Color.white);
+                image.ImageData.SetColor(Color.gray);
             }
 
             images[_settingActionIndex].ImageData.SetColor(Color.cyan);
-            images[_currentActionIndex].ImageData.SetColor(Color.red);
+            images[_currentActionIndex].ImageData.SetColor(Color.white);
         }
 
         private void ResetTexts()

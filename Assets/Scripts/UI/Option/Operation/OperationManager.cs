@@ -64,9 +64,9 @@ public class OperationManager : MonoBehaviour
 
         if (enable)
         {
-            _images[(int)_choice].color = new Color32(176, 176, 176, 255);
+            _images[(int)_choice].color = Color.gray;
             _choice = OperationChoices.CameraSensitivityYAxis;
-            _images[(int)_choice].color = Color.red;
+            _images[(int)_choice].color = Color.white;
         }
     }
 
@@ -99,8 +99,8 @@ public class OperationManager : MonoBehaviour
     {
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, OperationChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        _images[(int)_choice + (int)axis.y].color = Color.white;
-        _images[(int)_choice].color = Color.red;
+        _images[(int)_choice + (int)axis.y].color = Color.gray;
+        _images[(int)_choice].color = Color.white;
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
     }
 

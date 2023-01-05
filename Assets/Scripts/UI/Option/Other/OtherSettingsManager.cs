@@ -65,9 +65,9 @@ public class OtherSettingsManager : MonoBehaviour
 
         if (enable)
         {
-            _choiceImages[(int)_choice].color = Color.white;
+            _choiceImages[(int)_choice].color = Color.gray;
             _choice = 0;
-            _choiceImages[(int)_choice].color = Color.red;
+            _choiceImages[(int)_choice].color = Color.white;
             SetChoiceImagesColor();
         }
     }
@@ -146,8 +146,8 @@ public class OtherSettingsManager : MonoBehaviour
         if (IsPopUp) return;
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, OtherChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        _choiceImages[(int)_choice + (int)axis.y].color = Color.white;
-        _choiceImages[(int)_choice].color = Color.red;
+        _choiceImages[(int)_choice + (int)axis.y].color = Color.gray;
+        _choiceImages[(int)_choice].color = Color.white;
 
         SetChoiceImagesColor();
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
@@ -172,7 +172,7 @@ public class OtherSettingsManager : MonoBehaviour
         //ñ≥å¯Çé¶Ç∑êFÇ…ïœçX
         foreach (var image in _choiceImages)
         {
-            image.color = new Color32(50, 50, 50, 255);
+            image.color = Color.gray;
         }
     }
 
