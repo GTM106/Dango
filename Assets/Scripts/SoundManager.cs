@@ -19,7 +19,8 @@ public enum SoundSource
     BGM2_GAMEOVER,
     BGM3_SUCCEED,
     BGM4_TITLE,
-    BGM5_MENU,
+    BGM5_MENU_Intro,
+    BGM5_MENU_Loop,
 
     //SE
     SE1_FOOTSTEPS_HARD,//‚±‚Ì€–Ú‚ÍSE‚Ìæ“ªŒÅ’è‚Å‚¨Šè‚¢‚µ‚Ü‚·B

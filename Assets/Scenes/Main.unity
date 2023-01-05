@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1266d3b2d8adc0749a78c1bbd43cca03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugSoundSource: 29
+  _debugSoundSource: 8
   _BGMLoop: {fileID: 482151974}
   _BGMIntro: {fileID: 2112573776}
   _SEPrefab: {fileID: 3666380681918514816, guid: b87469c47a09e064c88f1afac9ad82f2,
@@ -822,6 +822,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
   - {fileID: 8300000, guid: c80accd6b3705e74196bd650a79de8f4, type: 3}
   - {fileID: 8300000, guid: 5b4f7b2b0652cb042acf413021357dc5, type: 3}
+  - {fileID: 8300000, guid: 963967de0fefc574a95d616b5baf460b, type: 3}
   - {fileID: 8300000, guid: 963967de0fefc574a95d616b5baf460b, type: 3}
   SEClip:
   - {fileID: 8300000, guid: 4e0bdb68c52d81e459c02762bde97dac, type: 3}

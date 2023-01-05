@@ -148,6 +148,8 @@ MonoBehaviour:
   _portraitScript: {fileID: 8349132724862761835}
   _tutorialPortraitScript: {fileID: 0}
   _fusumaManager: {fileID: 0}
+  _timeLimit: 100
+  _startD5: 4
 --- !u!1001 &33318007239017301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2385,6 +2387,11 @@ PrefabInstance:
       objectReference: {fileID: 1864896024791164584}
     - target: {fileID: 4062595608074469455, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
+      propertyPath: _stageData
+      value: 
+      objectReference: {fileID: 4417572548638713704}
+    - target: {fileID: 4062595608074469455, guid: e00667b9f080330498c4b7b845c69a76,
+        type: 3}
       propertyPath: _playerUIManager
       value: 
       objectReference: {fileID: 8349132723969158454}
@@ -2466,12 +2473,12 @@ PrefabInstance:
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001719702
+      value: -0.00000001719702
       objectReference: {fileID: 0}
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.6748317e-10
+      value: 5.6748317e-10
       objectReference: {fileID: 0}
     - target: {fileID: 8968484660200578913, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}

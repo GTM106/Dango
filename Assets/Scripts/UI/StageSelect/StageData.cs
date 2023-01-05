@@ -25,12 +25,16 @@ public class StageData : MonoBehaviour
     [SerializeField] PortraitScript _portraitScript;
     [SerializeField] TutorialPortraitManager _tutorialPortraitScript;
     [SerializeField] FusumaManager _fusumaManager;
+    [SerializeField, Tooltip("§ŒÀŽžŠÔ"), Min(0)] float _timeLimit;
+    [SerializeField, Tooltip("ŠJŽnŽžD5"), Range(3, 7)] int _startD5;
 
     public bool IsRelease => DataManager.saveData.stagesStatus[(int)_stage] == (int)StageStatus.Unlock;
 
     public Stage Stage => _stage;
 
     public List<QuestData> QuestData = new();
+    public float TimeLimit => _timeLimit;
+    public int StartD5 => _startD5;
 
     protected virtual void Awake()
     {
