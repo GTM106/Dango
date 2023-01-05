@@ -26,6 +26,11 @@ public class SoundSettingManager : MonoBehaviour
 
     List<int> _volumes = new();
 
+    private void Awake()
+    {
+        ResetColor();
+    }
+
     private void Start()
     {
         _volumes.Clear();
@@ -141,5 +146,13 @@ public class SoundSettingManager : MonoBehaviour
             SoundChoices.BGM => "BGMVolume",
             _ => throw new System.NotImplementedException(),
         };
+    }
+
+    private void ResetColor()
+    {
+        foreach (var image in _images)
+        {
+            image.color = Color.gray;
+        }
     }
 }

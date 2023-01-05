@@ -29,6 +29,7 @@ public class OtherSettingsManager : MonoBehaviour
     private void Awake()
     {
         _deleteDataCanvas.enabled = false;
+        ResetColor();
         SetDeleteChoiceColor();
     }
 
@@ -199,6 +200,14 @@ public class OtherSettingsManager : MonoBehaviour
         else
         {
             _deleteDataCanvas.enabled = false;
+        }
+    }
+
+    private void ResetColor()
+    {
+        foreach (var choiceImage in _choiceImages)
+        {
+            choiceImage.color = Color.gray;
         }
     }
 

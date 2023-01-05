@@ -34,6 +34,11 @@ public class OperationManager : MonoBehaviour
     const int MAX_ROTATIONSPEED = 20;
     const int MIN_ROTATIONSPEED = 1;
 
+    private void Awake()
+    {
+        ResetColor();
+    }
+
     private void Start()
     {
         _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedXAxis / 10 - 1]);
@@ -152,5 +157,13 @@ public class OperationManager : MonoBehaviour
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
 
         //Logger.Log(rotationSpeed);
+    }
+
+    private void ResetColor()
+    {
+        foreach(var image in _images)
+        {
+            image.color = Color.gray;
+        }
     }
 }
