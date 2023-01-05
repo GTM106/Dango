@@ -4412,6 +4412,26 @@ PrefabInstance:
       propertyPath: _ingameUIManager
       value: 
       objectReference: {fileID: 2705099970958109134}
+    - target: {fileID: 7017496303932828936, guid: 035de10697996f44fafe79630d595480,
+        type: 3}
+      propertyPath: _u7._actions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017496303932828936, guid: 035de10697996f44fafe79630d595480,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017496303932828936, guid: 035de10697996f44fafe79630d595480,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[1]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017496303932828936, guid: 035de10697996f44fafe79630d595480,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[2]
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8539276088637059606, guid: 035de10697996f44fafe79630d595480,
         type: 3}
       propertyPath: m_Pivot.x

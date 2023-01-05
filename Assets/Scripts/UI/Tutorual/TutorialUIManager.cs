@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TM.Easing.Management;
 using TM.Input.KeyConfig;
 using UnityEngine;
+using UnityEngine.UI;
 using static TM.Input.KeyConfig.KeyData;
 
 public class TutorialUIManager : MonoBehaviour
@@ -125,71 +126,88 @@ public class TutorialUIManager : MonoBehaviour
     struct U7
     {
         [SerializeField] ImageUIData _operationGuideImage;
-        [SerializeField] TextUIData _actionTextData;
         [SerializeField] List<KeyData.GameAction> _actions;
-
-        static readonly List<string> _actionTexts = new() { "移動アクション", "カメラ回転", "高跳びアクション", "突き刺しアクション", "食事アクション", "団子外しアクション", "UI拡張" };
+        [SerializeField] List<Image> _keyImages;
+        [SerializeField] List<Sprite> _actionSprite;
+        [SerializeField] List<Sprite> _keySprite;
 
         public void SetText(int nextQuestID)
         {
             if (nextQuestID < 0 || nextQuestID >= _actions.Count) return;
 
-            _actionTextData.TextData.SetText(KeyCode(nextQuestID) + "\n" + ActionText(nextQuestID));
+            var keySprites = KeyCode(nextQuestID);
+
+            for (int i = 0; i < _keyImages.Count; i++)
+            {
+                _keyImages[i].enabled = false;
+            }
+
+            for (int i = 0; i < keySprites.Count; i++)
+            {
+                _keyImages[i].enabled = true;
+                _keyImages[i].sprite = keySprites[i];
+            }
+
+            _operationGuideImage.ImageData.SetSprite(ActionText(nextQuestID));
         }
 
-        private string ActionText(int nextQuestID)
+        private Sprite ActionText(int nextQuestID)
         {
-            //急降下はベタ打ちで返す
-            if (nextQuestID == 6) return "空中で刺すと急降下アクション";
-
             return _actions[nextQuestID] switch
             {
-                KeyData.GameAction.Move => _actionTexts[0],
-                KeyData.GameAction.LookRotation => _actionTexts[1],
-                KeyData.GameAction.Jump => _actionTexts[2],
-                KeyData.GameAction.Attack => _actionTexts[3],
-                KeyData.GameAction.Eat => _actionTexts[4],
-                KeyData.GameAction.Remove => _actionTexts[5],
-                KeyData.GameAction.UIExpansion => _actionTexts[6],
+                GameAction.Move => _actionSprite[0],
+                GameAction.LookRotation => _actionSprite[1],
+                GameAction.Jump => _actionSprite[2],
+                GameAction.Attack => _actionSprite[3],
+                GameAction.Eat => _actionSprite[4],
+                GameAction.Remove => _actionSprite[5],
+                GameAction.Pause => _actionSprite[6],
+                GameAction.UIExpansion => _actionSprite[7],
                 _ => throw new NotImplementedException(),
             };
         }
 
-        private string KeyCode(int nextQuestID)
+        private List<Sprite> KeyCode(int nextQuestID)
         {
-            string str = "";
+            List<Sprite> sprites = new();
 
-            for (int i = 0; i < DataManager.keyConfigData.keys.Length; i++)
+            if (_actions[nextQuestID] == GameAction.Move)
             {
-                if (DataManager.keyConfigData.keys[i] == (int)_actions[nextQuestID])
+                sprites.Add(_keySprite[8]);
+            }
+            else if (_actions[nextQuestID] == GameAction.LookRotation)
+            {
+                sprites.Add(_keySprite[9]);
+            }
+            else
+            {
+                for (int i = 0; i < DataManager.keyConfigData.keys.Length; i++)
                 {
-                    str += (GamepadKey)i switch
+                    if (DataManager.keyConfigData.keys[i] == (int)_actions[nextQuestID])
                     {
-                        GamepadKey.ButtonNorth => "Y,",
-                        GamepadKey.ButtonEast => "B,",
-                        GamepadKey.ButtonWest => "X,",
-                        GamepadKey.ButtonSouth => "A,",
-                        GamepadKey.L => "L,",
-                        GamepadKey.R => "R,",
-                        GamepadKey.LTrigger => "ZL,",
-                        GamepadKey.RTrigger => "ZR,",
-                        GamepadKey.LStick => "左スティック,",
-                        GamepadKey.LStickPress => "左スティック押し込み,",
-                        GamepadKey.RStick => "右スティック,",
-                        GamepadKey.RStickPress => "右スティック押し込み,",
-                        GamepadKey.D_pad => "Dパッド,",
-                        GamepadKey.D_padDown => "Dパッド(下),",
-                        GamepadKey.D_padUp => "Dパッド(上),",
-                        GamepadKey.D_padLeft => "Dパッド(左),",
-                        GamepadKey.D_padRight => "Dパッド(右),",
-                        GamepadKey.Select => "セレクト,",
-                        GamepadKey.Start => "スタート,",
-                        _ => throw new NotImplementedException(),
-                    };
+                        Sprite sprite = (GamepadKey)i switch
+                        {
+                            GamepadKey.ButtonNorth => _keySprite[0],
+                            GamepadKey.ButtonEast => _keySprite[1],
+                            GamepadKey.ButtonWest => _keySprite[2],
+                            GamepadKey.ButtonSouth => _keySprite[3],
+                            GamepadKey.L => _keySprite[4],
+                            GamepadKey.R => _keySprite[5],
+                            GamepadKey.LTrigger => _keySprite[6],
+                            GamepadKey.RTrigger => _keySprite[7],
+                            GamepadKey.D_padDown => _keySprite[10],
+                            GamepadKey.D_padUp => _keySprite[11],
+                            GamepadKey.D_padLeft => _keySprite[12],
+                            GamepadKey.D_padRight => _keySprite[13],
+                            _ => throw new NotImplementedException(),
+                        };
+
+                        sprites.Add(sprite);
+                    }
                 }
             }
 
-            return str;
+            return sprites;
         }
     }
 
