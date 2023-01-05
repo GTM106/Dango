@@ -11,6 +11,8 @@ public class DangoUIScript : MonoBehaviour
     [SerializeField] Sprite[] DangoImags;
     [SerializeField] TextMeshProUGUI Text;
     [SerializeField] PlayerData PlayerData;
+    [SerializeField] ImageUIData kusiImageData;
+    [SerializeField] Sprite[] kusiSprites;
     private Image[] DangoImagObjs;
     private Image reachImag;
     private PlayerDangoAnima[] dangoAnimas;
@@ -101,4 +103,11 @@ public class DangoUIScript : MonoBehaviour
         if (reachObjs.activeSelf)
             reachObjs.SetActive(false);
     }
+
+    public void ChangeKusi(int num)
+    {
+        kusiImageData.ImageData.SetSprite(kusiSprites[num - 3]);
+    }
+
+    public Image[] GetDangos() => DangoImagObjs;
 }
