@@ -34,6 +34,11 @@ public class OperationManager : MonoBehaviour
     const int MAX_ROTATIONSPEED = 20;
     const int MIN_ROTATIONSPEED = 1;
 
+    private void Awake()
+    {
+        ResetColor();
+    }
+
     private void Start()
     {
         _cameraSensitivityXImage.ImageData.SetSprite(_scaleSprites[DataManager.configData.cameraRotationSpeedXAxis / 10 - 1]);
@@ -64,9 +69,9 @@ public class OperationManager : MonoBehaviour
 
         if (enable)
         {
-            _images[(int)_choice].color = new Color32(176, 176, 176, 255);
+            _images[(int)_choice].color = Color.gray;
             _choice = OperationChoices.CameraSensitivityYAxis;
-            _images[(int)_choice].color = Color.red;
+            _images[(int)_choice].color = Color.white;
         }
     }
 
@@ -99,8 +104,8 @@ public class OperationManager : MonoBehaviour
     {
         if (!ChangeChoiceUtil.Choice(axis, ref _choice, OperationChoices.Max, false, ChangeChoiceUtil.OptionDirection.Vertical)) return;
 
-        _images[(int)_choice + (int)axis.y].color = Color.white;
-        _images[(int)_choice].color = Color.red;
+        _images[(int)_choice + (int)axis.y].color = Color.gray;
+        _images[(int)_choice].color = Color.white;
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
     }
 
@@ -152,5 +157,13 @@ public class OperationManager : MonoBehaviour
         SoundManager.Instance.PlaySE(SoundSource.SE16_UI_SELECTION);
 
         //Logger.Log(rotationSpeed);
+    }
+
+    private void ResetColor()
+    {
+        foreach(var image in _images)
+        {
+            image.color = Color.gray;
+        }
     }
 }
