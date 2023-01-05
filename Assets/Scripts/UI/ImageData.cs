@@ -147,6 +147,7 @@ namespace TM.UI
         public async void FlashAlpha(float finishTime, float flashTime, float coolTime)
         {
             _flashCurrentTime = 0;
+            Logger.Log(_isFlash);
             if (_isFlash) return;
 
             _isFlash = true;

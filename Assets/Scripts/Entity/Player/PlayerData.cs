@@ -845,6 +845,7 @@ public class PlayerData : MonoBehaviour
         _spitManager = _swords[_currentStabCount - 3];
         _playerAttack.SetSpitManager(_spitManager);
         _playerUIManager.EventText.TextData.SetText("させる団子の数が増えた！(" + _currentStabCount + "個)");
+        _dangoUISC.ChangeKusiSprite(_currentStabCount);
         _stepBase.SetStepsColor(_currentStabCount);
 
         //刺せる範囲表示の拡大。今串が伸びないのでコメントアウトしてます。
