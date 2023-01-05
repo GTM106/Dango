@@ -1661,13 +1661,13 @@ MonoBehaviour:
   - {fileID: -2663837440296468270, guid: 37cb43828fc031443ae9141352cf10aa, type: 3}
   - {fileID: 4417572548638713704, guid: 880f39a16cc204a41a1f24bd542c987b, type: 3}
   _stageSprites:
-  - {fileID: 21300000, guid: bb4f6cd53aad1d543b2cf554391bb96e, type: 3}
-  - {fileID: 21300000, guid: bb4f6cd53aad1d543b2cf554391bb96e, type: 3}
-  - {fileID: 21300000, guid: bb4f6cd53aad1d543b2cf554391bb96e, type: 3}
+  - {fileID: 21300000, guid: 95dbbc9256b989541816ddacb88a60e2, type: 3}
+  - {fileID: 21300000, guid: b4f3450074ddeaa4188ae5c196e571af, type: 3}
+  - {fileID: 21300000, guid: ff2dec37f85ac554e815ed01c0fa03ed, type: 3}
   _lockedStageSprites:
-  - {fileID: 21300000, guid: 0f8a8dda74d4ae048bd8439a83d3bff2, type: 3}
-  - {fileID: 21300000, guid: 0f8a8dda74d4ae048bd8439a83d3bff2, type: 3}
-  - {fileID: 21300000, guid: 0f8a8dda74d4ae048bd8439a83d3bff2, type: 3}
+  - {fileID: 21300000, guid: 8d2ca6307d5ed2249b1e5793ec7f2305, type: 3}
+  - {fileID: 21300000, guid: 182619f6ecb9bb94a86d9e99c8293b77, type: 3}
+  - {fileID: 21300000, guid: 013731c1b3df26f4a972a11ac7dfa648, type: 3}
   _stageImage: {fileID: 497652824}
   _stageImageUpdate: {fileID: 927328262}
   guids:
