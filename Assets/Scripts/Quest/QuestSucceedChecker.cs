@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Dango.Quest.UI;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace Dango.Quest
 {
@@ -10,22 +11,22 @@ namespace Dango.Quest
         QuestManager _manager;
         bool _isSucceedThisFrame;
 
-        PlayerUIManager _playerUIManager;
         IChangePortrait _portraitScript;
         StageData _stageData;
         TutorialUIManager _tutorialUIManager;
         QuestSucceedUIManager _questSucceedUIManager;
         QuestExpansionUIManager _questExpansionUIManager;
+        TimelimitsManager[] _timelimitsManager;
 
-        public QuestSucceedChecker(QuestManager manager, PlayerUIManager playerUIManager, IChangePortrait portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager, QuestExpansionUIManager questExpansionUIManager)
+        public QuestSucceedChecker(QuestManager manager, IChangePortrait portraitScript, StageData stageData, TutorialUIManager tutorialUIManager, QuestSucceedUIManager questSucceedUIManager, QuestExpansionUIManager questExpansionUIManager, TimelimitsManager[] timelimitsManager = null)
         {
             _manager = manager;
-            _playerUIManager = playerUIManager;
             _portraitScript = portraitScript;
             _stageData = stageData;
             _tutorialUIManager = tutorialUIManager;
             _questSucceedUIManager = questSucceedUIManager;
             _questExpansionUIManager = questExpansionUIManager;
+            _timelimitsManager = timelimitsManager;
         }
 
         #region EatDango
@@ -346,7 +347,11 @@ namespace Dango.Quest
             _manager.ChangeQuest(nextQuest);
             _manager.Player.GrowStab(quest.EnableDangoCountUp);
             _manager.Player.AddSatiety(quest.RewardTime);
-            _playerUIManager.ScoreCatch(quest.RewardTime);
+
+            for (int i = 0; i < _timelimitsManager.Length; i++)
+            {
+                _timelimitsManager[i].AddTimelimit(quest.RewardTime);
+            }
 
             ScoreManager.Instance.AddClearTime(ScoreManager.Instance.SetQuestTime());
             ScoreManager.Instance.AddClearQuest(quest);
