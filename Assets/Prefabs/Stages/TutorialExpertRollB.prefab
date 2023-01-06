@@ -1620,6 +1620,21 @@ PrefabInstance:
       propertyPath: _ingameUIManager
       value: 
       objectReference: {fileID: 2705099970958109134}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2986295211995004148, guid: 591f01140161afd4f9c7ac29ef45a97a,
         type: 3}
       propertyPath: m_LocalRotation.x
