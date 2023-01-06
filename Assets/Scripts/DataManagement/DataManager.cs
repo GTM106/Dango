@@ -41,6 +41,8 @@ public class DataManager : MonoBehaviour
     static readonly KeyData[] keyDatas = new KeyData[(int)GamepadKey.Max];
     static InputActionReference[] actionReferencesTable;
 
+    static bool ResetFlag = false;
+
     public static KeyData GetKeyData(int index) => keyDatas[index];
     public static KeyData GetKeyData(KeyData.GamepadKey index) => keyDatas[(int)index];
 
@@ -73,9 +75,12 @@ public class DataManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        SaveConfigData();
-        SaveSaveData();
-        SaveInputData();
+        if (!ResetFlag)
+        {
+            SaveConfigData();
+            SaveSaveData();
+            SaveInputData();
+        }
     }
 
     private void InitKeyData()
@@ -367,6 +372,8 @@ public class DataManager : MonoBehaviour
 
         File.Delete(path + "/save.dat");
         File.Delete(path + "/config.txt");
+
+        ResetFlag = true;
     }
 
     /// <summary>

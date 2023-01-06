@@ -34,7 +34,7 @@ public class Stage003Data : StageData
                 3),
 
             //D5上昇
-            questManager.Creater.CreateQuestCreateRole(3, new QuestCreateRole.SpecifyTheRole("一統団結"), 1, 0, "一種類だけで団結を作れ", 0f, true, false, new(
+            questManager.Creater.CreateQuestCreateRole(3, new QuestCreateRole.SpecifyTheRole("一統団結"), 1, 0, "一種類だけで団結を作れ", 30f, true, false, new(
                 new PortraitTextData.PTextData(0, "一意専心。ただ真っ直ぐに、俺の道を征く！", 5f, PortraitTextData.FacePatturn.Fun)),
                 4),
 
@@ -47,10 +47,10 @@ public class Stage003Data : StageData
                 new PortraitTextData.PTextData(0, "あと少しで最上階！待ってろよ伝説の団子！", 5f, PortraitTextData.FacePatturn.Happy)),
                 6,7),
 
-            questManager.Creater.CreateQuestCreateRole(6, new QuestCreateRole.CreateSameRole(true), 1, 2, "同じ団結を2回連続で作る", 0f, false, false, new(
+            questManager.Creater.CreateQuestCreateRole(6, new QuestCreateRole.CreateSameRole(true), 1, 2, "同じ団結を2回連続で作る", 20f, false, false, new(
                 new PortraitTextData.PTextData(0, "見つけたぜ、自分の団結ってやつを", 5f, PortraitTextData.FacePatturn.Fun)),
                 8),
-            questManager.Creater.CreateQuestCreateRole(7, new QuestCreateRole.CreateSameRole(false), 1, 2, "異なる団結を2回連続で作る", 0f, false, false, new(
+            questManager.Creater.CreateQuestCreateRole(7, new QuestCreateRole.CreateSameRole(false), 1, 2, "異なる団結を2回連続で作る", 20f, false, false, new(
                 new PortraitTextData.PTextData(0, "変化のない人生なんてつまらねぇよな！", 5f, PortraitTextData.FacePatturn.Happy)),
                 8),
 
