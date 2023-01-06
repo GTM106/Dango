@@ -22,6 +22,7 @@ public class ClearSceneScript : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [SerializeField] flowchartScript _flowchartScript;
     [SerializeField] U7And8 _U7And8;
+    [SerializeField] RankData[] _rankDatas;
 
     Next _next;
 
@@ -121,14 +122,40 @@ public class ClearSceneScript : MonoBehaviour
     {
         float time = ScoreManager.Instance.GetTime();
 
-        if (time < 180)
+        float high = 0;
+        float middle = 0;
+
+        switch (SceneSystem.Instance.CurrentIngameScene)
+        {
+            case SceneSystem.Scenes.Stage1:
+                high = _rankDatas[0].highRank;
+                middle = _rankDatas[0].middleRank;
+                break;
+            case SceneSystem.Scenes.Stage2:
+                high = _rankDatas[1].highRank;
+                middle = _rankDatas[1].middleRank;
+                break;
+            case SceneSystem.Scenes.Stage3:
+                high = _rankDatas[2].highRank;
+                middle = _rankDatas[2].middleRank;
+                break;
+        }
+
+        if (time < high)
             SetObj(Ranks[0]);
-        else if (time < 240)
+        else if (time < middle)
             SetObj(Ranks[1]);
         else
             SetObj(Ranks[2]);
 
         text.text = time.ToString("f1");
+    }
+
+    [Serializable]
+    struct RankData
+    {
+        public float highRank;
+        public float middleRank;
     }
 
     [Serializable]
