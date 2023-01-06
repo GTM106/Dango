@@ -1547,10 +1547,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f7fa222221e94274fa76ac11a6c8a53f, type: 3}
     - {fileID: 21300000, guid: adbb6799b0f8a4a468e68ce903946b00, type: 3}
   _rankDatas:
-  - highRank: 180
-    middleRank: 240
-  - highRank: 180
-    middleRank: 240
+  - highRank: 220
+    middleRank: 270
+  - highRank: 250
+    middleRank: 300
   - highRank: 180
     middleRank: 240
 --- !u!1 &8369688547467835383
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6515405437267762642}
   m_HandleRect: {fileID: 6284741515895089278}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
