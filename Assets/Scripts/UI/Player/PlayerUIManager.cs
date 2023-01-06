@@ -42,6 +42,7 @@ public class PlayerUIManager : MonoBehaviour
 
     float temp = 0;
 
+    float temptime = 0;
     public void SetTimeText(string text)
     {
         for(int i = 0; i < timeText.Length;i++)
@@ -75,6 +76,14 @@ public class PlayerUIManager : MonoBehaviour
 
         //Warning();
 
+        if(eventText.gameObject.GetComponent<TextMeshProUGUI>().text != "") 
+        temptime += Time.deltaTime;
+
+        if (temptime > 3)
+        {
+            eventText.TextData.SetText("");
+            temptime=0;
+        }
         if (!tutorial)
         {
             setTime(expansionTimeGage);
