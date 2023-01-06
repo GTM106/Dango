@@ -360,18 +360,6 @@ CanvasGroup:
     type: 3}
   m_PrefabInstance: {fileID: 376368965615401532}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7945485717737392275 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7745391727675044527, guid: ea25d6985a03e2943a1b915d2d2401a3,
-    type: 3}
-  m_PrefabInstance: {fileID: 376368965615401532}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b80209b524d4a48bc5ba2b928734f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8349132723969158454 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8567872266559936266, guid: ea25d6985a03e2943a1b915d2d2401a3,
@@ -901,11 +889,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7184158691382516825, guid: 169c5f25909f95e4b9d01ce516860b82,
         type: 3}
-      propertyPath: uIManager
-      value: 
-      objectReference: {fileID: 8349132723969158454}
-    - target: {fileID: 7184158691382516825, guid: 169c5f25909f95e4b9d01ce516860b82,
-        type: 3}
       propertyPath: times.Array.data[1]
       value: 
       objectReference: {fileID: 9010103598675994222}
@@ -1039,11 +1022,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9009545599892977691, guid: 169c5f25909f95e4b9d01ce516860b82,
-        type: 3}
-      propertyPath: TimeGage
-      value: 
-      objectReference: {fileID: 7945485717737392275}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169c5f25909f95e4b9d01ce516860b82, type: 3}
 --- !u!114 &3052763109999752998 stripped
@@ -1398,7 +1376,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1848062
+      value: 0.18480618
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}

@@ -425,6 +425,11 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2886990218421874539, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3019919191949939046, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_IsActive
@@ -444,6 +449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427459568789239461, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4495673556953884527, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
@@ -470,6 +480,11 @@ PrefabInstance:
       propertyPath: words.Array.data[1]
       value: "\u521D\u5FC3\u8005\u6307\u5357\u958B\u59CB"
       objectReference: {fileID: 0}
+    - target: {fileID: 6831842755358029568, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7026340651949848210, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_RaycastTarget
@@ -493,7 +508,7 @@ PrefabInstance:
     - target: {fileID: 8339549326599362119, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8567872266355125490, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
@@ -2049,7 +2064,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18480618
+      value: 0.1848062
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
