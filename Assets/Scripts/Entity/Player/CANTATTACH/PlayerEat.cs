@@ -6,13 +6,11 @@ namespace TM.Entity.Player
 {
     class PlayerEat
     {
-        RoleDirectingScript _roleDirecting;
         PlayerUIManager _playerUIManager;
         PlayerKusiScript _playerKusiScript;
 
-        public PlayerEat(RoleDirectingScript roleDirecting, PlayerUIManager playerUIManager, PlayerKusiScript kusiScript)
+        public PlayerEat(PlayerUIManager playerUIManager, PlayerKusiScript kusiScript)
         {
-            _roleDirecting = roleDirecting;
             _playerUIManager = playerUIManager;
             _playerKusiScript = kusiScript;
         }
@@ -25,12 +23,8 @@ namespace TM.Entity.Player
             //食べた団子の点数を取得
             float score = DangoRole.instance.CheckRole(parent.GetDangos(), parent.GetCurrentStabCount());
 
-            //演出関数の呼び出し
-            //_roleDirecting.Dirrecting(parent.GetDangos());
-
             //満腹度を上昇
             parent.AddSatiety(score);
-            _playerUIManager.ScoreCatch(score);
 
             //串をクリア。
             parent.ResetDangos();

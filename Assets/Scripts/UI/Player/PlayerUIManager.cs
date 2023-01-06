@@ -6,16 +6,11 @@ using TMPro;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    [SerializeField, Tooltip("空腹度テキスト")] TextMeshProUGUI[] timeText;
     [SerializeField, Tooltip("イベントテキスト")] TextUIData eventText;
-    [SerializeField, Tooltip("空腹度ゲージ")] Slider[] timeGage;
-    [SerializeField, Tooltip("空腹度ゲージ")] Slider[] expansionTimeGage;
     [SerializeField, Tooltip("制限時間残量警告画像")] Sprite[] Warningimgs;
     [SerializeField, Tooltip("制限時間残量警告オブジェクト")] Image W_obj;
     [SerializeField] PlayerData playerdata;
     [SerializeField] GameObject MAXDangoOBJ;
-    [SerializeField] Animator[] TimegageAnima;
-    [SerializeField] TimeGageAnima[] timeGageAnimaText;
     [SerializeField] ImageUIData DontEatUIOBJ;
     [SerializeField] Sprite dontEatSprite;
     [SerializeField] DangoUIScript dangoUIScript;
@@ -24,7 +19,6 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] float[] warningTime;
     private float time { get { return playerdata.GetSatiety(); } }
     private float maxTime;
-    private float currentTime;
     private int[] warningTimes = new int[3];
 
     RoleCheck roleCheck = new RoleCheck();
@@ -40,93 +34,22 @@ public class PlayerUIManager : MonoBehaviour
 
     public float DefaultEventTextFontSize { get; } = 100f;
 
-    float temp = 0;
-
-    public void SetTimeText(string text)
-    {
-        for(int i = 0; i < timeText.Length;i++)
-            timeText[i].text = text;
-    }
-
     private void Start()
     {
         maxTime = time;
-        currentTime = maxTime;
 
-        if (!tutorial)
-            for (int i = 0; i < timeGage.Length; i++)
-                timeGage[i].value = 1;
         for (int i = 0; i < warningTimes.Length - 1; i++)
             warningTimes[i] = (int)maxTime - ((i + 1) * 10);//仮で初期値の2/3,1/3の値
 
         w_imgs = new Image[Warningimgs.Length];
         warningbool = new bool[warningTimes.Length];
-
-        //GameObject.Findを使うならシリアライズして取得しましょう。その方が名前に縛られず確実です。
-        //ErasewithEatObj[0] = GameObject.Find("DangoBackScreen");
-        //ErasewithEatObj[1] = GameObject.Find("QuestCanvas");
-        //ErasewithEatObj[2] = GameObject.Find("PlayerParent").transform.Find("Player1").transform.Find("RangeUI").gameObject;
     }
     private void Update()
     {
-        currentTime = time;
         if (!PlayerData.Event)
             ScoreManager.Instance.AddTime();
-
-        //Warning();
-
-        if (!tutorial)
-        {
-            setTime(expansionTimeGage);
-            setTime(timeGage);
-            SetTimeText("" + (int)time);
-        }
     }
-    private void setTime(Slider[] sliders)
-    {
-        Logger.Log(currentTime);
 
-        for (int i = 0; i < sliders.Length; i++)//ゲージの増減
-        { 
-            if (warningTime[i] < currentTime)
-            {
-                sliders[i].gameObject.transform.parent.gameObject.SetActive(true);
-                sliders[i].value = ((float)currentTime - warningTime[i+1]) / (float)warningTime[i];
-
-            }
-
-        if (i + 1 < warningTime.Length)
-        {
-            if (warningTime[i + 1] > currentTime)
-                sliders[i].gameObject.transform.parent.gameObject.SetActive(false);
-        }
-        else if (warningTime[i] > currentTime)
-            sliders[i].gameObject.transform.parent.gameObject.SetActive(false);
-    }
-}
-
-    //private void Warning()
-    //{
-    //    if (time > warningTimes[0])
-    //    {
-    //        W_obj.gameObject.SetActive(false);
-    //    }
-    //    for (int i = 0; i < warningTimes.Length; i++)
-    //    {
-    //        if (time < warningTimes[i] && !warningbool[i])
-    //        {
-    //            W_obj.gameObject.SetActive(true);
-    //            W_obj.sprite = Warningimgs[i];
-    //            warningbool[i] = true;
-    //        }
-    //        else if (time >= warningTimes[i] && warningbool[i])//一段階上がった際の処理
-    //        {
-    //            W_obj.gameObject.SetActive(true);
-    //            W_obj.sprite = Warningimgs[i];
-    //            warningbool[i] = false;
-    //        }
-    //    }
-    //}
     public void EatDangoUI_False()
     {
         for (int i = 0; i < ErasewithEatObj.Length; i++)
@@ -141,7 +64,6 @@ public class PlayerUIManager : MonoBehaviour
 
             ErasewithEatObj[i].SetActive(true);
         }
-        TimeGageUpAnima();
     }
 
     public void MAXDangoSet(bool Active)
@@ -150,22 +72,6 @@ public class PlayerUIManager : MonoBehaviour
             MAXDangoOBJ.SetActive(true);
         else
             MAXDangoOBJ.SetActive(false);
-    }
-
-    public void ScoreCatch(float score)
-    {
-        temp += score;
-    }
-
-    public void TimeGageUpAnima()
-    {
-        if(!tutorial)
-        for (int i = 0; i < timeGageAnimaText.Length; i++)
-        {
-            timeGageAnimaText[i].SetText(temp);
-            TimegageAnima[i].SetBool("Play",true);
-        }
-        temp = 0;
     }
 
     public void DontEat()

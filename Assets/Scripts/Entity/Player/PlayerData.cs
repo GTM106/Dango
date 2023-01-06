@@ -502,6 +502,8 @@ public class PlayerData : MonoBehaviour
 
     [SerializeField] PlayerSpitColliderManager _playerSpitCollider = default!;
 
+    [SerializeField] TimelimitsManager[] _timelimitsManager;
+
     [SerializeField] StepBase _stepBase = default!;
 
     [SerializeField] SpitManager[] _swords = new SpitManager[5];
@@ -592,7 +594,7 @@ public class PlayerData : MonoBehaviour
         _playerMove = new(_animationManager);
         _playerJump = new(rb, OnJump, OnJumpExit, _spitManager);
         _playerStayEat = new(this);
-        _playerEat = new(_directing, _playerUIManager, kusiObj);
+        _playerEat = new(_playerUIManager, kusiObj);
         _playerGrowStab = new();
 
         _playerSpitCollider.SetPlayerAttack(_playerAttack);
@@ -901,7 +903,17 @@ public class PlayerData : MonoBehaviour
     }
     public void ResetDangos() => _dangos.Clear();
     public float GetSatiety() => _satiety;
-    public void AddSatiety(float value) => _satiety += value;
+    public async void AddSatiety(float value)
+    {
+        _satiety += value;
+
+        await UniTask.Yield();
+        
+        for (int i = 0; i < _timelimitsManager.Length; i++)
+        {
+            _timelimitsManager[i].AddTimelimit(value);
+        }
+    }
     public DangoUIScript GetDangoUIScript() => _dangoUISC;
     public PlayerUIManager GetPlayerUIManager() => _playerUIManager;
     public Animator GetAnimator() => _animator;

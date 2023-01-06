@@ -31,8 +31,9 @@ namespace TM.UI.Text
         }
         public void SetPosition(Vector3 pos)
         {
-            _text.transform.position = pos;
-        }
+            _text.transform.localPosition = pos;
+        }        
+
         public void SetRotation(Quaternion rot)
         {
             _text.transform.rotation = rot;

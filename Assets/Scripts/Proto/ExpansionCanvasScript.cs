@@ -11,8 +11,6 @@ namespace Dango.Quest.UI
     {
         [SerializeField] GameObject[] times = new GameObject[2];//Šg’£‘O‚Æ‚ ‚Æ
         [SerializeField] PlayerUIManager uIManager;
-        //[SerializeField] Animator timeAnima;
-        //[SerializeField] Animator questAnima;
 
         public bool set;
         private void Start()

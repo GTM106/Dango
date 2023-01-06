@@ -13,7 +13,6 @@ class QuestManager : MonoBehaviour
 
     [SerializeField] PlayerData _playerData;
     [SerializeField] GameObject _expansionUIObj;
-    [SerializeField] PlayerUIManager _playerUIManager;
     [SerializeField] QuestExpansionUIManager _questExpansionUIManager;
     [SerializeField] GameManager _gameManager;
     [SerializeField] StageData _stageData;
@@ -21,6 +20,7 @@ class QuestManager : MonoBehaviour
     [SerializeField] TutorialPortraitManager _tutorialPortraitScript;
     [SerializeField] TutorialUIManager _tutorialUIManager;
     [SerializeField] QuestSucceedUIManager _questSucceedUIManager;
+    [SerializeField] TimelimitsManager[] _timelimitsManager;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ class QuestManager : MonoBehaviour
         if (portrait == null) portrait = _tutorialPortraitScript;
 
         Instance = this;
-        SucceedChecker = new(this, _playerUIManager, portrait, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager);
+        SucceedChecker = new(this, portrait, _stageData, _tutorialUIManager, _questSucceedUIManager, _questExpansionUIManager, _timelimitsManager);
     }
 
 #if DEBUG
