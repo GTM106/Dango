@@ -130,6 +130,9 @@ public class TutorialUIManager : MonoBehaviour
         [SerializeField] List<Image> _keyImages;
         [SerializeField] List<Sprite> _actionSprite;
         [SerializeField] List<Sprite> _keySprite;
+        [SerializeField] Transform _keysTrans;
+
+        static readonly float[] offsets = { 0, 238f, 238f, 143f, 121f, 0, 36f, 0f, 58f };
 
         public void SetText(int nextQuestID)
         {
@@ -148,7 +151,13 @@ public class TutorialUIManager : MonoBehaviour
                 _keyImages[i].sprite = keySprites[i];
             }
 
+            SetU7KeysPos(nextQuestID);
             _operationGuideImage.ImageData.SetSprite(ActionText(nextQuestID));
+        }
+
+        private void SetU7KeysPos(int nextQuestID)
+        {
+            _keysTrans.localPosition = new(offsets[(int)_actions[nextQuestID]], 0, 0);
         }
 
         private Sprite ActionText(int nextQuestID)
