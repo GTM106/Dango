@@ -434,6 +434,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2886990218421874539, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3019919191949939046, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_IsActive
@@ -458,6 +463,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4427459568789239461, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4495673556953884527, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
@@ -484,6 +494,11 @@ PrefabInstance:
       propertyPath: words.Array.data[1]
       value: "\u521D\u5FC3\u8005\u6307\u5357\u958B\u59CB"
       objectReference: {fileID: 0}
+    - target: {fileID: 6831842755358029568, guid: ea25d6985a03e2943a1b915d2d2401a3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7026340651949848210, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_RaycastTarget
@@ -507,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 8339549326599362119, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8567872266355125490, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
@@ -608,12 +623,12 @@ PrefabInstance:
         type: 3}
       propertyPath: expansionTimeGage.Array.data[1]
       value: 
-      objectReference: {fileID: 4432303660824136358}
+      objectReference: {fileID: 0}
     - target: {fileID: 8567872266559936266, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: expansionTimeGage.Array.data[2]
       value: 
-      objectReference: {fileID: 5930123400770204099}
+      objectReference: {fileID: 0}
     - target: {fileID: 8567872266559936266, guid: ea25d6985a03e2943a1b915d2d2401a3,
         type: 3}
       propertyPath: timeGageAnimaText.Array.data[0]
@@ -1642,7 +1657,7 @@ PrefabInstance:
         type: 3}
       propertyPath: times.Array.data[0]
       value: 
-      objectReference: {fileID: 4717768478956554168}
+      objectReference: {fileID: 5643530587351371507}
     - target: {fileID: 7184158691382516825, guid: 169c5f25909f95e4b9d01ce516860b82,
         type: 3}
       propertyPath: times.Array.data[1]
@@ -1810,24 +1825,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 169c5f25909f95e4b9d01ce516860b82, type: 3}
---- !u!114 &4432303660824136358 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2066462555649004655, guid: 169c5f25909f95e4b9d01ce516860b82,
-    type: 3}
-  m_PrefabInstance: {fileID: 2391191554888621769}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &4717768478956554168 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6942256370975594865, guid: 169c5f25909f95e4b9d01ce516860b82,
-    type: 3}
-  m_PrefabInstance: {fileID: 2391191554888621769}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4799845754959798504 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7184158691519069729, guid: 169c5f25909f95e4b9d01ce516860b82,
@@ -1864,18 +1861,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2391191554888621769}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5930123400770204099 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8314559553499787018, guid: 169c5f25909f95e4b9d01ce516860b82,
+--- !u!1 &5643530587351371507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8034106346941812794, guid: 169c5f25909f95e4b9d01ce516860b82,
     type: 3}
   m_PrefabInstance: {fileID: 2391191554888621769}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &8823463984926989085 stripped
 CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 6583143017589917140, guid: 169c5f25909f95e4b9d01ce516860b82,
@@ -2097,7 +2088,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1848062
+      value: 0.18480618
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
@@ -2169,7 +2160,8 @@ PrefabInstance:
       propertyPath: _playerUIManager
       value: 
       objectReference: {fileID: 8349132723969158454}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6762342117789753254, guid: e00667b9f080330498c4b7b845c69a76, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e00667b9f080330498c4b7b845c69a76, type: 3}
 --- !u!114 &1823400544899498257 stripped
 MonoBehaviour:
