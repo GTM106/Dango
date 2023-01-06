@@ -201,7 +201,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1316254591048215715}
-  m_LocalRotation: {x: 0.18480618, y: 1e-45, z: -0, w: 0.982775}
+  m_LocalRotation: {x: 0.1848062, y: -1e-45, z: -0, w: 0.982775}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -279,7 +279,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2698800882307031975}
-  m_LocalRotation: {x: 0.032980967, y: 0.000000017197019, z: -5.674831e-10, w: 0.999456}
+  m_LocalRotation: {x: 0.032980964, y: -0.00000001733085, z: 5.7189925e-10, w: 0.999456}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -484,7 +484,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2944735453400811961}
-  m_LocalRotation: {x: 0.06926439, y: 1e-45, z: -0, w: 0.99759835}
+  m_LocalRotation: {x: 0.06926439, y: -0, z: -0, w: 0.99759835}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -620,7 +620,7 @@ MonoBehaviour:
     m_AccelTime: 0
     m_DecelTime: 0
     m_InputAxisName: Mouse Y
-    m_InputAxisValue: -0.10715037
+    m_InputAxisValue: 0
     m_InvertInput: 1
     m_MinValue: 0
     m_MaxValue: 1
@@ -977,6 +977,11 @@ PrefabInstance:
       propertyPath: _cameraTransform
       value: 
       objectReference: {fileID: 1061649141369810904}
+    - target: {fileID: 3952613918130635534, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
+        type: 3}
+      propertyPath: _allowReducedTimeLimit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4046320895591166900, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
         type: 3}
       propertyPath: m_Sprite
@@ -1023,14 +1028,18 @@ PrefabInstance:
       propertyPath: m_KeepAnimatorControllerStateOnDisable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6441894374965167977, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1061649141369810905}
     - target: {fileID: 7647861018874766168, guid: 778aacd95f2f72d4eaff394bcf22a5d0,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c14d6b0b923c91340a22f8667ee60034,
         type: 3}
-    m_RemovedComponents:
-    - {fileID: 6008670616379661543, guid: 778aacd95f2f72d4eaff394bcf22a5d0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 778aacd95f2f72d4eaff394bcf22a5d0, type: 3}
 --- !u!136 &3411989405139790004 stripped
 CapsuleCollider:
