@@ -257,7 +257,7 @@ MonoBehaviour:
   _tutorialPortraitScript: {fileID: 282005607224745944}
   _fusumaManager: {fileID: 4020021536180468768}
   _timeLimit: 100
-  _startD5: 3
+  _startD5: 6
 --- !u!1 &7159353701369392177
 GameObject:
   m_ObjectHideFlags: 0

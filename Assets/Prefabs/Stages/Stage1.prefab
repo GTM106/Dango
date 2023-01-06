@@ -148,7 +148,7 @@ MonoBehaviour:
   _portraitScript: {fileID: 8349132724862761835}
   _tutorialPortraitScript: {fileID: 0}
   _fusumaManager: {fileID: 0}
-  _timeLimit: 100
+  _timeLimit: 120
   _startD5: 3
 --- !u!1001 &376368965615401532
 PrefabInstance:
