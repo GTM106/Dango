@@ -180,7 +180,7 @@ internal class GameManager : MonoBehaviour
         if (SceneSystem.Instance.CurrentIngameScene is >= SceneSystem.Scenes.Tutorial1 and <= SceneSystem.Scenes.Tutorial8)
         {
             //セーブデータにチュートリアルをクリアしたことを記録
-            DataManager.saveData.tutorialStatusBit |= 1 >> (SceneSystem.Instance.CurrentIngameScene - SceneSystem.Scenes.Tutorial1);
+            DataManager.saveData.tutorialStatusBit |= (1 << (SceneSystem.Instance.CurrentIngameScene - SceneSystem.Scenes.Tutorial1));
 
             Logger.Assert(_fusumaManager != null);
 
