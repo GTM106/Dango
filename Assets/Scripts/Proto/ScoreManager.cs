@@ -20,7 +20,7 @@ public class ScoreManager
     }
     
     public float GetTime() => time;
-    public float ResetTime() => time;
+    public float ResetTime() => time=0;
 
     public void ResetQuestTime() => questTime = 0;
     public void AddTime() => time += Time.deltaTime;
