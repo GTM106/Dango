@@ -21,7 +21,7 @@ public class StageTutorialDataExRollE : StageData
 
         List<QuestData> quest = new()
         {
-            questManager.Creater.CreateQuestCreateRole(0, new QuestCreateRole.SpecifyTheRole("三面華鏡"), 1, 0, "三分割で団結を作れ", 0f, true, false, new(
+            questManager.Creater.CreateQuestCreateRole(0, new QuestCreateRole.SpecifyTheRole("三面華鏡"), 1, 0, "三分割で団結を作れ", 0f, true, true, new(
                 new PortraitTextData.PTextData(0, "最高だぜ！完璧だ！", 0f, PortraitTextData.FacePatturn.Happy),
                 new(1, "この団結は串の長さが「6個」の時だけ作れる", 0f, PortraitTextData.FacePatturn.Fun),
                 new(2, "とても珍しく、作るのが難しい役だ", 0f, PortraitTextData.FacePatturn.Perplexed),

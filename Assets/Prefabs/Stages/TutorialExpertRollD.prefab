@@ -1594,12 +1594,12 @@ PrefabInstance:
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000001733085
+      value: 0.00000001733085
       objectReference: {fileID: 0}
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 5.7189925e-10
+      value: -5.7189925e-10
       objectReference: {fileID: 0}
     - target: {fileID: 8968484660200578913, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
@@ -4148,6 +4148,26 @@ PrefabInstance:
       propertyPath: _ingameUIManager
       value: 
       objectReference: {fileID: 2705099970958109134}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343957554287390303, guid: 591f01140161afd4f9c7ac29ef45a97a,
+        type: 3}
+      propertyPath: _u7._actions.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2986295211995004148, guid: 591f01140161afd4f9c7ac29ef45a97a,
         type: 3}
       propertyPath: m_LocalRotation.x
