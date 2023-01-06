@@ -1551,8 +1551,8 @@ MonoBehaviour:
     middleRank: 270
   - highRank: 250
     middleRank: 300
-  - highRank: 180
-    middleRank: 240
+  - highRank: 400
+    middleRank: 450
 --- !u!1 &8369688547467835383
 GameObject:
   m_ObjectHideFlags: 0
