@@ -148,7 +148,7 @@ MonoBehaviour:
   _portraitScript: {fileID: 8349132724862761835}
   _tutorialPortraitScript: {fileID: 0}
   _fusumaManager: {fileID: 0}
-  _timeLimit: 100
+  _timeLimit: 90
   _startD5: 3
 --- !u!1001 &376368965615401532
 PrefabInstance:
@@ -3002,7 +3002,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18480618
+      value: 0.1848062
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}

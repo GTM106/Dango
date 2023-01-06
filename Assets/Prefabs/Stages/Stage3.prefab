@@ -148,7 +148,7 @@ MonoBehaviour:
   _portraitScript: {fileID: 8349132724862761835}
   _tutorialPortraitScript: {fileID: 0}
   _fusumaManager: {fileID: 0}
-  _timeLimit: 100
+  _timeLimit: 60
   _startD5: 4
 --- !u!1001 &33318007239017301
 PrefabInstance:
@@ -2568,7 +2568,7 @@ PrefabInstance:
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1848062
+      value: 0.18480618
       objectReference: {fileID: 0}
     - target: {fileID: 5479245846786497204, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
@@ -2613,12 +2613,12 @@ PrefabInstance:
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001719702
+      value: -0.00000001719702
       objectReference: {fileID: 0}
     - target: {fileID: 7969616993003396483, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -5.6748317e-10
+      value: 5.6748317e-10
       objectReference: {fileID: 0}
     - target: {fileID: 8968484660200578913, guid: e00667b9f080330498c4b7b845c69a76,
         type: 3}
