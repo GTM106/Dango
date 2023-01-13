@@ -7390,6 +7390,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9013876939554950886}
     m_Modifications:
+    - target: {fileID: 2285778881264907859, guid: b08ca3a69994f2d489651f807b833660,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b00830088c7d807468734af3a3181ea2, type: 2}
+    - target: {fileID: 3502948347429995065, guid: b08ca3a69994f2d489651f807b833660,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b00830088c7d807468734af3a3181ea2, type: 2}
     - target: {fileID: 3558147080565351739, guid: b08ca3a69994f2d489651f807b833660,
         type: 3}
       propertyPath: m_RootOrder
@@ -7450,6 +7460,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage_MeshTutorialVer2
       objectReference: {fileID: 0}
+    - target: {fileID: 6755819670540274132, guid: b08ca3a69994f2d489651f807b833660,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b00830088c7d807468734af3a3181ea2, type: 2}
+    - target: {fileID: 8545568330115350666, guid: b08ca3a69994f2d489651f807b833660,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b00830088c7d807468734af3a3181ea2, type: 2}
     m_RemovedComponents:
     - {fileID: 4836782333591722121, guid: b08ca3a69994f2d489651f807b833660, type: 3}
     - {fileID: 6803956267703087928, guid: b08ca3a69994f2d489651f807b833660, type: 3}
