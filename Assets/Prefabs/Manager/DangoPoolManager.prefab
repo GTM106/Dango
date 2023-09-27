@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &970181484114093594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2236556719673745477}
+  - component: {fileID: 2832883692643415731}
+  m_Layer: 0
+  m_Name: DangoPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2236556719673745477
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970181484114093594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2832883692643415731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970181484114093594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d43d7283d1e3a340924f69845d96b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dangoDatas:
+  - {fileID: 2208226942298377818, guid: de32b1879ebc36042aed19dd4803a467, type: 3}
+  - {fileID: -7250670216947011437, guid: 5cc9b7f9072c469469a12ef1d26d7aaf, type: 3}
+  - {fileID: 5799203196332220683, guid: 2434a29bc2415764ab466ecdc3673c6c, type: 3}
+  - {fileID: 1198844889562868666, guid: 3ae94977d7fa9064189002c49cf59c2f, type: 3}
+  - {fileID: -7217781970182549817, guid: 90a1ea4d885b8794b8b0838e8decaff5, type: 3}
+  - {fileID: -4709913711049942410, guid: 614a4fc75ec94974e98d1e40f553c3b5, type: 3}
+  parent: {fileID: 0}
